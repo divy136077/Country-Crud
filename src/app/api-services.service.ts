@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ServiceService {
-  // [x: string]: any;
+  
 
   constructor(public http: HttpClient) {}
 
@@ -25,5 +25,5 @@ export class ServiceService {
     return this.http.delete<any>(`http://localhost:8000/delete/${id}`
   )}
 
-  //   login(obj: any){ return this.http.post<any>('http://localhost:8000/login', obj)}
+
 }

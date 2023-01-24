@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
 
@@ -8,7 +10,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes),ToastrModule.forRoot() ],
+  exports: [RouterModule], 
+  bootstrap: [AppComponent]
 })
 export class AppRoutingModule { }
