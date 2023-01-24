@@ -25,5 +25,21 @@ export class ServiceService {
     return this.http.delete<any>(`http://localhost:8000/delete/${id}`
   )}
 
+  // States API ==============================================
+  getAllStateData() {
+    return this.http.get('http://localhost:8000/state');
+  }
+
+  addState(obj: any) {
+    return this.http.post<any>('http://localhost:8000/state/create', obj);
+  }
+
+  editState(id: any, data: any) {
+    return this.http.put(`http://localhost:8000/state/update/${id}`, data);
+  }
+
+  deleteState(id: any){ 
+    return this.http.delete<any>(`http://localhost:8000/state/delete/${id}`
+  )}
 
 }

@@ -6,11 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CountryFormComponent } from './component/country-form/country-form.component';
+import { StateComponent } from './component/state/state.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CountryFormComponent
+    CountryFormComponent,
+    StateComponent
   ],
   imports: [
     BrowserModule,

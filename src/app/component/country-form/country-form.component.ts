@@ -19,7 +19,7 @@ export class CountryFormComponent {
   modal: boolean = false;
   editModalId: any;
   submitted: boolean | undefined;
-  error: string | undefined;
+  error!: string;
 
 
 
