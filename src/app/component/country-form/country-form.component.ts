@@ -19,7 +19,7 @@ export class CountryFormComponent {
   modal: boolean = false;
   editModalId: any;
   submitted: boolean | undefined;
-  error!: string;
+  error: string | undefined;
 
 
 
@@ -114,14 +114,5 @@ export class CountryFormComponent {
     this.modal = false;
   }
 
-  selectAll() {
-    for (var i = 0; i < this.data.length; i++) {
-      this.data[i].selected = this.selectedAll;
-    }
-  }
-  checkIfAllSelected() {
-    this.selectedAll = this.data.every(function (item: any) {
-      return item.selected == true;
-    })
-  }
+ 
 }

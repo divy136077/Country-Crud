@@ -1,209 +1,130 @@
 <div class="container d-flex align-items-center flex-column">
-  <div class="form card mt-5" style="width: fit-content">
-    <div class="card-body">
-      <form
-        [formGroup]="StateForm"
-        (ngSubmit)="handleAddData()"
-        class="row g-3 justify-content-start"
-      >
-        <div class="col-4">
-          <label for="staticEmail2" class="visually-hidden">State Name</label>
-          <select
-            class="form-select"
-            aria-label="Default select example"
-            formControlName="CountryName"
-          >
-            <!-- <option selected>Select Country</option> -->
-            <option value="{{ data.Name }}" *ngFor="let data of countryData">
-              {{ data.Name }}
-            </option>
-          </select>
-          <div
-            *ngIf="submitted && field['CountryName'].errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="field['CountryName'].errors['required']">
-              Country name is required
-            </div>
-            <div *ngIf="field['CountryName'].errors['minlength']">
-              Country name
-            </div>
-          </div>
+    <div class="form card mt-5" style="width: fit-content">
+        <div class="card-body">
+            <form [formGroup]="StateForm" (ngSubmit)="handleAddData()" class="row g-3 justify-content-start">
+                <div class="col-4">
+                    <label for="staticEmail2" class="visually-hidden">State Name</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="CountryName" >
+                        <option value="">Select Country</option>
+                        <option value="{{ data.Name }}" *ngFor="let data of countryData">
+                            {{ data.Name }} 
+                        </option>
+                    </select>
+                    <div *ngIf="submitted && field['CountryName'].errors" class="invalid-feedback">
+                        <div *ngIf="field['CountryName'].errors['required']">
+                            Country name is required
+                        </div>
+                        <div *ngIf="field['CountryName'].errors['minlength']">
+                            Country name
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="inputPassword2" class="visually-hidden">Country Code
+                    </label>
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="State Name"
+                    formControlName="StateName"
+                        [ngClass]="{ 'is-invalid': submitted && field['StateName'].errors }" />
+                    <div *ngIf="submitted && field['StateName'].errors" class="invalid-feedback">
+                        <div *ngIf="field['StateName'].errors['required']">
+                            State Name is required
+                        </div>
+                        <div *ngIf="field['StateName'].errors['pattern']">State Name</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting === false">
+                        Add
+                    </button>
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting === true" disabled>
+                        Adding...
+                        <div class="spinner-border text-light spinner" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="form-check col-4 mt-0 ms-2">
+                    <input class="form-check-input" type="checkbox" id="flexCheckChecked" formControlName="active" />
+                    <label class="form-check-label" for="flexCheckChecked">
+                        active
+                    </label>
+                </div>
+            </form>
         </div>
-        <div class="col-4">
-          <label for="inputPassword2" class="visually-hidden"
-            >Country Code
-          </label>
-          <input
-            type="text"
-            class="form-control"
-            id="inputPassword2"
-            placeholder="State Name"
-            style="text-transform: uppercase"
-            formControlName="StateName"
-            [ngClass]="{ 'is-invalid': submitted && field['StateName'].errors }"
-          />
-          <div
-            *ngIf="submitted && field['StateName'].errors"
-            class="invalid-feedback"
-          >
-            <div *ngIf="field['StateName'].errors['required']">
-              State Name is required
-            </div>
-            <div *ngIf="field['StateName'].errors['pattern']">State Name</div>
-          </div>
-        </div>
-        <div class="col-4">
-          <button
-            type="submit"
-            class="btn btn-primary mb-3"
-            *ngIf="isSubmitting === false"
-          >
-            Add
-          </button>
-          <button
-            type="submit"
-            class="btn btn-primary mb-3"
-            *ngIf="isSubmitting === true"
-            disabled
-          >
-            Adding...
-            <div class="spinner-border text-light spinner" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </button>
-        </div>
-        <div class="form-check col-4 mt-0 ms-2">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="flexCheckChecked"
-            formControlName="active"
-          />
-          <label class="form-check-label" for="flexCheckChecked">
-            active
-          </label>
-        </div>
-      </form>
     </div>
-  </div>
-  <div class="card mt-5 w-100">
-    <div class="card-body">
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th scope="col">Country Name</th>
-            <th scope="col">State Name</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let i of stateData">
-            <td>{{ i.CountryName }}</td>
-            <td>{{ i.StateName }}</td>
-            <td>
-              <span class="badge bg-success" *ngIf="i.IsActive === true"
-                >Active</span
-              >
-              <span class="badge bg-danger" *ngIf="i.IsActive === false"
-                >In-Active</span
-              >
-            </td>
-            <td>
-              <i
-                class="fa-regular fa-pen-to-square me-3"
-                (click)="edit(i._id, i)"
-              ></i>
-              <i
-                class="fa-solid fa-trash-can"
-                (click)="handleDelete(i._id)"
-              ></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card mt-5 w-100">
+        <div class="card-body">
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th scope="col">Country Name</th>
+                        <th scope="col">State Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of stateData">
+                        <td>{{ i.CountryName }}</td>
+                        <td>{{ i.StateName }}</td>
+                        <td>
+                            <span class="badge bg-success" *ngIf="i.IsActive === true">Active</span>
+                            <span class="badge bg-danger" *ngIf="i.IsActive === false">In-Active</span>
+                        </td>
+                        <td>
+                            <i class="fa-regular fa-pen-to-square me-3" (click)="edit(i._id, i)"></i>
+                            <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 
-<div
-  class="modal"
-  [ngClass]="modal ? 'fade show d-block' : 'hide'"
-  tabindex="-1"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Data</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="closeModal()"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form
-          [formGroup]="EditStateForm"
-          (ngSubmit)="handleEdit()"
-          id="editForm"
-          class="row g-3 justify-content-start"
-        >
-          <div class="col-4">
-            <label for="staticEmail2" class="visually-hidden"
-              >Country Name</label
-            >
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              formControlName="CountryName"
-            >
-              <!-- <option selected>Select Country</option> -->
-              <option value="{{ data.Name }}" *ngFor="let data of countryData">
-                {{ data.Name }}
-              </option>
-            </select>
-          </div>
-          <div class="col-4">
-            <label for="inputPassword2" class="visually-hidden"
-              >Country Code
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputPassword2"
-              placeholder="Country Code"
-              formControlName="StateName"
-            />
-          </div>
-          <div class="col-4">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="flexCheckChecked"
-              formControlName="active"
-            />
-            <label class="form-check-label ps-1" for="flexCheckChecked">
-              active
-            </label>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-          (click)="closeModal()"
-        >
-          Close
-        </button>
-        <button form="editForm" type="submit" class="btn btn-primary">
-          Save changes
-        </button>
-      </div>
+<div class="modal" [ngClass]="modal ? 'fade show d-block' : 'hide'" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="EditStateForm" (ngSubmit)="handleEdit()" id="editForm"
+                    class="row g-3 justify-content-start">
+                    <div class="col-4">
+                        <label for="staticEmail2" class="visually-hidden">Country Name</label>
+                        <select class="form-select" aria-label="Default select example" formControlName="CountryName">
+                            <!-- <option selected>Select Country</option> -->
+                            <option value="{{ data.Name }}" *ngFor="let data of countryData">
+                                {{ data.Name }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="inputPassword2" class="visually-hidden">Country Code
+                        </label>
+                        <input type="text" class="form-control" id="inputPassword2" placeholder="Country Code"
+                            formControlName="StateName" />
+                    </div>
+                    <div class="col-4">
+                        <input class="form-check-input" type="checkbox" id="flexCheckChecked"
+                            formControlName="active" />
+                        <label class="form-check-label ps-1" for="flexCheckChecked">
+                            active
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">
+                    Close
+                </button>
+                <button form="editForm" type="submit" class="btn btn-primary">
+                    Save changes
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

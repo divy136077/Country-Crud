@@ -119,7 +119,7 @@
       <form [formGroup]="CountryForm" (ngSubmit)="handleAddData()" class="row g-3 justify-content-start">
         <div class="col-4">
           <label for="staticEmail2" class="visually-hidden">Country Name</label>
-          <input type="text" class="form-control" id="staticEmail2" placeholder="Country Name" formControlName="Name"
+          <input type="text" class="form-control" id="staticEmail2" placeholder="Country Name"  formControlName="Name"
             [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
           <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
             <div *ngIf="field['Name'].errors['required']">Country name is required</div>
@@ -129,7 +129,7 @@
         <div class="col-4">
           <label for="inputPassword2" class="visually-hidden">Country Code
           </label>
-          <input type="text" class="form-control" id="inputPassword2" placeholder="Country Code" style="text-transform:uppercase" maxlength="3" minlength="3" formControlName="Code"
+          <input type="text" class="form-control" id="inputPassword2" placeholder="Country Code"   maxlength="3" minlength="3" formControlName="Code"
             [ngClass]="{ 'is-invalid': submitted && field['Code'].errors }" />
           <div *ngIf="submitted && field['Code'].errors" class="invalid-feedback">
             <div *ngIf="field['Code'].errors['required']">Country code is required</div>
@@ -166,8 +166,7 @@
             <th scope="col">Country Code</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
-            <!-- <th><input type="checkbox" data-md-icheck name="deletecheck" (ngModel)="selectedAll"
-                (change)="selectAll();"></th> -->
+      
 
           </tr>
         </thead>
@@ -184,7 +183,7 @@
               <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
 
             </td>
-            <!-- <td><input type="checkbox" data-md-icheck name="deletecheck"></td> -->
+          
 
           </tr>
         </tbody>

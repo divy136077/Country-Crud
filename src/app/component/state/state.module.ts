@@ -6,7 +6,7 @@ import { StateRoutingModule } from "./state-routing.module";
 import { StateComponent } from "./state.component";
 
 @NgModule({
-  imports: [CommonModule, StateRoutingModule, NgModule , FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, StateRoutingModule, NgModule, FormsModule, ReactiveFormsModule],
   declarations: [StateComponent]
 })
 export class StateModule { }

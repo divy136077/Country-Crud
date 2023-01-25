@@ -25,8 +25,8 @@ export class ServiceService {
     return this.http.delete<any>(`http://localhost:8000/delete/${id}`
   )}
 
-  // States API ==============================================
-  getAllStateData() {
+   // States API ==============================================
+   getAllStateData() {
     return this.http.get('http://localhost:8000/state');
   }
 
@@ -41,5 +41,6 @@ export class ServiceService {
   deleteState(id: any){ 
     return this.http.delete<any>(`http://localhost:8000/state/delete/${id}`
   )}
+
 
 }
