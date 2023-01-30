@@ -21,6 +21,7 @@ export class CityComponent {
   editModalId:any;
   modal:boolean = false;
   cityData: any;
+  isEdit: boolean = false;
  
 
   constructor(
@@ -32,12 +33,6 @@ export class CityComponent {
 
   ngOnInit() {
     this.CityForm = this.fb.group({
-      CountryName: ['', Validators.required],
-      StateName: ['', Validators.required],
-      CityName: ['', Validators.required],
-      active: [false, Validators.required],
-    });
-    this.EditCityForm = this.fb.group({
       CountryName: ['', Validators.required],
       StateName: ['', Validators.required],
       CityName: ['', Validators.required],
@@ -59,34 +54,53 @@ export class CityComponent {
   get field() {
     return this.CityForm.controls;
   }
+
+  cancelEdit(){
+    this.editModalId = null
+    this.isEdit = false
+    this.CityForm.reset()
+  }
   
   handleAddData() {
-    
-    this.submitted = true;
-    if (this.CityForm.invalid) {
-      return;
-    }
-    // this.error = '';
 
-    this.isSubmitting = true;
-    const data = {
-      CountryName: this.CityForm.value.CountryName,
-      StateName: this.CityForm.value.StateName,
-      CityName: this.CityForm.value.CityName,
-      IsActive: this.CityForm.value.active,
-    };
-    this.serviceAPI.addCity(data).subscribe((res) => {
-      this.toastr.success('Data Added Successfully!');
-      this.cityData.push(res);
-      this.isSubmitting = false;
-    });
+    if (this.isEdit) {
+      const { CountryName, StateName,CityName, active } = this.CityForm.value;
+      this.serviceAPI.editCity(this.editModalId, { CountryName, StateName,CityName, IsActive: active  }).subscribe((res: any) => {
+        this.toastr.success('Data Updated Successfully!');
+        this.cityData[this.cityData.findIndex((x: any) => x._id === res._id)] = res
+        this.editModalId = null
+        this.isEdit = false
+        this.CityForm.reset()
+      });
+    } else {
+        this.submitted = true;
+        if (this.CityForm.invalid) {
+          return;
+        }
+        // this.error = '';
+    
+        this.isSubmitting = true;
+        const data = {
+          CountryName: this.CityForm.value.CountryName,
+          StateName: this.CityForm.value.StateName,
+          CityName: this.CityForm.value.CityName,
+          IsActive: this.CityForm.value.active,
+        };
+        this.serviceAPI.addCity(data).subscribe((res) => {
+          this.toastr.success('Data Added Successfully!');
+          this.cityData.push(res);
+          this.isSubmitting = false;
+        });
+    }
+    
   }
 
   edit(id: any, data: any) {
     console.log(id, data);
-    this.EditCityForm.patchValue(data);
+    this.isEdit = true
+    this.CityForm.patchValue({...data, active: data.IsActive});
     this.editModalId = id
-    this.modal = true;
+    // this.modal = true;
   }
 
   handleEdit() {

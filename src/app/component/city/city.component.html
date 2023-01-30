@@ -45,8 +45,14 @@
                     </div>
                 </div>
                 <div class="col-4 ">
-                    <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting">
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
                         Add
+                    </button>
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="isEdit">
+                        Edit
+                    </button>
+                    <button type="button" (click)="cancelEdit()" class="btn btn-danger ms-2 mb-3" *ngIf="isEdit">
+                        Cancel
                     </button>
                     <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting " disabled>
                         Adding...
