@@ -105,10 +105,12 @@ export class CountryFormComponent {
   }
 
   handleDelete(id: any) {
+    if(confirm("Are you sure want to delete?")){
     this.serviceAPI.delete(id).subscribe((res: any) => {
       this.data = this.data.filter((x: any) => x._id !== res._id)
       this.toastr.error('Data Deleted Successfully!');
     });
+  }
   }
 
   closeModal() {

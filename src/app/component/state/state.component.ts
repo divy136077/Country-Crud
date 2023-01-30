@@ -90,10 +90,12 @@ export class StateComponent {
   }
 
   handleDelete(id: any) {
+    if(confirm("Are you sure want to delete?")){
     this.serviceAPI.deleteState(id).subscribe((res: any) => {
       this.stateData = this.stateData.filter((x: any) => x._id !== res._id)
       this.toastr.error('Data Deleted Successfully!');
     });
+  }
   }
 
   closeModal() {

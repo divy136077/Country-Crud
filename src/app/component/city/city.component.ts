@@ -99,10 +99,12 @@ export class CityComponent {
   }
 
   handleDelete(id: any) {
+    if(confirm("Are you sure want to delete?")){
     this.serviceAPI.deleteCity(id).subscribe((res: any) => {
       this.cityData = this.cityData.filter((x: any) => x._id !== res._id)
       this.toastr.error('Data Deleted Successfully!');
     });
+  }
   }
 
   closeModal() {
