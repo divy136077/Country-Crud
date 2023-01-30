@@ -8,7 +8,7 @@ export class ServiceService {
   
 
   constructor(public http: HttpClient) {}
-
+// country API ================================================================================================================================
   getAllData() {
     return this.http.get('http://localhost:8000/');
   }
@@ -25,7 +25,7 @@ export class ServiceService {
     return this.http.delete<any>(`http://localhost:8000/delete/${id}`
   )}
 
-   // States API ==============================================
+   // States API ================================================================================================================================
    getAllStateData() {
     return this.http.get('http://localhost:8000/state');
   }
@@ -40,6 +40,23 @@ export class ServiceService {
 
   deleteState(id: any){ 
     return this.http.delete<any>(`http://localhost:8000/state/delete/${id}`
+  )}
+
+  // City API =======================================================================================================================================
+  getAllCityData() {
+    return this.http.get('http://localhost:8000/city');
+  }
+
+  addCity(obj: any) {
+    return this.http.post<any>('http://localhost:8000/city/create', obj);
+  }
+
+  editCity(id: any, data: any) {
+    return this.http.put(`http://localhost:8000/city/update/${id}`, data);
+  }
+
+  deleteCity(id: any){ 
+    return this.http.delete<any>(`http://localhost:8000/City/delete/${id}`
   )}
 
 

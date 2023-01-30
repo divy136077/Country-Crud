@@ -9,11 +9,14 @@ const routes: Routes = [
 
   { path: 'state', loadChildren: () => import('./component/state/state-routing.module').then(x => x.StateRoutingModule) },
 
+  { path: 'city', loadChildren: () => import('./component/city/city-routing.module').then(x => x.CityRoutingModule) },
+
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),ToastrModule.forRoot() ],
-  exports: [RouterModule], 
+  imports: [RouterModule.forRoot(routes), ToastrModule.forRoot()],
+  exports: [RouterModule],
   bootstrap: [AppComponent]
 })
 export class AppRoutingModule { }

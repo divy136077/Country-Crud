@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ServiceService } from '../../api-services.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, PatternValidator, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -32,7 +32,7 @@ export class CountryFormComponent {
 
   ngOnInit() {
     this.CountryForm = this.fb.group({
-      Name: ['', Validators.required],
+      Name: ['', Validators.required ],
       Code: ['', Validators.required],
       active: [false, Validators.required],
     });
@@ -65,6 +65,7 @@ export class CountryFormComponent {
   //     });
   //   }
   // }
+
   handleAddData() {
     this.submitted = true;
     if (this.CountryForm.invalid) {
@@ -83,6 +84,7 @@ export class CountryFormComponent {
       this.data.push(res)
       this.isSubmitting = false
     });
+    
   }
 
 
@@ -94,8 +96,8 @@ export class CountryFormComponent {
   }
 
   handleEdit() {
-    const { Name, Code, IsActive } = this.EditCountryForm.value;
-    this.serviceAPI.edit(this.editModalId, { Name, Code, IsActive }).subscribe((res: any) => {
+    const { Name, Code, IsActive  , active} = this.EditCountryForm.value;
+    this.serviceAPI.edit(this.editModalId, { Name, Code, IsActive: active }).subscribe((res: any) => {
       this.toastr.success('Data Updated Successfully!');
       this.data[this.data.findIndex((x: any) => x._id === res._id)] = res
     });

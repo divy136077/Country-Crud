@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CountryFormComponent } from './component/country-form/country-form.component';
 import { StateComponent } from './component/state/state.component';
+import { CityComponent } from './component/city/city.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CountryFormComponent,
-    StateComponent
+    StateComponent,
+    CityComponent
   ],
   imports: [
     BrowserModule,
