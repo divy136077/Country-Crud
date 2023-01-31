@@ -13,12 +13,14 @@ export class StateComponent {
   isSubmitting: boolean = false;
   submitted: boolean = false;
   StateForm: any;
-  EditStateForm : any;
+  
   error!: string;
   stateData: any = [];
   countryData:any = [];
   editModalId:any;
   modal:boolean = false;
+  isEdit: boolean = false;
+  router: any;
 
   constructor(
     private http: HttpClient,
@@ -33,12 +35,7 @@ export class StateComponent {
       StateName: ['', Validators.required],
       active: [false, Validators.required],
     });
-    this.EditStateForm = this.fb.group({
-      CountryName: ['', Validators.required],
-      StateName: ['', Validators.required],
-      active: [false, Validators.required],
-    });
-
+  
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
       this.stateData = res;
     });
@@ -50,15 +47,31 @@ export class StateComponent {
   get field() {
     return this.StateForm.controls;
   }
+
+  // cancelEdit(){
+  //   this.editModalId = null
+  //   this.isEdit = false
+  //   this.StateForm.reset()
+  // }
   
   handleAddData() {
-    // console.log(this.StateForm.value.CountryName, this.StateForm.value.StateName, this.StateForm.value.active);
     
+  //   if (this.isEdit) {
+  //     const { CountryName, StateName, active } = this.StateForm.value;
+  //     this.serviceAPI.editState(this.editModalId, { CountryName, StateName, IsActive: active  }).subscribe((res: any) => {
+  //       this.toastr.success('Data Updated Successfully!');
+  //       this.stateData[this.stateData.findIndex((x: any) => x._id === res._id)] = res
+  //       this.editModalId = null
+  //       this.isEdit = false
+  //       this.StateForm.reset()
+  //   });
+  // }
+  // else {
     this.submitted = true;
     if (this.StateForm.invalid) {
       return;
     }
-    this.error = '';
+    // this.error = '';
 
     this.isSubmitting = true;
     const data = {
@@ -71,23 +84,25 @@ export class StateComponent {
       this.stateData.push(res);
       this.isSubmitting = false;
     });
-  }
+  // }
+}
 
-  edit(id: any, data: any) {
-    console.log(id, data);
-    this.EditStateForm.patchValue(data);
-    this.editModalId = id
-    this.modal = true;
-  }
+  // edit(id: any, data: any) {
+  //   console.log(id, data);
+  //   this.isEdit = true
+  //   this.StateForm.patchValue({...data, active: data.IsActive});
+  //   this.editModalId = id
+    // this.modal = true;
+  // }
 
-  handleEdit() {
-    const { CountryName, StateName, active } = this.EditStateForm.value;
-    this.serviceAPI.editState(this.editModalId, { CountryName, StateName, IsActive: active  }).subscribe((res: any) => {
-      this.toastr.success('Data Updated Successfully!');
-      this.stateData[this.stateData.findIndex((x: any) => x._id === res._id)] = res
-    });
-    this.closeModal()
-  }
+  // handleEdit() {
+  //   const { CountryName, StateName, active } = this.StateForm.value;
+  //   this.serviceAPI.editState(this.editModalId, { CountryName, StateName, IsActive: active  }).subscribe((res: any) => {
+  //     this.toastr.success('Data Updated Successfully!');
+  //     this.stateData[this.stateData.findIndex((x: any) => x._id === res._id)] = res
+  //   });
+  //   this.closeModal()
+  // }
 
   handleDelete(id: any) {
     if(confirm("Are you sure want to delete?")){
@@ -98,8 +113,12 @@ export class StateComponent {
   }
   }
 
-  closeModal() {
-    this.editModalId = null
-    this.modal = false;
+  // closeModal() {
+  //   this.editModalId = null
+  //   this.modal = false;
+  // }
+
+  cityEdit(element: any) {
+    this.router.navigateByUrl('/state/edit/' + element._id);
   }
 }

@@ -1,0 +1,54 @@
+<div class="container d-flex align-items-center flex-column ">
+    <div class="form card mt-5" style="width: fit-content">
+        <div class="card-body">
+            <form [formGroup]="CountryForm"  class="row g-3 justify-content-start">
+                <!-- <div class="col-4">
+                    <label for="staticEmail2" class="visually-hidden">State Name</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="CountryName" >
+                        <option value="">Select Country</option>
+                        <option value="{{ data.Name }}" *ngFor="let data of countryData">
+                            {{ data.Name }}
+                        </option>
+                    </select>
+                  
+                </div> -->
+                <!-- <div class="col-4">
+                    <select class="form-select" aria-label="Default select example" formControlName="StateName" >
+                        <option value="">Select State</option>
+                        <option value="{{ data.StateName }}" *ngFor="let data of stateData">
+                            {{ data.StateName }}
+                        </option>
+                    </select>
+                  
+                </div> -->
+
+                <div class="col-4">
+                  
+                    <input type="text" class="form-control" pattern="[A-Za-z]+" placeholder="City Name"
+                        formControlName="Name"/>
+                  
+                </div>
+                <div class="col-4">
+                  
+                    <input type="text" class="form-control" pattern="[A-Za-z]+" placeholder="City Name"
+                        formControlName="Code"/>
+                  
+                </div>
+                <div class="col-4 ">
+                    <button type="submit" class="btn btn-primary mb-3"  (click)="diag()" >
+                        Edit
+                    </button>
+                    <button type="button"  class="btn btn-danger ms-2 mb-3" routerLink="/country-form">
+                        Cancel
+                    </button>
+                </div>
+                <div class="form-check col-4 mt-0 ms-2" style="padding-top: 15px;">
+
+                    <input type="radio" value="IsActive" formControlName="active">
+                    <label for="" style="padding-right:20px ;">Active</label>
+                    <input type="radio" value="InActive" formControlName="active">
+                    <label for="">In-Active</label>
+                </div>
+            </form>
+        </div>
+    </div>

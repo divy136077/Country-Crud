@@ -33,9 +33,10 @@
                     </div>
                 </div>
                 <div class="col-4" >
-                    <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting">
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
                         Add
                     </button>
+                   
                     <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting " disabled>
                         Adding...
                         <div class="spinner-border text-light spinner" role="status">
@@ -76,7 +77,7 @@
                             <span class="badge bg-danger" *ngIf="i.IsActive === 'InActive' ">In-Active</span>
                         </td>
                         <td>
-                            <i class="fa-regular fa-pen-to-square me-3" (click)="edit(i._id, i)"></i>
+                            <i class="fa-regular fa-pen-to-square me-3" routerLink='/state/edit/{{i._id}}'></i>
                             <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
                         </td>
                     </tr>
@@ -86,7 +87,7 @@
     </div>
 </div>
 
-<div class="modal" [ngClass]="modal ? 'fade show d-block' : 'hide'" tabindex="-1">
+<!-- <div class="modal" [ngClass]="modal ? 'fade show d-block' : 'hide'" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,7 +101,7 @@
                     <div class="col-4">
                         <label for="staticEmail2" class="visually-hidden">Country Name</label>
                         <select class="form-select" aria-label="Default select example" formControlName="CountryName">
-                            <!-- <option selected>Select Country</option> -->
+                           
                             <option value="{{ data.Name }}" *ngFor="let data of countryData">
                                 {{ data.Name }}
                             </option>
@@ -113,11 +114,7 @@
                             formControlName="StateName" />
                     </div>
                     <div class="col-4">
-                        <!-- <input class="form-check-input" type="checkbox" id="flexCheckChecked"
-                            formControlName="active" />
-                        <label class="form-check-label ps-1" for="flexCheckChecked">
-                            active
-                        </label> -->
+                      
                         <input type="radio" value="IsActive" formControlName="active" >
                         <label for="" style="padding-right:20px;">Active</label>
                       
@@ -136,4 +133,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

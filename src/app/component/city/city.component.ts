@@ -22,6 +22,8 @@ export class CityComponent {
   modal:boolean = false;
   cityData: any;
   isEdit: boolean = false;
+  errorMessage: any;
+  router: any;
  
 
   constructor(
@@ -41,7 +43,13 @@ export class CityComponent {
     
     this.serviceAPI.getAllCityData().subscribe((res: any) => {
       this.cityData = res;
-    });
+    },
+    // (error)=>{
+      // this.errorMessage=error;
+      // console.log(error);
+    // }
+    
+    );
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
       this.stateData = res;
     });
@@ -55,24 +63,14 @@ export class CityComponent {
     return this.CityForm.controls;
   }
 
-  cancelEdit(){
-    this.editModalId = null
-    this.isEdit = false
-    this.CityForm.reset()
-  }
+  // cancelEdit(){
+  //   this.editModalId = null
+  //   this.isEdit = false
+  //   this.CityForm.reset()
+  // }
   
   handleAddData() {
 
-    if (this.isEdit) {
-      const { CountryName, StateName,CityName, active } = this.CityForm.value;
-      this.serviceAPI.editCity(this.editModalId, { CountryName, StateName,CityName, IsActive: active  }).subscribe((res: any) => {
-        this.toastr.success('Data Updated Successfully!');
-        this.cityData[this.cityData.findIndex((x: any) => x._id === res._id)] = res
-        this.editModalId = null
-        this.isEdit = false
-        this.CityForm.reset()
-      });
-    } else {
         this.submitted = true;
         if (this.CityForm.invalid) {
           return;
@@ -91,26 +89,10 @@ export class CityComponent {
           this.cityData.push(res);
           this.isSubmitting = false;
         });
-    }
-    
+      
   }
 
-  edit(id: any, data: any) {
-    console.log(id, data);
-    this.isEdit = true
-    this.CityForm.patchValue({...data, active: data.IsActive});
-    this.editModalId = id
-    // this.modal = true;
-  }
 
-  handleEdit() {
-    const { CountryName, StateName,CityName, active } = this.EditCityForm.value;
-    this.serviceAPI.editCity(this.editModalId, { CountryName, StateName,CityName, IsActive: active  }).subscribe((res: any) => {
-      this.toastr.success('Data Updated Successfully!');
-      this.cityData[this.cityData.findIndex((x: any) => x._id === res._id)] = res
-    });
-    this.closeModal()
-  }
 
   handleDelete(id: any) {
     if(confirm("Are you sure want to delete?")){
@@ -121,8 +103,9 @@ export class CityComponent {
   }
   }
 
-  closeModal() {
-    this.editModalId = null
-    this.modal = false;
+  
+
+  cityEdit(element: any) {
+    this.router.navigateByUrl('/city/edit/' + element._id);
   }
 }

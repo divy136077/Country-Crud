@@ -17,7 +17,6 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <!-- <label for="staticEmail2" class="visually-hidden"> Name</label> -->
                     <select class="form-select" aria-label="Default select example" formControlName="StateName" [ngClass]="{ 'is-invalid': submitted && field['StateName'].errors }">
                         <option value="">Select State</option>
                         <option value="{{ data.StateName }}" *ngFor="let data of stateData">
@@ -32,8 +31,7 @@
                 </div>
 
                 <div class="col-4">
-                    <!-- <label for="inputPassword2" class="visually-hidden">Country Code
-                    </label> -->
+                    
                     <input type="text" class="form-control" pattern="[A-Za-z]+" placeholder="City Name"
                         formControlName="CityName"
                         [ngClass]="{ 'is-invalid': submitted && field['CityName'].errors }" />
@@ -48,12 +46,7 @@
                     <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
                         Add
                     </button>
-                    <button type="submit" class="btn btn-primary mb-3" *ngIf="isEdit">
-                        Edit
-                    </button>
-                    <button type="button" (click)="cancelEdit()" class="btn btn-danger ms-2 mb-3" *ngIf="isEdit">
-                        Cancel
-                    </button>
+                    
                     <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting " disabled>
                         Adding...
                         <div class="spinner-border text-light spinner" role="status">
@@ -62,10 +55,7 @@
                     </button>
                 </div>
                 <div class="form-check col-4 mt-0 ms-2" style="padding-top: 15px;">
-                    <!-- <input class="form-check-input" type="checkbox" id="flexCheckChecked" formControlName="active" />
-                    <label class="form-check-label" for="flexCheckChecked">
-                        active
-                    </label> -->
+                  
                     <input type="radio" value="IsActive" formControlName="active">
                     <label for="" style="padding-right:20px ;">Active</label>
                     <input type="radio" value="InActive" formControlName="active">
@@ -74,7 +64,13 @@
             </form>
         </div>
     </div>
-    <div class="card mt-5 w-100">
+
+    <div class="row " *ngIf="errorMessage">
+        <h5 class="text-danger">{{errorMessage}}</h5>
+
+    </div>
+
+    <div class="card mt-5 w-100" *ngIf="!errorMessage">
         <div class="card-body">
             <table class="table mt-4">
                 <thead>
@@ -96,7 +92,7 @@
                             <span class="badge bg-danger" *ngIf="i.IsActive === 'InActive' ">In-Active</span>
                         </td>
                         <td>
-                            <i class="fa-regular fa-pen-to-square me-3" (click)="edit(i._id, i)"></i>
+                            <i class="fa-regular fa-pen-to-square me-3" routerLink='/city/edit/{{i._id}}'></i> 
                             <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
                         </td>
                     </tr>
@@ -106,7 +102,7 @@
     </div>
 </div>
 
-<div class="modal" [ngClass]="modal ? 'fade show d-block' : 'hide'" tabindex="-1">
+<!-- <div class="modal" [ngClass]="modal ? 'fade show d-block' : 'hide'" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -120,14 +116,14 @@
                     <div class="col-4">
                         <label for="staticEmail2" class="visually-hidden">Country Name</label>
                         <select class="form-select" aria-label="Default select example" formControlName="CountryName">
-                            <!-- <option selected>Select Country</option> -->
+                            
                             <option value="{{ data.Name }}" *ngFor="let data of countryData">
                                 {{ data.Name }}
                             </option>
                         </select>
                     </div>
                     <div class="col-4">
-                        <!-- <label for="staticEmail2" class="visually-hidden"> Name</label> -->
+                      
                         <select class="form-select" aria-label="Default select example" formControlName="StateName" [ngClass]="{ 'is-invalid': submitted && field['StateName'].errors }">
                             <option value="">Select State</option>
                             <option value="{{ data.StateName }}" *ngFor="let data of stateData">
@@ -147,11 +143,7 @@
                             formControlName="CityName" />
                     </div>
                     <div class="col-4">
-                        <!-- <input class="form-check-input" type="checkbox" id="flexCheckChecked"
-                            formControlName="active" />
-                        <label class="form-check-label ps-1" for="flexCheckChecked">
-                            active
-                        </label> -->
+                       
                         <input type="radio" value="IsActive" formControlName="active">
                         <label for="">Active</label>
 
@@ -170,4 +162,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
