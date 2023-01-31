@@ -54,7 +54,7 @@ export class CityEditComponent {
   diag() {
   
 
-    this.edit(this.route.snapshot.params['id'], this.CityForm.value);
+    this.edit(this.route.snapshot.params['id'], {...this.CityForm.value, IsActive: this.CityForm.value.active});
 
   }
   edit(id: any, data: any) {
