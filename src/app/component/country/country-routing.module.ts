@@ -1,15 +1,15 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CityEditComponent } from './city-edit/city-edit.component'
-import { CityComponent } from "./city-add/city.component";
-import { CityCityComponent } from "./city.component";
+import { CountryFormEditComponent } from './country-form-edit/country-form-edit.component'
+import { CountryFormComponent } from "./country-form/country-form.component";
+import { CountryComponent } from "./country.component";
 
 
 
 const routes: Routes = [
-    { path: '', component: CityCityComponent },
-    { path: 'add', component: CityComponent },
-    { path: 'edit/:id', component: CityComponent },
+    { path: '', component: CountryComponent },
+    { path: 'add', component: CountryFormComponent },
+    { path: 'edit/:id', component: CountryFormEditComponent },
 
 
     // { path: 'add', loadChildren: () => import('./city-add/city-routing.module').then(x => x.CityRoutingModule) },
@@ -23,4 +23,4 @@ const routes: Routes = [
     exports: [RouterModule],
     imports: [RouterModule.forChild(routes)]
 })
-export class CityRoutingModule { }
+export class CountryRoutingModule { }

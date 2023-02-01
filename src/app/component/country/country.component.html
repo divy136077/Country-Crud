@@ -5,7 +5,7 @@
         
       </div>
       <div class="">
-        <a style="background-color: orange; text-decoration: none" routerLink="/state/add"
+        <a style="background-color: orange; text-decoration: none" routerLink="/country/add"
           class="p-2 text-dark rounded-3 float-end">+ Add </a>
       </div>
     </div>
@@ -20,15 +20,15 @@
           <thead>
               <tr>
                 <th scope="col">Country Name</th>
-                <th scope="col">State Name</th>
+                <th scope="col">Country Code</th>
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let i of stateData">
-                <td>{{ i.CountryName }}</td>
-                <td>{{ i.StateName }}</td>
+              <tr *ngFor="let i of data">
+                <td>{{ i.Name }}</td>
+                <td>{{ i.Code }}</td>
                   <td>
                       <span class="badge bg-success" *ngIf="i.IsActive === 'IsActive'" >Active</span>
                       <span class="badge bg-danger" *ngIf="i.IsActive === 'InActive'" >In-Active</span>

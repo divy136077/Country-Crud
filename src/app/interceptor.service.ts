@@ -67,8 +67,4 @@ export class InterceptorService implements HttpInterceptor {
     errorMessage += 'Something bad happened; please try again later.'
     return throwError(() => new Error(errorMessage));
   }
-
- 
-
-  
 }

@@ -3,10 +3,10 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CityRoutingModule } from "./city-routing.module";
-import { CityCityComponent } from "./city.component";
+import { CityComponent } from "./city.component";
 
 @NgModule({
   imports: [CommonModule, CityRoutingModule, NgModule, FormsModule, ReactiveFormsModule],
-  declarations: [CityCityComponent]
+  declarations: [CityComponent]
 })
 export class CityModule { }

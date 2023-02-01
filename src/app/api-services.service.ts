@@ -101,6 +101,11 @@ export class ServiceService {
   return this.http.get('http://localhost:8000/city/' + id ) 
   }
 
+
+  // User API =======================================================================================
+  getAllUserData() {
+    return this.http.get('http://localhost:8000/user');
+  }
   // private handleError(error: HttpErrorResponse) {
   //   let errorMessage = ''
   //   if (error.status === 0) {

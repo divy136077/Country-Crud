@@ -6,12 +6,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
 
 @Component({
-  selector: 'app-state-edit',
-  templateUrl: './state-edit.component.html',
-  styleUrls: ['./state-edit.component.css']
+  selector: 'app-country-form-edit',
+  templateUrl: './country-form-edit.component.html',
+  styleUrls: ['./country-form-edit.component.css']
 })
-export class StateEditComponent {
-  StateForm: any;
+export class CountryFormEditComponent {
+  CountryForm: any;
   stateData: any;
   countryData: any;
 
@@ -23,51 +23,53 @@ export class StateEditComponent {
     private toastr: ToastrService,
     private router: Router
   ) { }
-
   ngOnInit() {
-    this.StateForm = this.fb.group({
-      CountryName: ['', Validators.required],
-      StateName: ['', Validators.required],
+    this.CountryForm = this.fb.group({
+      Name: ['', Validators.required ],
+      Code: ['', Validators.required],
       active: [false, Validators.required],
     });
-    console.log(this.StateForm.value);
-    this.serviceAPI.getByIdState(this.route.snapshot.params['id'])
+    console.log(this.CountryForm.value);
+    this.serviceAPI.getByIdCountry(this.route.snapshot.params['id'])
       .subscribe((res: any) => {
-        this.StateForm.patchValue({ ...res, active: res.IsActive });
+        this.CountryForm.patchValue({ ...res, active: res.IsActive });
         console.log("hi", res);
         // alert("Data sucessfully Updated")
 
       });
-      this.serviceAPI.getAllStateData().subscribe((res: any) => {
-        this.stateData = res;
-      });
+
+    this.serviceAPI.getAllStateData().subscribe((res: any) => {
+      this.stateData = res;
+    });
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.countryData = res;
     });
 
   }
-
+  // get field() {
+  //   return this.CityForm.controls;
+  // }
   diag() {
 
-    this.edit(this.route.snapshot.params['id'], this.StateForm.value);
+    this.edit(this.route.snapshot.params['id'], {...this.CountryForm.value , IsActive: this.CountryForm.value.active });
 
   }
   edit(id: any, data: any) {
 
 
-    this.serviceAPI.editState(id, data).subscribe({
+    this.serviceAPI.edit(id, data).subscribe({
       next: ((response: any) => {
         console.log(response);
         this.toastr.success('Data Updated sucessfully !');
-        this.router.navigateByUrl('/state');
+        this.router.navigateByUrl('/country-form');
       }),
       error: ((error) => {
         this.toastr.error('Error in API');
+        // this.router.navigateByUrl('/login');
       }
       ),
     }
     );
   }
-
 
 }

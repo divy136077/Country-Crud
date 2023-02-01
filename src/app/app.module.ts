@@ -5,24 +5,36 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CountryFormComponent } from './component/country-form/country-form.component';
-import { StateComponent } from './component/state/state.component';
-import { CityComponent } from './component/city/city.component';
+import { CountryFormComponent } from './component/country/country-form/country-form.component';
+import { StateComponent } from './component/state/state-add/state.component';
+import { StateMainComponent } from "./component/state/state.component";
+
+
+import { CityComponent } from './component/city/city-add/city.component';
+import { CityCityComponent } from './component/city/city.component';
+
 import { InterceptorService } from './interceptor.service';
-import {ServiceService} from './api-services.service';
-import { CityEditComponent } from './component/city-edit/city-edit.component';
-import { CountryFormEditComponent } from './component/country-form-edit/country-form-edit.component';
-import { StateEditComponent } from './component/state-edit/state-edit.component'
+import { ServiceService } from './api-services.service';
+import { CityEditComponent } from './component/city/city-edit/city-edit.component';
+import { CountryFormEditComponent } from './component/country/country-form-edit/country-form-edit.component';
+import { StateEditComponent } from './component/state/state-edit/state-edit.component';
+import { UserComponent } from './component/user/user.component';
+import { CountryComponent } from './component/country/country.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     CountryFormComponent,
     StateComponent,
+    StateMainComponent,
+    CityCityComponent,
     CityComponent,
     CityEditComponent,
     CountryFormEditComponent,
-    StateEditComponent
+    StateEditComponent,
+    UserComponent,
+    CountryComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -31,12 +43,12 @@ import { StateEditComponent } from './component/state-edit/state-edit.component'
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [ ServiceService,
+  providers: [ServiceService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: InterceptorService,
-    multi: true
-   }
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

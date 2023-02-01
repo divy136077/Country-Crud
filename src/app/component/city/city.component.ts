@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
 
@@ -9,24 +10,12 @@ import { ServiceService } from 'src/app/api-services.service';
   templateUrl: './city.component.html',
   styleUrls: ['./city.component.css']
 })
-export class CityComponent {
-
-  isSubmitting: boolean = false;
-  submitted: boolean = false;
-  CityForm: any;
-  EditCityForm : any;
-  error!: string;
-  stateData: any = [];
-  countryData:any = [];
-  editModalId:any;
-  modal:boolean = false;
+export class CityCityComponent {
   cityData: any;
-  isEdit: boolean = false;
-  errorMessage: any;
-  router: any;
- 
+  // router: any;
 
   constructor(
+    private router : Router,
     private http: HttpClient,
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
@@ -34,66 +23,21 @@ export class CityComponent {
   ) {}
 
   ngOnInit() {
-    this.CityForm = this.fb.group({
-      CountryName: ['', Validators.required],
-      StateName: ['', Validators.required],
-      CityName: ['', Validators.required],
-      active: [false, Validators.required],
-    });
+
     
     this.serviceAPI.getAllCityData().subscribe((res: any) => {
       this.cityData = res;
-    },
-    // (error)=>{
-      // this.errorMessage=error;
-      // console.log(error);
-    // }
-    
-    );
-    this.serviceAPI.getAllStateData().subscribe((res: any) => {
-      this.stateData = res;
+      console.log(this.cityData);
     });
-    this.serviceAPI.getAllData().subscribe((res: any) => {
-      this.countryData = res;
-    });
+
 
   }
 
-  get field() {
-    return this.CityForm.controls;
+  handleEdit(id:any){
+    this.router.navigateByUrl('/city/edit/' + id)
   }
 
-  // cancelEdit(){
-  //   this.editModalId = null
-  //   this.isEdit = false
-  //   this.CityForm.reset()
-  // }
   
-  handleAddData() {
-
-        this.submitted = true;
-        if (this.CityForm.invalid) {
-          return;
-        }
-        // this.error = '';
-    
-        this.isSubmitting = true;
-        const data = {
-          CountryName: this.CityForm.value.CountryName,
-          StateName: this.CityForm.value.StateName,
-          CityName: this.CityForm.value.CityName,
-          IsActive: this.CityForm.value.active,
-        };
-        this.serviceAPI.addCity(data).subscribe((res) => {
-          this.toastr.success('Data Added Successfully!');
-          this.cityData.push(res);
-          this.isSubmitting = false;
-        });
-      
-  }
-
-
-
   handleDelete(id: any) {
     if(confirm("Are you sure want to delete?")){
     this.serviceAPI.deleteCity(id).subscribe((res: any) => {
@@ -103,9 +47,8 @@ export class CityComponent {
   }
   }
 
-  
+  // cityEdit(element: any) {
+  //   this.router.navigateByUrl('/city/edit/' + element._id);
+  // }
 
-  cityEdit(element: any) {
-    this.router.navigateByUrl('/city/edit/' + element._id);
-  }
 }
