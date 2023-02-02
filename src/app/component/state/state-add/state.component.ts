@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
 
@@ -26,7 +27,8 @@ export class StateComponent {
     private http: HttpClient,
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -35,6 +37,16 @@ export class StateComponent {
       StateName: ['', Validators.required],
       active: [false, Validators.required],
     });
+
+      if (!!this.route.snapshot.params['id']) {
+      this.serviceAPI
+        .getByIdState(this.route.snapshot.params['id'])
+        .subscribe((res: any) => {
+          this.StateForm.patchValue({ ...res, active: res.IsActive });
+          console.log('hi', res);
+        });
+    }
+
   
     // this.serviceAPI.getAllStateData().subscribe((res: any) => {
     //   this.stateData = res;
@@ -53,26 +65,32 @@ export class StateComponent {
   //   this.isEdit = false
   //   this.StateForm.reset()
   // }
+
+   edit(id: any, data: any) {
+    this.serviceAPI.editState(id, data).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.toastr.success('Data Updated sucessfully !');
+        this.router.navigateByUrl('/state');
+      },
+      error: (error) => {
+        this.toastr.error('Error in API');
+      },
+    });
+  }
   
   handleAddData() {
-    
-  //   if (this.isEdit) {
-  //     const { CountryName, StateName, active } = this.StateForm.value;
-  //     this.serviceAPI.editState(this.editModalId, { CountryName, StateName, IsActive: active  }).subscribe((res: any) => {
-  //       this.toastr.success('Data Updated Successfully!');
-  //       this.stateData[this.stateData.findIndex((x: any) => x._id === res._id)] = res
-  //       this.editModalId = null
-  //       this.isEdit = false
-  //       this.StateForm.reset()
-  //   });
-  // }
-  // else {
+     if (!!this.route.snapshot.params['id']) {
+      this.edit(this.route.snapshot.params['id'], {
+        ...this.StateForm.value,
+        IsActive: this.StateForm.value.active,
+      });
+    } 
+  else {
     this.submitted = true;
     if (this.StateForm.invalid) {
       return;
     }
-    // this.error = '';
-
     this.isSubmitting = true;
     const data = {
       CountryName: this.StateForm.value.CountryName,
@@ -104,21 +122,22 @@ export class StateComponent {
   //   this.closeModal()
   // }
 
-  handleDelete(id: any) {
-    if(confirm("Are you sure want to delete?")){
-    this.serviceAPI.deleteState(id).subscribe((res: any) => {
-      this.stateData = this.stateData.filter((x: any) => x._id !== res._id)
-      this.toastr.error('Data Deleted Successfully!');
-    });
-  }
-  }
+  // handleDelete(id: any) {
+  //   if(confirm("Are you sure want to delete?")){
+  //   this.serviceAPI.deleteState(id).subscribe((res: any) => {
+  //     this.stateData = this.stateData.filter((x: any) => x._id !== res._id)
+  //     this.toastr.error('Data Deleted Successfully!');
+  //   });
+  // }
+  // }
 
   // closeModal() {
   //   this.editModalId = null
   //   this.modal = false;
   // }
 
-  cityEdit(element: any) {
-    this.router.navigateByUrl('/state/edit/' + element._id);
-  }
+  // cityEdit(element: any) {
+  //   this.router.navigateByUrl('/state/edit/' + element._id);
+  // }
+}
 }

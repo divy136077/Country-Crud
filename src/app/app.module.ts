@@ -15,9 +15,9 @@ import { CityCityComponent } from './component/city/city.component';
 
 import { InterceptorService } from './interceptor.service';
 import { ServiceService } from './api-services.service';
-import { CityEditComponent } from './component/city/city-edit/city-edit.component';
-import { CountryFormEditComponent } from './component/country/country-form-edit/country-form-edit.component';
-import { StateEditComponent } from './component/state/state-edit/state-edit.component';
+// import { CityEditComponent } from './component/city/city-edit/city-edit.component';
+// import { CountryFormEditComponent } from './component/country/country-form-edit/country-form-edit.component';
+// import { StateEditComponent } from './component/state/state-edit/state-edit.component';
 import { UserComponent } from './component/user/user.component';
 import { CountryComponent } from './component/country/country.component'
 
@@ -29,9 +29,9 @@ import { CountryComponent } from './component/country/country.component'
     StateMainComponent,
     CityCityComponent,
     CityComponent,
-    CityEditComponent,
-    CountryFormEditComponent,
-    StateEditComponent,
+    // CityEditComponent,
+    // CountryFormEditComponent,
+    // StateEditComponent,
     UserComponent,
     CountryComponent,
 

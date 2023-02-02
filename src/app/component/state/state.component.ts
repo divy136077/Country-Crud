@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
 
@@ -13,6 +14,7 @@ export class StateMainComponent {
   stateData: any;
   
   constructor(
+    private router : Router,
     private http: HttpClient,
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
@@ -23,6 +25,10 @@ export class StateMainComponent {
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
       this.stateData = res;
     });
+  }
+
+    handleEdit(id:any){
+    this.router.navigateByUrl('/state/edit/' + id)
   }
 
   handleDelete(id: any) {

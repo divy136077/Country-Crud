@@ -24,6 +24,9 @@ export class CityComponent {
   isEdit: boolean = false;
   errorMessage: any;
   router: any;
+  
+  cities: any;
+  states: any;
 
   constructor(
     private http: HttpClient,
@@ -57,10 +60,24 @@ export class CityComponent {
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
       this.stateData = res;
     });
+   
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.countryData = res;
     });
+   
   }
+  // selectedCountry: String = "--Choose Country--";
+ 
+  // changeCountry(country: any) { 
+  //   // console.log("ryr", country.target.value );
+	// 	this.states = this.countryData.find((cou: any) => cou.Name == country.target.value ); 
+  //   console.log("hii",this.states);
+    
+	// }
+
+  // changeState(state: any) { 
+  //   		this.cities = this.countryData.find((cou: any) => cou.Name == this.selectedCountry).find((stat: any) => stat.Name == state.target.value); 
+	// }
 
   get field() {
     return this.CityForm.controls;
