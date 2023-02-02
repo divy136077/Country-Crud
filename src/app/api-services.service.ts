@@ -46,8 +46,8 @@ export class ServiceService {
 
 
   // States API ================================================================================================================================
-  getAllStateData() {
-    return this.http.get('http://localhost:8000/state');
+  getAllStateData(name?:any) {
+    return this.http.get('http://localhost:8000/state', name ? {headers:{countryName:name}} :{});
   }
 
   addState(obj: any) {

@@ -49,7 +49,7 @@ export class CityComponent {
         .getByIdCity(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
           this.CityForm.patchValue({ ...res, active: res.IsActive });
-          console.log('hi', res);
+          this.getStateData({target:{value:this.CityForm.value.CountryName}})
         });
     }
 
@@ -57,14 +57,17 @@ export class CityComponent {
     //   this.cityData = res;
     // }
     // );
-    this.serviceAPI.getAllStateData().subscribe((res: any) => {
-      this.stateData = res;
-    });
    
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.countryData = res;
     });
    
+  }
+
+  getStateData(event:any){
+    this.serviceAPI.getAllStateData(event.target.value).subscribe((res: any) => {
+      this.stateData = res;
+    });
   }
   // selectedCountry: String = "--Choose Country--";
  
