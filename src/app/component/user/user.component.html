@@ -1,73 +1,16 @@
-<div class="container d-flex align-items-center flex-column">
-    <div class="form card mt-5" style="width: fit-content">
-        <div class="card-body">
-            <form [formGroup]="UserForm" (ngSubmit)="handleAddData()" class="row g-3 justify-content-start" action="/" enctype="multipart/form-data">
-                <div class="col-4">
-                    <label for="staticEmail2" class="visually-hidden">Name</label>
-                    <input type="text" class="form-control" pattern="[A-Za-z]+" placeholder="Name"
-                        formControlName="Name" [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
-                        <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
-                            <div *ngIf="field['Name'].errors['required']">Name is required </div>
-                            <div *ngIf="field['Name'].errors['pattern']">Name only alphabets number allows</div>
-                          </div>
-                </div>
-                <div class="col-4">
-                    <label for="inputPassword2" class="visually-hidden">Email</label>
-                    <input type="email" class="form-control"  placeholder="Email"
-                        formControlName="Email" [ngClass]="{ 'is-invalid': submitted && field['Email'].errors }" />
-                        <div *ngIf="submitted && field['Email'].errors" class="invalid-feedback">
-                            <div *ngIf="field['Email'].errors['required']">Email is required</div>
-                            <div *ngIf="field['Email'].errors['Email']">Email must be a valid email address</div>
-                        </div>
-                       
-                </div>
-                <div class="col-4">
-                    <label for="staticEmail2" class="visually-hidden">Number</label>
-                    <input type="text" class="form-control" placeholder="Number" pattern="[0-9]+" formControlName="Number"  [ngClass]="{ 'is-invalid': submitted && field['Number'].errors }"/>
-                    <div *ngIf="submitted && field['Number'].errors" class="invalid-feedback">
-                        <div *ngIf="field['Number'].errors['required']">Number is required</div>
-                        <div *ngIf="field['Number'].errors['Number']">only allows Numeric value</div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <label for="staticEmail2" class="visually-hidden">Dob</label>
-                    <input type="date" class="form-control" placeholder="Birth Date" formControlName="Dob"  [ngClass]="{ 'is-invalid': submitted && field['Dob'].errors }"/>
-                    <div *ngIf="submitted && field['Dob'].errors" class="invalid-feedback">
-                        <div *ngIf="field['Dob'].errors['required']">Birth date is required</div>
-                        <div *ngIf="field['Dob'].errors['Dob']">only allows </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <label for="staticEmail2" class="visually-hidden">Image</label>
-                    <input type="file" class="form-control" name="file" accept="image/*" formControlName="Image"  [ngClass]="{ 'is-invalid': submitted && field['Image'].errors }" />
-                    <div *ngIf="submitted && field['Image'].errors" class="invalid-feedback">
-                        <div *ngIf="field['Image'].errors['required']">Image is required</div>
-                        <div *ngIf="field['Image'].errors['Image']">only allows Image </div>
-                    </div>
-                </div>
-
-                <div class="col-4">
-                    <input type="radio" value="IsActive" formControlName="active">
-                    <label for="" style="padding-right:20px;">Active</label>
-
-                    <input type="radio" value="InActive" formControlName="active">
-                    <label for="">In-Active</label>
-
-                </div>
-                <div class="form-check col-4 mt-0 ms-2 d-flex">
-                    <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
-              Add
-            </button>
-            <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
-              Adding...
-              <div class="spinner-border text-light spinner" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </button>
-                </div>
-            </form>
-        </div>
+<div class="container d-flex align-items-center flex-column ">
+    <div class="row mb-3">
+      <div class="col-6">
+        
+      </div>
+      <div class="">
+        <a style="background-color: orange; text-decoration: none" routerLink="/user/add"
+          class="p-2 text-dark rounded-3 float-end">+ Add </a>
+      </div>
     </div>
+    
+  </div>
+<div class="container d-flex align-items-center flex-column">
     <div class="card mt-5 w-100">
       <div class="card-body">
         <table class="table mt-4">
@@ -83,21 +26,24 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <tr *ngFor="let i of data">
+            <tr *ngFor="let i of data">
               <td>{{ i.Name }}</td>
-              <td>{{ i.Code }}</td>
+              <td>{{ i.Email }}</td>
+              <td>{{ i.Number }}</td>
+              <!-- <td>{{ i.Image }}</td> -->
+              <td><img src="../../../assets/image/{{ i.Image }}" alt="" style="width: 50px; height: 50px;" ></td>
+              <td>{{ i.Dob }}</td>
               <td>
-               
                 <span class="badge bg-success" *ngIf="i.IsActive === 'IsActive' ">Active</span>
                 <span class="badge bg-danger" *ngIf="i.IsActive === 'InActive' ">In-Active</span>
               </td>
               <td>
-                <i class="fa-regular fa-pen-to-square me-3" routerLink='/country-form/edit/{{i._id}}'></i>
+                <i class="fa-regular fa-pen-to-square me-3" routerLink='/user/edit/{{i._id}}'></i>
                 <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
               </td>
   
   
-            </tr> -->
+            </tr>
           </tbody>
         </table>
       </div>

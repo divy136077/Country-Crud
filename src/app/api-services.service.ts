@@ -34,7 +34,6 @@ export class ServiceService {
     )
   }
   
-  // country form Edit=========================================================================================================================
   edit(id: any, data: any) {
     return this.http.put(`http://localhost:8000/update/${id}`, data);
   }
@@ -60,7 +59,6 @@ export class ServiceService {
     )
   }
   
-  // State Edit API =================================================================================================================================
   editState(id: any, data: any) {
     return this.http.put(`http://localhost:8000/state/update/${id}`, data);
   }
@@ -92,7 +90,6 @@ export class ServiceService {
   }
   
   
-  // city-edit API =========================================================================================================================================
   editCity(id: any, data: any) {
     return this.http.put(`http://localhost:8000/city/update/${id}`, data);
   }
@@ -106,6 +103,29 @@ export class ServiceService {
   getAllUserData() {
     return this.http.get('http://localhost:8000/user');
   }
+
+  addUser(obj: any) {
+    return this.http.post<any>('http://localhost:8000/user/create', obj);
+  }
+
+  deleteUser(id: any) {
+    return this.http.delete<any>(`http://localhost:8000/user/delete/${id}`
+    )
+  }
+
+  editUser(id: any, data: any) {
+    return this.http.put(`http://localhost:8000/User/update/${id}`, data);
+  }
+
+  
+  getByIdUser(id:any){
+    return this.http.get('http://localhost:8000/user/' + id ) 
+    }
+
+
+
+
+
   // private handleError(error: HttpErrorResponse) {
   //   let errorMessage = ''
   //   if (error.status === 0) {

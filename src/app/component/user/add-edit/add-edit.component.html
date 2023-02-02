@@ -1,0 +1,71 @@
+
+<div class="container d-flex align-items-center flex-column">
+    <div class="form card mt-5" style="width: fit-content">
+        <div class="card-body">
+            <form [formGroup]="UserForm" (ngSubmit)="handleAddData()" class="row g-3 justify-content-start" action="/" enctype="multipart/form-data">
+                <div class="col-4">
+                    <label for="staticEmail2" class="visually-hidden">Name</label>
+                    <input type="text" class="form-control" pattern="[A-Za-z\s]+" maxlength="50" placeholder="Name"
+                        formControlName="Name" [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
+                        <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
+                            <div *ngIf="field['Name'].errors['required']">Name is required </div>
+                            <div *ngIf="field['Name'].errors['pattern']">Name only alphabets number allows</div>
+                          </div>
+                </div>
+                <div class="col-4">
+                    <label for="inputPassword2" class="visually-hidden">Email</label>
+                    <input type="email" class="form-control"  placeholder="Email"
+                        formControlName="Email" [ngClass]="{ 'is-invalid': submitted && field['Email'].errors }" />
+                        <div *ngIf="submitted && field['Email'].errors" class="invalid-feedback">
+                            <div *ngIf="field['Email'].errors['required']">Email is required</div>
+                            <div *ngIf="field['Email'].errors['Email']">Email must be a valid email address</div>
+                        </div>
+                       
+                </div>
+                <div class="col-4">
+                    <label for="staticEmail2" class="visually-hidden">Number</label>
+                    <input type="text" class="form-control" placeholder="Number" pattern="[0-9]+" formControlName="Number" minlength="10" maxlength="10"  [ngClass]="{ 'is-invalid': submitted && field['Number'].errors }"/>
+                    <div *ngIf="submitted && field['Number'].errors" class="invalid-feedback">
+                        <div *ngIf="field['Number'].errors['required']">Number is required</div>
+                        <div *ngIf="field['Number'].errors['Number']">only allows Numeric value</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="staticEmail2" class="visually-hidden">Dob</label>
+                    <input type="date" class="form-control" placeholder="Birth Date" formControlName="Dob"  [ngClass]="{ 'is-invalid': submitted && field['Dob'].errors }"/>
+                    <div *ngIf="submitted && field['Dob'].errors" class="invalid-feedback">
+                        <div *ngIf="field['Dob'].errors['required']">Birth date is required</div>
+                        <div *ngIf="field['Dob'].errors['Dob']">only allows </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <label for="staticEmail2" class="visually-hidden">Image</label>
+                    <input type="file" class="form-control" name="Image" accept="image/*" formControlName="Image" (change)="onChange($event)" />
+                    <!-- <div *ngIf="submitted && field['Image'].errors" class="invalid-feedback">
+                        <div *ngIf="field['Image'].errors['required']">Image is required</div>
+                        <div *ngIf="field['Image'].errors['Image']">only allows Image </div>
+                    </div> -->
+                </div>
+
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
+                        Add
+                      </button>
+                      <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
+                        Adding...
+                        <div class="spinner-border text-light spinner" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                      </button>
+                </div>
+                <div class="form-check col-4 mt-0 ms-2 d-flex">
+                    <input type="radio" value="IsActive" formControlName="IsActive">
+                    <label for="" style="padding-right:20px;">Active</label>
+
+                    <input type="radio" value="InActive" formControlName="IsActive">
+                    <label for="">In-Active</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -22,7 +22,7 @@
                 <div class="col-4">
                     <!-- <label for="inputPassword2" class="visually-hidden">Country Code
                     </label> -->
-                    <input type="text" class="form-control" pattern="[A-Za-z]+" placeholder="State Name"
+                    <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="State Name"
                     formControlName="StateName"
                         [ngClass]="{ 'is-invalid': submitted && field['StateName'].errors }" />
                     <div *ngIf="submitted && field['StateName'].errors" class="invalid-feedback">

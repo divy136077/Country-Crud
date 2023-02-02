@@ -14,7 +14,6 @@ export class StateComponent {
   isSubmitting: boolean = false;
   submitted: boolean = false;
   StateForm: any;
-  
   error!: string;
   stateData: any = [];
   countryData:any = [];

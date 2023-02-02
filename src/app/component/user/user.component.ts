@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
 
@@ -10,47 +11,34 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  UserForm: any;
-  submitted: boolean | undefined;
-  isSubmitting: boolean | undefined;
-  isEdit: boolean | undefined;
+  data: any;
 
   constructor(
+    private router : Router,
     private http: HttpClient,
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.UserForm = this.fb.group({
-      Name: ['', Validators.required],
-      Email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      Number: ['', Validators.required],
-      Image: ['', Validators.required],
-      Dob: ['', Validators.required],
-      active: [false, Validators.required],
+    this.serviceAPI.getAllUserData().subscribe((res: any) => {
+      this.data = res;
     });
-    // this.serviceAPI.getAllUserData().subscribe((res: any) => {
-    //   this.userdata = res;
-    // });
-  }
-  get field() { return this.UserForm.controls; }
-
-  handleAddData() {
-    this.submitted = true;
-    this.isSubmitting = true
   }
 
-  edit(id: any, data: any) {
-    console.log(id, data);
-    this.isEdit = true
-    // this.CountryForm.patchValue({...data, active: data.IsActive});
-    // this.editModalId = id
-    // this.modal = true;
+  handleEdit(id:any){
+    this.router.navigateByUrl('/country/edit/' + id)
   }
 
-  handleDelete(){
-
+  handleDelete(id: any) {
+    if (confirm("Are you sure want to delete?")) {
+      this.serviceAPI.deleteUser(id).subscribe((res: any) => {
+        this.data = this.data.filter((x: any) => x._id !== res._id)
+        this.toastr.error('Data Deleted Successfully!');
+      });
+    }
   }
+
+
 }
