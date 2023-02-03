@@ -64,6 +64,10 @@ export class CountryFormComponent {
   // }
 
   edit(id: any, data: any) {
+    this.submitted = true;
+    if (this.CountryForm.invalid) {
+      return;
+    }
     this.serviceAPI.edit(id, data).subscribe({
       next: (response: any) => {
         console.log(response);

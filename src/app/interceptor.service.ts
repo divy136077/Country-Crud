@@ -2,6 +2,7 @@ import { Injectable,Injector } from '@angular/core';
 import { HttpErrorResponse, HttpEvent ,HttpHandler , HttpInterceptor , HttpRequest , HttpResponse } from '@angular/common/http';
 import { catchError, observable ,throwError , BehaviorSubject , switchMap , filter,take, Observable } from 'rxjs'
 import {ServiceService} from './api-services.service'
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class InterceptorService implements HttpInterceptor {
   errorMessage: any;
   eMessage: any;
 
-  constructor( private inject:Injector,private authservice:ServiceService ) { }
+
+  constructor( private inject:Injector,private authservice:ServiceService, private toastr: ToastrService, ) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('Http start interceptor');
     const userToken = 'secure-user-token';
@@ -62,6 +64,8 @@ export class InterceptorService implements HttpInterceptor {
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
       errorMessage = `Backend returned code ${error.status}, body was: `, error.error;
+      this.toastr.error(error.error.error);
+      this.toastr.error(error.error)
     }
     // Return an observable with a user-facing error message.
     errorMessage += 'Something bad happened; please try again later.'

@@ -66,6 +66,10 @@ export class StateComponent {
   // }
 
    edit(id: any, data: any) {
+    this.submitted = true;
+    if (this.StateForm.invalid) {
+      return;
+    }
     this.serviceAPI.editState(id, data).subscribe({
       next: (response: any) => {
         console.log(response);

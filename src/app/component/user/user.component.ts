@@ -27,8 +27,11 @@ export class UserComponent {
     });
   }
 
+
   handleEdit(id:any){
-    this.router.navigateByUrl('/country/edit/' + id)
+    this.router.navigateByUrl('/user/edit/' + id)
+    console.log();
+    
   }
 
   handleDelete(id: any) {

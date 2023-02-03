@@ -17,7 +17,7 @@ import { InterceptorService } from './interceptor.service';
 import { ServiceService } from './api-services.service';
 import { CountryComponent } from './component/country/country.component';
 import { UserComponent } from './component/user/user.component';
-import { AddEditComponent } from './component/user/add-edit/add-edit.component'
+import { AddEditComponent } from './component/user/add-edit/add-edit.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { AddEditComponent } from './component/user/add-edit/add-edit.component'
     CountryComponent,
     UserComponent,
     AddEditComponent,
+
 
   ],
   imports: [

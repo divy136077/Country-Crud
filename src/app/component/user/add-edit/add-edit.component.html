@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-4">
                     <label for="staticEmail2" class="visually-hidden">Dob</label>
-                    <input type="date" class="form-control" placeholder="Birth Date" formControlName="Dob"  [ngClass]="{ 'is-invalid': submitted && field['Dob'].errors }"/>
+                    <input type="date" class="form-control" placeholder="Birth Date" [max]="getToday()" name="dob" formControlName="Dob"  [ngClass]="{ 'is-invalid': submitted && field['Dob'].errors }"/>
                     <div *ngIf="submitted && field['Dob'].errors" class="invalid-feedback">
                         <div *ngIf="field['Dob'].errors['required']">Birth date is required</div>
                         <div *ngIf="field['Dob'].errors['Dob']">only allows </div>
@@ -40,7 +40,9 @@
                 </div>
                 <div class="col-4">
                     <label for="staticEmail2" class="visually-hidden">Image</label>
-                    <input type="file" class="form-control" name="Image" accept="image/*" formControlName="Image" (change)="onChange($event)" />
+                    <input type="file" id="file" class="form-control" (change)="readURL($event);" name="Image" max-size="2000" accept="image/*" formControlName="Image" (change)="onChange($event)" />
+                    <img id="blah" [src]="imageSrc " style="height: 100px; width: auto;" alt="/" />
+                    <button *ngIf="imageSrc" (click)="delete()" >delete</button>
                     <!-- <div *ngIf="submitted && field['Image'].errors" class="invalid-feedback">
                         <div *ngIf="field['Image'].errors['required']">Image is required</div>
                         <div *ngIf="field['Image'].errors['Image']">only allows Image </div>

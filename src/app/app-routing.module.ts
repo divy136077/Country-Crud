@@ -12,9 +12,9 @@ const routes: Routes = [
 
   { path: 'city', loadChildren: () => import('./component/city/city-routing.module').then(x => x.CityRoutingModule) },
 
-
   { path: 'user', loadChildren: () => import('./component/user/user-routing.module').then(x => x.UserRoutingModule) },
 
+  // { path: 'dashboard', loadChildren: () => import('./component/dashboard/dashboard-routing.module').then(x => x.DashboardRoutingModule) },
 
 
 

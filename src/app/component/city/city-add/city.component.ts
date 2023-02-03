@@ -94,6 +94,10 @@ export class CityComponent {
 
 
   edit(id: any, data: any) {
+    this.submitted = true;
+    if (this.CityForm.invalid) {
+      return;
+    }
     this.serviceAPI.editCity(id, data).subscribe({
       next: (response: any) => {
         console.log(response);
