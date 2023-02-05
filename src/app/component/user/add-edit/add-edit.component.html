@@ -40,8 +40,8 @@
                 </div>
                 <div class="col-4">
                     <label for="staticEmail2" class="visually-hidden">Image</label>
-                    <input type="file" id="file" class="form-control" (change)="readURL($event);" name="Image" max-size="2000" accept="image/*" formControlName="Image" (change)="onChange($event)" />
-                    <img id="blah" [src]="imageSrc " style="height: 100px; width: auto;" alt="/" />
+                    <input type="file" id="file" class="form-control" (change)="readURL($event);" max-size="2000" accept="image/*" formControlName="Image" (change)="onChange($event)" />
+                    <img id="blah" [src]="imageSrc" style="height: 100px; width: auto;" alt="/" />
                     <button *ngIf="imageSrc" (click)="delete()" >delete</button>
                     <!-- <div *ngIf="submitted && field['Image'].errors" class="invalid-feedback">
                         <div *ngIf="field['Image'].errors['required']">Image is required</div>

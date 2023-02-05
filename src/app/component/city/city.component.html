@@ -32,8 +32,8 @@
                     <td>{{ i.StateName }}</td>
                     <td>{{ i.CityName }}</td>
                     <td>
-                        <span class="badge bg-success" *ngIf="i.IsActive === 'IsActive'" >Active</span>
-                        <span class="badge bg-danger" *ngIf="i.IsActive === 'InActive'" >In-Active</span>
+                        <span class="badge bg-success" *ngIf="i.Status === '1'" >Active</span>
+                        <span class="badge bg-danger" *ngIf="i.Status === '0'" >In-Active</span>
                     </td>
                     <td>
                         <i class="fa-regular fa-pen-to-square me-3" (click)="handleEdit(i._id)" ></i> 

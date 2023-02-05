@@ -49,9 +49,9 @@ export class AddEditComponent {
       this.serviceAPI
         .getByIdUser(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
-          this.UserForm.patchValue({ ...res, active: res.IsActive , Image:'' });
-          
-          console.log('hi', res);
+          // console.log(res);
+          this.UserForm.patchValue({ ...res, Image:""});
+          this.imageSrc = '../../../assets/image/' + res.Image;
         });
     }
 
@@ -107,16 +107,27 @@ export class AddEditComponent {
 
   onChange(e: any) {
     const file = e.target.files[0];
+    console.log(file);
     this.UserForm.patchValue({ file: file });
   }
 
   handleAddData() {
+    console.log(!!this.route.snapshot.params['id'], this.route.snapshot.params['id'], "snapshot");
     if (!!this.route.snapshot.params['id']) {
-      this.edit(this.route.snapshot.params['id'], {
-        ...this.UserForm.value,
-        IsActive: this.UserForm.value.IsActive,
-        
-      });
+      const formdata = new FormData();
+
+      Object.entries(this.UserForm.value).forEach((entry: any) => {
+        const [key, value] = entry;
+        console.log(value)
+      
+
+        if (key != 'Image' && key != 'file') {
+          formdata.append(key, value)
+        }
+      })
+      
+      formdata.append('Image', this.UserForm.value.file);
+      this.edit(this.route.snapshot.params['id'], formdata);
      
     } else {
       this.submitted = true;
@@ -135,7 +146,7 @@ export class AddEditComponent {
           formdata.append(key, value)
         }
       })
-
+      
       formdata.append('Image', this.UserForm.value.file);
       console.log(formdata)
 

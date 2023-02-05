@@ -141,6 +141,9 @@
           <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
             Add
           </button>
+          <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && isEdit" >
+            Edit
+        </button>
          
           <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
             Adding...
@@ -156,10 +159,10 @@
           </label> -->
         
 
-            <input type="radio" value="IsActive" formControlName="active" >
+            <input type="radio" value="1" formControlName="active" >
             <label for="" style="padding-right:20px;">Active</label>
           
-          <input type="radio" value="InActive" formControlName="active">
+          <input type="radio" value="0" formControlName="active">
           <label for="">In-Active</label>
         </div>
       </form>

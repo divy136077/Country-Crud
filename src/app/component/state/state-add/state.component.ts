@@ -34,14 +34,15 @@ export class StateComponent {
     this.StateForm = this.fb.group({
       CountryName: ['', Validators.required],
       StateName: ['', Validators.required],
-      active: [false, Validators.required],
+      active: [true, Validators.required],
     });
 
       if (!!this.route.snapshot.params['id']) {
+        this.isEdit = true
       this.serviceAPI
         .getByIdState(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
-          this.StateForm.patchValue({ ...res, active: res.IsActive });
+          this.StateForm.patchValue({ ...res, active: res.Status });
           console.log('hi', res);
         });
     }
@@ -86,7 +87,7 @@ export class StateComponent {
      if (!!this.route.snapshot.params['id']) {
       this.edit(this.route.snapshot.params['id'], {
         ...this.StateForm.value,
-        IsActive: this.StateForm.value.active,
+        Status: this.StateForm.value.active,
       });
     } 
   else {
@@ -98,7 +99,7 @@ export class StateComponent {
     const data = {
       CountryName: this.StateForm.value.CountryName,
       StateName: this.StateForm.value.StateName,
-      IsActive: this.StateForm.value.active,
+      Status: this.StateForm.value.active,
     };
     this.serviceAPI.addState(data).subscribe((res) => {
       this.toastr.success('Data Added Successfully!');

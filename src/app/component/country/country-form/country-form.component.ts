@@ -38,14 +38,15 @@ export class CountryFormComponent {
     this.CountryForm = this.fb.group({
       Name: ['', Validators.required],
       Code: ['', Validators.required],
-      active: [false, Validators.required],
+      active: [true, Validators.required],
     });
 
       if (!!this.route.snapshot.params['id']) {
+        this.isEdit = true
       this.serviceAPI
         . getByIdCountry(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
-          this.CountryForm.patchValue({ ...res, active: res.IsActive });
+          this.CountryForm.patchValue({ ...res, active: res.Status });
           console.log('hi', res);
         });
     }
@@ -84,7 +85,7 @@ export class CountryFormComponent {
     if (!!this.route.snapshot.params['id']) {
       this.edit(this.route.snapshot.params['id'], {
         ...this.CountryForm.value,
-        IsActive: this.CountryForm.value.active,
+        Status: this.CountryForm.value.active,
       });
     } else {
       this.submitted = true;
@@ -97,7 +98,7 @@ export class CountryFormComponent {
       const data = {
         Name: this.CountryForm.value.Name,
         Code: this.CountryForm.value.Code,
-        IsActive: this.CountryForm.value.active,
+        Status: this.CountryForm.value.active,
       };
       this.serviceAPI.add(data).subscribe((res) => {
         this.toastr.success('Data Added Successfully!');

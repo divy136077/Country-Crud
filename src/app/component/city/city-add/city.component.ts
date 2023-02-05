@@ -41,14 +41,16 @@ export class CityComponent {
       CountryName: ['', Validators.required],
       StateName: ['', Validators.required],
       CityName: ['', Validators.required],
-      active: [false, Validators.required],
+      active: [true, Validators.required],
     });
 
     if (!!this.route.snapshot.params['id']) {
+      this.isEdit = true
       this.serviceAPI
-        .getByIdCity(this.route.snapshot.params['id'])
-        .subscribe((res: any) => {
-          this.CityForm.patchValue({ ...res, active: res.IsActive });
+      .getByIdCity(this.route.snapshot.params['id'])
+      
+      .subscribe((res: any) => {
+          this.CityForm.patchValue({ ...res, active: res.Status });
           this.getStateData({target:{value:this.CityForm.value.CountryName}})
         });
     }
@@ -115,7 +117,7 @@ export class CityComponent {
     if (!!this.route.snapshot.params['id']) {
       this.edit(this.route.snapshot.params['id'], {
         ...this.CityForm.value,
-        IsActive: this.CityForm.value.active,
+        Status: this.CityForm.value.active,
       });
     } else {
 
@@ -128,7 +130,7 @@ export class CityComponent {
         CountryName: this.CityForm.value.CountryName,
         StateName: this.CityForm.value.StateName,
         CityName: this.CityForm.value.CityName,
-        IsActive: this.CityForm.value.active,
+        Status: this.CityForm.value.active,
       };
       this.serviceAPI.addCity(data).subscribe((res) => {
         this.toastr.success('Data Added Successfully!');
