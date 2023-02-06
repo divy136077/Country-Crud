@@ -11,7 +11,7 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  data: any;
+  data: any = null;
 
   constructor(
     private router : Router,
@@ -23,15 +23,13 @@ export class UserComponent {
 
   ngOnInit() {
     this.serviceAPI.getAllUserData().subscribe((res: any) => {
-      this.data = res;
+      this.data = res.reverse();
     });
   }
 
 
   handleEdit(id:any){
     this.router.navigateByUrl('/user/edit/' + id)
-    console.log();
-    
   }
 
   handleDelete(id: any) {

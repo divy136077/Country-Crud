@@ -18,6 +18,9 @@ import { ServiceService } from './api-services.service';
 import { CountryComponent } from './component/country/country.component';
 import { UserComponent } from './component/user/user.component';
 import { AddEditComponent } from './component/user/add-edit/add-edit.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { AddEditComponent } from './component/user/add-edit/add-edit.component';
     CountryComponent,
     UserComponent,
     AddEditComponent,
+    DashboardComponent,
+
 
 
   ],
@@ -38,7 +43,8 @@ import { AddEditComponent } from './component/user/add-edit/add-edit.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [ServiceService,
     {

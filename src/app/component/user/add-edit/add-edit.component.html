@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-4">
                     <label for="staticEmail2" class="visually-hidden">Image</label>
-                    <input type="file" id="file" class="form-control" (change)="readURL($event);" max-size="2000" accept="image/*" formControlName="Image" (change)="onChange($event)" />
+                    <input type="file" id="file" class="form-control" (change)="readURL($event);" ngf-max-size="5MB" max-size="2000" accept="image/*" formControlName="Image" (change)="onChange($event)" />
                     <img id="blah" [src]="imageSrc" style="height: 100px; width: auto;" alt="/" />
                     <button *ngIf="imageSrc" (click)="delete()" >delete</button>
                     <!-- <div *ngIf="submitted && field['Image'].errors" class="invalid-feedback">
@@ -52,19 +52,25 @@
                 <div class="col-4">
                     <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
                         Add
-                      </button>
-                      <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
-                        Adding...
+                    </button>
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && isEdit" >
+                        Edit
+                    </button>
+                    <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
+                    Adding...
                         <div class="spinner-border text-light spinner" role="status">
-                          <span class="visually-hidden">Loading...</span>
+                            <span class="visually-hidden">Loading...</span>
                         </div>
-                      </button>
+                    </button>
+                    <button type="button" class="btn btn-danger mb-3 ms-2" routerLink="/user">
+                        Cancel
+                    </button>
                 </div>
                 <div class="form-check col-4 mt-0 ms-2 d-flex">
-                    <input type="radio" value="IsActive" formControlName="IsActive">
+                    <input type="radio" value="1" formControlName="Status" checked>
                     <label for="" style="padding-right:20px;">Active</label>
 
-                    <input type="radio" value="InActive" formControlName="IsActive">
+                    <input type="radio" value="0" formControlName="Status">
                     <label for="">In-Active</label>
                 </div>
             </form>

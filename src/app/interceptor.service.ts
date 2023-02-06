@@ -14,7 +14,6 @@ export class InterceptorService implements HttpInterceptor {
 
   constructor( private inject:Injector,private authservice:ServiceService, private toastr: ToastrService, ) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Http start interceptor');
     const userToken = 'secure-user-token';
     const modifiedReq = req.clone({ 
       headers: req.headers.set('Authorization', `${userToken}`),
@@ -26,7 +25,6 @@ export class InterceptorService implements HttpInterceptor {
       catchError((error: HttpErrorResponse)=>{
         const errorMessage = this.setError(error);
         const eMessage = this.handleError(error)
-        console.log(error);
          this.errorMessage?.error(errorMessage);
          this.eMessage?.error(eMessage);
          return throwError(errorMessage );

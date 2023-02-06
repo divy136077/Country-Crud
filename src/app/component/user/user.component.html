@@ -10,8 +10,13 @@
     </div>
     
   </div>
-<div class="container d-flex align-items-center flex-column">
-    <div class="card mt-5 w-100">
+<div class="container d-flex align-items-center justify-content-center flex-column" [ngStyle]="{'height': (data === null) ? '80vh' : null }">
+  <div class="d-flex justify-content-center" *ngIf="data === null">
+    <div class="spinner-border text-dark spinner" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+    <div class="card mt-5 w-100" *ngIf="data !== null">
       <div class="card-body">
         <table class="table mt-4">
           <thead>
@@ -34,8 +39,8 @@
               <td><img src="../../../assets/image/{{ i.Image }}" alt="" style="width: 50px; height: 50px;" ></td>
               <td>{{ i.Dob }}</td>
               <td>
-                <span class="badge bg-success" *ngIf="i.IsActive === 'IsActive' ">Active</span>
-                <span class="badge bg-danger" *ngIf="i.IsActive === 'InActive' ">In-Active</span>
+                <span class="badge bg-success" *ngIf="i.Status === '1'">Active</span>
+                <span class="badge bg-danger" *ngIf="i.Status === '0'">In-Active</span>
               </td>
               <td>
                 <i class="fa-regular fa-pen-to-square me-3" routerLink='/user/edit/{{i._id}}'></i>

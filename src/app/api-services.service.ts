@@ -122,8 +122,10 @@ export class ServiceService {
     return this.http.get('http://localhost:8000/user/' + id ) 
     }
 
-
-
+    // Deshboard API ========================================================================================
+     getAll() {
+    return this.http.get('http://localhost:8000/dashboard');
+  }
 
 
   // private handleError(error: HttpErrorResponse) {

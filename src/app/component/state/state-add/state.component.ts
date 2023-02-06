@@ -43,7 +43,6 @@ export class StateComponent {
         .getByIdState(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
           this.StateForm.patchValue({ ...res, active: res.Status });
-          console.log('hi', res);
         });
     }
 
@@ -73,7 +72,6 @@ export class StateComponent {
     }
     this.serviceAPI.editState(id, data).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.toastr.success('Data Updated sucessfully !');
         this.router.navigateByUrl('/state');
       },
@@ -110,7 +108,6 @@ export class StateComponent {
 }
 
   // edit(id: any, data: any) {
-  //   console.log(id, data);
   //   this.isEdit = true
   //   this.StateForm.patchValue({...data, active: data.IsActive});
   //   this.editModalId = id

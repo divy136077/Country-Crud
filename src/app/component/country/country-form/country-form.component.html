@@ -1,126 +1,11 @@
-<!-- <div class="container d-flex align-items-center flex-column">
-  <div class="form card mt-5" style="width: fit-content">
-    <div class="card-body">
-      <form [formGroup]="CountryForm" (ngSubmit)="handleAddData()" class="row g-3 justify-content-start">
-        <div class="col-4">
-          <label for="staticEmail2" class="visually-hidden">Country Name</label>
-          <input type="text" class="form-control" id="staticEmail2" placeholder="Country Name" formControlName="Name"
-            [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
-          <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
-            <div *ngIf="field['Name'].errors['required']">Country name is required</div>
-            <div *ngIf="field['Name'].errors['minlength']">Country name</div>
-          </div>
-        </div>
-        <div class="col-4">
-          <label for="inputPassword2" class="visually-hidden">Country Code
-          </label>
-          <input type="text" class="form-control" id="inputPassword2" placeholder="Country Code"
-            formControlName="Code"  [ngClass]="{ 'is-invalid': submitted && field['Code'].errors }" />
-            <div *ngIf="submitted && field['Code'].errors" class="invalid-feedback">
-              <div *ngIf="field['Code'].errors['required']">Country code is required</div>
-              <div *ngIf="field['Code'].errors['maxlength']">Country name</div>
-            </div>
-        </div>
-        <div class="col-4">
-          <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting === false">
-            Add
-          </button>
-          <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting === true" disabled>
-            Adding...
-            <div class="spinner-border text-light spinner" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </button>
-        </div>
-        <div class="form-check col-4 mt-0 ms-2">
-          <input class="form-check-input" type="checkbox" id="flexCheckChecked" formControlName="active" />
-          <label class="form-check-label" for="flexCheckChecked">
-            active
-          </label>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div class="card mt-5 w-100">
-    <div class="card-body">
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th scope="col">Country Name</th>
-            <th scope="col">Country Code</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let i of data">
-            <td>{{ i.Name }}</td>
-            <td>{{ i.Code }}</td>
-            <td>
-              <span class="badge bg-success" *ngIf="i.IsActive === true">Active</span>
-              <span class="badge bg-danger" *ngIf="i.IsActive === false">In-Active</span>
-            </td>
-            <td>
-              <i class="fa-regular fa-pen-to-square me-3" (click)="edit(i._id, i)"></i>
-              <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="modal" [ngClass]="modal ? 'fade show d-block' : 'hide'" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="closeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="EditCountryForm" (ngSubmit)="handleEdit()" id="editForm"
-          class="row g-3 justify-content-start">
-          <div class="col-4">
-            <label for="staticEmail2" class="visually-hidden">Country Name</label>
-            <input type="text" class="form-control" id="staticEmail2" placeholder="Country Name"
-              formControlName="Name" />
-          </div>
-          <div class="col-4">
-            <label for="inputPassword2" class="visually-hidden">Country Code
-            </label>
-            <input type="text" class="form-control" id="inputPassword2" placeholder="Country Code"
-              formControlName="Code" />
-          </div>
-          <div class="col-4">
-            <input class="form-check-input" type="checkbox" id="flexCheckChecked" formControlName="IsActive" />
-            <label class="form-check-label ps-1" for="flexCheckChecked">
-              active
-            </label>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <button form="editForm" type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
- -->
-
-
 <div class="container d-flex align-items-center flex-column">
   <div class="form card mt-5" style="width: fit-content">
     <div class="card-body">
       <form [formGroup]="CountryForm" (ngSubmit)="handleAddData()" class="row g-3 justify-content-start">
         <div class="col-4">
           <label for="staticEmail2" class="visually-hidden">Country Name</label>
-          <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Name" formControlName="Name"
-            [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
+          <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Name"
+            formControlName="Name" [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
           <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
             <div *ngIf="field['Name'].errors['required']">Country name is required </div>
             <div *ngIf="field['Name'].errors['pattern']">Country name only alphabets number allows</div>
@@ -129,8 +14,8 @@
         <div class="col-4">
           <label for="inputPassword2" class="visually-hidden">Country Code
           </label>
-          <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Code" maxlength="3" formControlName="Code"
-            [ngClass]="{ 'is-invalid': submitted && field['Code'].errors }" />
+          <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Code" maxlength="3"
+            formControlName="Code" [ngClass]="{ 'is-invalid': submitted && field['Code'].errors }" />
           <div *ngIf="submitted && field['Code'].errors" class="invalid-feedback">
             <div *ngIf="field['Code'].errors['required']">Country code is required</div>
             <div *ngIf="field['Code'].errors['pattern']">Country name only alphabets number allows</div>
@@ -141,10 +26,10 @@
           <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
             Add
           </button>
-          <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && isEdit" >
+          <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && isEdit">
             Edit
-        </button>
-         
+          </button>
+
           <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
             Adding...
             <div class="spinner-border text-light spinner" role="status">
@@ -152,96 +37,72 @@
             </div>
           </button>
         </div>
-        <div class="form-check col-4 mt-0 ms-2 d-flex" >
-          <!-- <input class="form-check-input" type="checkbox" id="flexCheckChecked" formControlName="active" />
-          <label class="form-check-label" for="flexCheckChecked">
-            active
-          </label> -->
-        
+        <div class="form-check col-4 mt-0 ms-2 d-flex">
+          <input type="radio" value="1" formControlName="active">
+          <label for="" style="padding-right:20px;">Active</label>
 
-            <input type="radio" value="1" formControlName="active" >
-            <label for="" style="padding-right:20px;">Active</label>
-          
           <input type="radio" value="0" formControlName="active">
           <label for="">In-Active</label>
         </div>
       </form>
     </div>
   </div>
-  <!-- <div class="card mt-5 w-100">
-    <div class="card-body">
-      <table class="table mt-4">
-        <thead>
-          <tr>
-            <th scope="col">Country Name</th>
-            <th scope="col">Country Code</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-
-
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let i of data">
-            <td>{{ i.Name }}</td>
-            <td>{{ i.Code }}</td>
-            <td>
-             
-              <span class="badge bg-success" *ngIf="i.IsActive === 'IsActive' ">Active</span>
-              <span class="badge bg-danger" *ngIf="i.IsActive === 'InActive' ">In-Active</span>
-            </td>
-            <td>
-              <i class="fa-regular fa-pen-to-square me-3" routerLink='/country-form/edit/{{i._id}}'></i>
-              <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
-            </td>
-
-
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div> -->
 </div>
 
-<!-- <div class="modal" [ngClass]="modal ? 'fade show d-block' : 'hide'" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Update Data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-          (click)="closeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="EditCountryForm" (ngSubmit)="handleEdit()" id="editForm"
-          class="row g-3 justify-content-start">
-          <div class="col-4">
+
+<div class="container col-6">
+  <div class="card login">
+    <div class="card-body ">
+      <div class="card-body ">
+        <h2 class="card-title">Plz Enter your Country Name & Code </h2>
+        <form [formGroup]="CountryForm" (ngSubmit)="handleAddData()">
+          
+          <div class="col-4  ">
             <label for="staticEmail2" class="visually-hidden">Country Name</label>
-            <input type="text" class="form-control" id="staticEmail2" placeholder="Country Name"
-              formControlName="Name" />
-          </div>
+            <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Name"
+              formControlName="Name" [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
+            <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
+              <div *ngIf="field['Name'].errors['required']">Country name is required </div>
+              <div *ngIf="field['Name'].errors['pattern']">Country name only alphabets number allows</div>
+            </div>
+          </div><br>
+
           <div class="col-4">
             <label for="inputPassword2" class="visually-hidden">Country Code
             </label>
-            <input type="text" class="form-control" id="inputPassword2" placeholder="Country Code"
-              formControlName="Code" />
+            <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Code" maxlength="3"
+              formControlName="Code" [ngClass]="{ 'is-invalid': submitted && field['Code'].errors }" />
+            <div *ngIf="submitted && field['Code'].errors" class="invalid-feedback">
+              <div *ngIf="field['Code'].errors['required']">Country code is required</div>
+              <div *ngIf="field['Code'].errors['pattern']">Country name only alphabets number allows</div>
+            </div>
+          </div>
+          <div class="form-check col-4 mt-0 ms-2 d-flex">
+            <input type="radio" value="1" formControlName="active">
+            <label for="" style="padding-right:20px;">Active</label>
+
+            <input type="radio" value="0" formControlName="active">
+            <label for="">In-Active</label>
           </div>
           <div class="col-4">
-         
-            
-            <input type="radio" value="IsActive" formControlName="active"  >
-            <label for="" >Active</label>
-          
-          <input type="radio" value="InActive" formControlName="active">
-          <label for="">In-Active</label>
+
+            <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
+              Add
+            </button>
+            <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && isEdit">
+              Edit
+            </button>
+
+            <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
+              Adding...
+              <div class="spinner-border text-light spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </button>
           </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">
-          Close
-        </button>
-        <button form="editForm" type="submit" class="btn btn-primary">Save changes</button>
+
       </div>
     </div>
   </div>
-</div> -->
+</div>

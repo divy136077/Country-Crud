@@ -47,7 +47,6 @@ export class CountryFormComponent {
         . getByIdCountry(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
           this.CountryForm.patchValue({ ...res, active: res.Status });
-          console.log('hi', res);
         });
     }
 
@@ -71,7 +70,6 @@ export class CountryFormComponent {
     }
     this.serviceAPI.edit(id, data).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.toastr.success('Data Updated sucessfully !');
         this.router.navigateByUrl('/city');
       },
@@ -110,7 +108,6 @@ export class CountryFormComponent {
 
 
   // edit(id: any, data: any) {
-  //   console.log(id, data);
   //   this.isEdit = true
   //   this.CountryForm.patchValue({ ...data, active: data.IsActive });
   //   this.editModalId = id

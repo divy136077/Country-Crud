@@ -27,7 +27,6 @@ export class CityCityComponent {
     
     this.serviceAPI.getAllCityData().subscribe((res: any) => {
       this.cityData = res;
-      // console.log(this.cityData);
     });
 
 

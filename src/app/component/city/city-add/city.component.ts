@@ -74,9 +74,7 @@ export class CityComponent {
   // selectedCountry: String = "--Choose Country--";
  
   // changeCountry(country: any) { 
-  //   // console.log("ryr", country.target.value );
 	// 	this.states = this.countryData.find((cou: any) => cou.Name == country.target.value ); 
-  //   console.log("hii",this.states);
     
 	// }
 
@@ -102,7 +100,6 @@ export class CityComponent {
     }
     this.serviceAPI.editCity(id, data).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.toastr.success('Data Updated sucessfully !');
         this.router.navigateByUrl('/city');
       },
@@ -136,7 +133,6 @@ export class CityComponent {
         this.toastr.success('Data Added Successfully!');
         // this.cityData.push(res);
         this.isSubmitting = false;
-        console.log(res);
       });
     }
 
