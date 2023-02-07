@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
 
@@ -13,8 +13,8 @@ import { ServiceService } from 'src/app/api-services.service';
 export class CityComponent {
   isSubmitting: boolean = false;
   submitted: boolean = false;
-  CityForm: any;
-  EditCityForm: any;
+  cityForm: any;
+  EditcityForm: any;
   error!: string;
   stateData: any = [];
   countryData: any = [];
@@ -23,8 +23,6 @@ export class CityComponent {
   cityData: any;
   isEdit: boolean = false;
   errorMessage: any;
-  router: any;
-  
   cities: any;
   states: any;
 
@@ -33,69 +31,49 @@ export class CityComponent {
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.CityForm = this.fb.group({
+    this.cityForm = this.fb.group({
       CountryName: ['', Validators.required],
       StateName: ['', Validators.required],
       CityName: ['', Validators.required],
-      active: [true, Validators.required],
+      active: ['1', Validators.required],
     });
 
     if (!!this.route.snapshot.params['id']) {
       this.isEdit = true
       this.serviceAPI
-      .getByIdCity(this.route.snapshot.params['id'])
-      
-      .subscribe((res: any) => {
-          this.CityForm.patchValue({ ...res, active: res.Status });
-          this.getStateData({target:{value:this.CityForm.value.CountryName}})
+        .getByIdCity(this.route.snapshot.params['id'])
+
+        .subscribe((res: any) => {
+          this.cityForm.patchValue({ ...res, active: res.Status });
+          this.getStateData({ target: { value: this.cityForm.value.CountryName } })
         });
     }
 
-    // this.serviceAPI.getAllCityData().subscribe((res: any) => {
-    //   this.cityData = res;
-    // }
-    // );
-   
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.countryData = res;
     });
-   
+
   }
 
-  getStateData(event:any){
+  getStateData(event: any) {
     this.serviceAPI.getAllStateData(event.target.value).subscribe((res: any) => {
       this.stateData = res;
     });
   }
-  // selectedCountry: String = "--Choose Country--";
- 
-  // changeCountry(country: any) { 
-	// 	this.states = this.countryData.find((cou: any) => cou.Name == country.target.value ); 
-    
-	// }
-
-  // changeState(state: any) { 
-  //   		this.cities = this.countryData.find((cou: any) => cou.Name == this.selectedCountry).find((stat: any) => stat.Name == state.target.value); 
-	// }
 
   get field() {
-    return this.CityForm.controls;
+    return this.cityForm.controls;
   }
-
-  // cancelEdit(){
-  //   this.editModalId = null
-  //   this.isEdit = false
-  //   this.CityForm.reset()
-  // }
 
 
   edit(id: any, data: any) {
     this.submitted = true;
-    if (this.CityForm.invalid) {
+    if (this.cityForm.invalid) {
       return;
     }
     this.serviceAPI.editCity(id, data).subscribe({
@@ -109,36 +87,37 @@ export class CityComponent {
     });
   }
 
-  handleAddData() {
+  addData() {
 
     if (!!this.route.snapshot.params['id']) {
       this.edit(this.route.snapshot.params['id'], {
-        ...this.CityForm.value,
-        Status: this.CityForm.value.active,
+        ...this.cityForm.value,
+        Status: this.cityForm.value.active,
       });
     } else {
 
       this.submitted = true;
-      if (this.CityForm.invalid) {
+      if (this.cityForm.invalid) {
         return;
       }
       this.isSubmitting = true;
       const data = {
-        CountryName: this.CityForm.value.CountryName,
-        StateName: this.CityForm.value.StateName,
-        CityName: this.CityForm.value.CityName,
-        Status: this.CityForm.value.active,
+        CountryName: this.cityForm.value.CountryName,
+        StateName: this.cityForm.value.StateName,
+        CityName: this.cityForm.value.CityName,
+        Status: this.cityForm.value.active,
       };
       this.serviceAPI.addCity(data).subscribe((res) => {
-        this.toastr.success('Data Added Successfully!');
-        // this.cityData.push(res);
-        this.isSubmitting = false;
-      });
+        {
+          next: this.toastr.success('Data Added Successfully!');
+          this.isSubmitting = false;
+          this.router.navigateByUrl('/city');
+        }
+        error: () => { 
+          this.isSubmitting = false;
+        }
+      }
+      );
     }
-
   }
-
-  // cityEdit(element: any) {
-  //   this.router.navigateByUrl('/city' + element._id);
-  // }
 }

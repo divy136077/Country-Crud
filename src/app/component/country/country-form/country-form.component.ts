@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ServiceService } from '../../../api-services.service';
 import { FormBuilder, FormGroup, PatternValidator, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -14,15 +14,15 @@ import { ActivatedRoute } from '@angular/router';
 export class CountryFormComponent {
   data: any = [];
   selectedAll: any;
-  CountryForm!: FormGroup;
-  EditCountryForm!: FormGroup;
+  countryForm!: FormGroup;
+  EditcountryForm!: FormGroup;
   isSubmitting: boolean = false;
   modal: boolean = false;
   editModalId: any;
   submitted: boolean | undefined;
   error: string | undefined;
   isEdit: boolean = false;
-  router: any;
+
 
 
 
@@ -31,47 +31,42 @@ export class CountryFormComponent {
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-      private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.CountryForm = this.fb.group({
+    this.countryForm = this.fb.group({
       Name: ['', Validators.required],
       Code: ['', Validators.required],
-      active: [true, Validators.required],
+      active: ['1', Validators.required],
     });
 
-      if (!!this.route.snapshot.params['id']) {
-        this.isEdit = true
+    if (!!this.route.snapshot.params['id']) {
+      this.isEdit = true
       this.serviceAPI
-        . getByIdCountry(this.route.snapshot.params['id'])
+        .getByIdCountry(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
-          this.CountryForm.patchValue({ ...res, active: res.Status });
+          this.countryForm.patchValue({ ...res, active: res.Status });
         });
     }
 
-    // this.serviceAPI.getAllData().subscribe((res: any) => {
-    //   this.data = res;
-    // });
+
   }
-  get field() { return this.CountryForm.controls; }
+  get field() { return this.countryForm.controls; }
 
 
-  // cancelEdit() {
-  //   this.editModalId = null
-  //   this.isEdit = false
-  //   this.CountryForm.reset()
-  // }
+
 
   edit(id: any, data: any) {
     this.submitted = true;
-    if (this.CountryForm.invalid) {
+    if (this.countryForm.invalid) {
       return;
     }
     this.serviceAPI.edit(id, data).subscribe({
       next: (response: any) => {
         this.toastr.success('Data Updated sucessfully !');
-        this.router.navigateByUrl('/city');
+        this.router.navigateByUrl('/country');
       },
       error: (error) => {
         this.toastr.error('Error in API');
@@ -79,65 +74,37 @@ export class CountryFormComponent {
     });
   }
 
-  handleAddData() {
+  addData() {
     if (!!this.route.snapshot.params['id']) {
       this.edit(this.route.snapshot.params['id'], {
-        ...this.CountryForm.value,
-        Status: this.CountryForm.value.active,
+        ...this.countryForm.value,
+        Status: this.countryForm.value.active,
       });
     } else {
       this.submitted = true;
-      if (this.CountryForm.invalid) {
+      if (this.countryForm.invalid) {
         return;
       }
-      // this.error = ''
+
 
       this.isSubmitting = true
       const data = {
-        Name: this.CountryForm.value.Name,
-        Code: this.CountryForm.value.Code,
-        Status: this.CountryForm.value.active,
+        Name: this.countryForm.value.Name,
+        Code: this.countryForm.value.Code,
+        Status: this.countryForm.value.active,
       };
       this.serviceAPI.add(data).subscribe((res) => {
-        this.toastr.success('Data Added Successfully!');
-        // this.data.push(res)
-        this.isSubmitting = false
-      });
+        {
+          next: this.toastr.success('Data Added Successfully!');
+          this.isSubmitting = false;
+          this.router.navigateByUrl('/country');
+        }
+        () => {
+          this.isSubmitting = false;
+        }
+      }
+      );
     }
   }
 
-
-  // edit(id: any, data: any) {
-  //   this.isEdit = true
-  //   this.CountryForm.patchValue({ ...data, active: data.IsActive });
-  //   this.editModalId = id
-  //   // this.modal = true;
-  // }
-
-  // handleEdit() {
-  //   const { Name, Code, IsActive  , active} = this.EditCountryForm.value;
-  //   this.serviceAPI.edit(this.editModalId, { Name, Code, IsActive: active }).subscribe((res: any) => {
-  //     this.toastr.success('Data Updated Successfully!');
-  //     this.data[this.data.findIndex((x: any) => x._id === res._id)] = res
-  //   });
-  //   this.closeModal()
-  // }
-
-  // handleDelete(id: any) {
-  //   if (confirm("Are you sure want to delete?")) {
-  //     this.serviceAPI.delete(id).subscribe((res: any) => {
-  //       this.data = this.data.filter((x: any) => x._id !== res._id)
-  //       this.toastr.error('Data Deleted Successfully!');
-  //     });
-  //   }
-  // }
-
-  // closeModal() {
-  //   this.editModalId = null
-  //   this.modal = false;
-  // }
-
-  // cityEdit(element: any) {
-  //   this.router.navigateByUrl('/country-form/edit/' + element._id);
-  // }
 }

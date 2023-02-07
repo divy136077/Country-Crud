@@ -13,14 +13,14 @@ import { ServiceService } from 'src/app/api-services.service';
 export class AddEditComponent {
   UserForm: any;
   submitted!: boolean;
-  CountryForm: any;
+  countryForm: any;
   isSubmitting!: boolean;
   isEdit: any;
   userData: any;
   data: any;
   imageSrc: any;
   Userform: any;
-  check: boolean = true;
+  // check: boolean = true;
 
   constructor(
     private http: HttpClient,
@@ -29,7 +29,9 @@ export class AddEditComponent {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { 
+   
+  }
 
   ngOnInit() {
     this.UserForm = this.fb.group({
@@ -45,7 +47,7 @@ export class AddEditComponent {
       Number: ['', Validators.required],
       Image: [''],
       Dob: ['', Validators.required],
-      Status: [1, Validators.required],
+      Status: ['1'],
       file: [''],
     });
 
@@ -56,6 +58,7 @@ export class AddEditComponent {
         .subscribe((res: any) => {
           this.UserForm.patchValue({ ...res, Image: '' });
           this.imageSrc = '../../../assets/image/' + res.Image;
+          
         });
     }
 
@@ -64,9 +67,10 @@ export class AddEditComponent {
     });
   }
 
+  // preview image ==========================================================
   readURL(event: any): void {
     if (event.target.files && event.target.files[0] && event.target.files[0].size < 5000000) {
-      
+
       const file = event.target.files[0];
 
       const reader = new FileReader();
@@ -84,13 +88,16 @@ export class AddEditComponent {
     // this.UserForm.value.Image.reset()
   }
 
+  // future date =============================================================
   getToday(): string {
     return new Date().toISOString().split('T')[0];
   }
-
+// input box validation =================================================
   get field() {
     return this.UserForm.controls;
   }
+
+
 
   edit(id: any, data: any) {
     this.submitted = true;
@@ -113,7 +120,7 @@ export class AddEditComponent {
     this.UserForm.patchValue({ file: file });
   }
 
-  handleAddData() {
+  addData() {
     if (!!this.route.snapshot.params['id']) {
       const formdata = new FormData();
 
@@ -155,16 +162,14 @@ export class AddEditComponent {
       //   IsActive: this.UserForm.value.IsActive,
       // };
       this.serviceAPI.addUser(formdata).subscribe(
-        (res) => {
-          this.toastr.success('Data Added Successfully!');
-          // this.data.push(res)
+        (res) => {{
+         next : this.toastr.success('Data Added Successfully!');
           this.isSubmitting = false;
           this.router.navigateByUrl('/user');
-        },
-        () => {
-          this.router.navigateByUrl('/user');
-          this.isSubmitting = false;
         }
+        error:() => {
+          this.isSubmitting = false;
+        }}
       );
     }
   }

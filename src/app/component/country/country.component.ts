@@ -11,27 +11,27 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./country.component.css']
 })
 export class CountryComponent {
-  data: any;
+  data: any = null;
 
   constructor(
-    private router : Router,
+    private router: Router,
     private http: HttpClient,
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) {}
-
+  ) { }
   ngOnInit() {
+   
     this.serviceAPI.getAllData().subscribe((res: any) => {
-      this.data = res;
+      this.data = res.reverse();
     });
   }
 
-  handleEdit(id:any){
+  userEdit(id: any) {
     this.router.navigateByUrl('/country/edit/' + id)
   }
 
-  handleDelete(id: any) {
+  userDelete(id: any) {
     if (confirm("Are you sure want to delete?")) {
       this.serviceAPI.delete(id).subscribe((res: any) => {
         this.data = this.data.filter((x: any) => x._id !== res._id)

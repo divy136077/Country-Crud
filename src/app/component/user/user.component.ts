@@ -28,11 +28,11 @@ export class UserComponent {
   }
 
 
-  handleEdit(id:any){
+  userEdit(id:any){
     this.router.navigateByUrl('/user/edit/' + id)
   }
 
-  handleDelete(id: any) {
+  userDelete(id: any) {
     if (confirm("Are you sure want to delete?")) {
       this.serviceAPI.deleteUser(id).subscribe((res: any) => {
         this.data = this.data.filter((x: any) => x._id !== res._id)

@@ -19,7 +19,7 @@ import { CountryComponent } from './component/country/country.component';
 import { UserComponent } from './component/user/user.component';
 import { AddEditComponent } from './component/user/add-edit/add-edit.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
@@ -44,7 +44,8 @@ import { ChartsModule } from 'ng2-charts';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    Ng2SearchPipeModule
   ],
   providers: [ServiceService,
     {

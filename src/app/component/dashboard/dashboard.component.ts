@@ -41,8 +41,8 @@ export class DashboardComponent {
     private toastr: ToastrService,
     private route: ActivatedRoute
   ) {
-    monkeyPatchChartJsTooltip();
-    monkeyPatchChartJsLegend();
+    // monkeyPatchChartJsTooltip();
+    // monkeyPatchChartJsLegend();
   }
 
 

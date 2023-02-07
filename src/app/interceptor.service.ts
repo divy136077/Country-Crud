@@ -63,7 +63,7 @@ export class InterceptorService implements HttpInterceptor {
         `Backend returned code ${error.status}, body was: `, error.error);
       errorMessage = `Backend returned code ${error.status}, body was: `, error.error;
       this.toastr.error(error.error.error);
-      this.toastr.error(error.error)
+      // this.toastr.error(error.error)
     }
     // Return an observable with a user-facing error message.
     errorMessage += 'Something bad happened; please try again later.'

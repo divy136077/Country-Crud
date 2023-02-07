@@ -11,7 +11,7 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./state.component.css']
 })
 export class StateMainComponent {
-  stateData: any;
+  stateData: any = null;
   
   constructor(
     private router : Router,
@@ -23,15 +23,15 @@ export class StateMainComponent {
 
   ngOnInit() {
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
-      this.stateData = res;
+      this.stateData = res.reverse();
     });
   }
 
-    handleEdit(id:any){
+    userEdit(id:any){
     this.router.navigateByUrl('/state/edit/' + id)
   }
 
-  handleDelete(id: any) {
+  userDelete(id: any) {
     if(confirm("Are you sure want to delete?")){
     this.serviceAPI.deleteState(id).subscribe((res: any) => {
       this.stateData = this.stateData.filter((x: any) => x._id !== res._id)

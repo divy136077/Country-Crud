@@ -11,7 +11,7 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./city.component.css']
 })
 export class CityCityComponent {
-  cityData: any;
+  cityData: any = null;
   // router: any;
 
   constructor(
@@ -26,18 +26,18 @@ export class CityCityComponent {
 
     
     this.serviceAPI.getAllCityData().subscribe((res: any) => {
-      this.cityData = res;
+      this.cityData = res.reverse();
     });
 
 
   }
 
-  handleEdit(id:any){
+  userEdit(id:any){
     this.router.navigateByUrl('/city/edit/' + id)
   }
 
   
-  handleDelete(id: any) {
+  userDelete(id: any) {
     if(confirm("Are you sure want to delete?")){
     this.serviceAPI.deleteCity(id).subscribe((res: any) => {
       this.cityData = this.cityData.filter((x: any) => x._id !== res._id)

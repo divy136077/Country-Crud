@@ -1,5 +1,56 @@
+<div class="container">
+  <h2 class="my-3">State list</h2>
+  <div class="formdiv card">
+    <div class="card-body p-4">
+      <div class="row mb-3">
+        <div class="col-6">
+          <h3>Search State</h3>
+        </div>
+        <div class="col-6">
+          <a style="background-color: orange; text-decoration: none" routerLink="/state/add"
+            class="p-2 text-dark rounded-3 float-end">+ Add new state</a>
+        </div>
+      </div>
+      <form>
 
-<div class="container d-flex align-items-center flex-column ">
+        <div class="row">
+          <div class="col-6">
+            <label for="Sname" class="form-label">State Name</label>
+            <input type="text" name="name"  class="form-control" id="myInput"
+              placeholder="State names.." title="" />
+          </div>
+          <div class="col-6">
+<!--       <label for="inputPassword5" class="form-label">Status</label>
+            <input type="text" name="city" class="form-control" id="myInput"
+              placeholder="" title="" /> -->
+              <label for="inputPassword5" class="form-label">Choose a Status</label>
+              <select  class="form-control" name="" id="">
+                <option value="1">Active</option>
+                <option value="0">In-Active</option>
+                
+              </select>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-1">
+            <button type="submit" class="btn btn-primary ms-2" style="width: 90px; padding: 10px">
+              Search
+            </button>
+          </div>
+          <div class="col-1">
+            <button type="submit" class="btn btn-primary ms-2" style="width: 90px; padding: 10px">
+              Reset
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+<!-- <div class="container d-flex align-items-center flex-column ">
     <div class="row mb-3">
       <div class="col-6">
         
@@ -10,10 +61,14 @@
       </div>
     </div>
     
-  </div>
-<div class="container d-flex align-items-center flex-column ">
-
-<div class="card mt-5 w-100">
+  </div> -->
+  <div class="container d-flex align-items-center justify-content-center flex-column" [ngStyle]="{'height': (stateData === null) ? '80vh' : null }">
+    <div class="d-flex justify-content-center" *ngIf="stateData === null">
+      <div class="spinner-border text-dark spinner" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+<div class="card mt-5 w-100" *ngIf="stateData !== null">
   <div class="card-body">
       <table class="table mt-4">
           
@@ -34,8 +89,8 @@
                       <span class="badge bg-danger" *ngIf="i.Status === '0'" >In-Active</span>
                   </td>
                   <td>
-                      <i class="fa-regular fa-pen-to-square me-3" (click)="handleEdit(i._id)" ></i> 
-                      <i class="fa-solid fa-trash-can" (click)="handleDelete(i._id)"></i>
+                      <i class="fa-regular fa-pen-to-square me-3" (click)="userEdit(i._id)" ></i> 
+                      <i class="fa-solid fa-trash-can" (click)="userDelete(i._id)"></i>
                   </td>
               </tr>
           </tbody>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
+import { environment } from './environments/environment';
 
 
 @Injectable({
@@ -21,21 +22,21 @@ export class ServiceService {
   constructor(public http: HttpClient) { }
   // country API ================================================================================================================================
   getAllData() {
-    return this.http.get('http://localhost:8000/');
+    return this.http.get(environment.apiURL);
   }
 
   add(obj: any) {
-    return this.http.post<any>('http://localhost:8000/create', obj);
+    return this.http.post<any>(environment.apiURL + '/create', obj);
   }
 
   
   delete(id: any) {
-    return this.http.delete<any>(`http://localhost:8000/delete/${id}`
+    return this.http.delete<any>(environment.apiURL + `/delete/${id}`
     )
   }
   
   edit(id: any, data: any) {
-    return this.http.put(`http://localhost:8000/update/${id}`, data);
+    return this.http.put(environment.apiURL +`/update/${id}`, data);
   }
 
   getByIdCountry(id:any){
@@ -46,25 +47,25 @@ export class ServiceService {
 
   // States API ================================================================================================================================
   getAllStateData(name?:any) {
-    return this.http.get('http://localhost:8000/state', name ? {headers:{countryName:name}} :{});
+    return this.http.get(environment.apiURL + '/state', name ? {headers:{countryName:name}} :{});
   }
 
   addState(obj: any) {
-    return this.http.post<any>('http://localhost:8000/state/create', obj);
+    return this.http.post<any>(environment.apiURL +'/state/create', obj);
   }
 
   
   deleteState(id: any) {
-    return this.http.delete<any>(`http://localhost:8000/state/delete/${id}`
+    return this.http.delete<any>(environment.apiURL + `/state/delete/${id}`
     )
   }
   
   editState(id: any, data: any) {
-    return this.http.put(`http://localhost:8000/state/update/${id}`, data);
+    return this.http.put(environment.apiURL + `/state/update/${id}`, data);
   }
 
   getByIdState(id:any){
-    return this.http.get('http://localhost:8000/state/' + id ) 
+    return this.http.get(environment.apiURL + '/state/' + id ) 
     }
 
 
@@ -73,77 +74,61 @@ export class ServiceService {
 
   // City API =======================================================================================================================================
   getAllCityData() {
-    return this.http.get('http://localhost:8000/city')
+    return this.http.get(environment.apiURL + '/city')
     // .pipe(
     //   catchError(this.handleError)
     // );
   }
 
   addCity(obj: any) {
-    return this.http.post<any>('http://localhost:8000/city/create', obj);
+    return this.http.post<any>(environment.apiURL + '/city/create', obj);
   }
 
   
   deleteCity(id: any) {
-    return this.http.delete<any>(`http://localhost:8000/City/delete/${id}`
+    return this.http.delete<any>(environment.apiURL + `/City/delete/${id}`
     )
   }
   
   
   editCity(id: any, data: any) {
-    return this.http.put(`http://localhost:8000/city/update/${id}`, data);
+    return this.http.put(environment.apiURL + `/city/update/${id}`, data);
   }
   
   getByIdCity(id:any){
-  return this.http.get('http://localhost:8000/city/' + id ) 
+  return this.http.get(environment.apiURL + '/city/' + id ) 
   }
 
 
   // User API =======================================================================================
   getAllUserData() {
-    return this.http.get('http://localhost:8000/user');
+    return this.http.get(environment.apiURL + '/user');
   }
 
   addUser(obj: any) {
-    return this.http.post<any>('http://localhost:8000/user/create', obj);
+    return this.http.post<any>(environment.apiURL + '/user/create', obj);
   }
 
   deleteUser(id: any) {
-    return this.http.delete<any>(`http://localhost:8000/user/delete/${id}`
+    return this.http.delete<any>(environment.apiURL + `/user/delete/${id}`
     )
   }
 
   editUser(id: any, data: any) {
-    return this.http.put(`http://localhost:8000/User/update/${id}`, data);
+    return this.http.put(environment.apiURL + `/User/update/${id}`, data);
   }
 
   
   getByIdUser(id:any){
-    return this.http.get('http://localhost:8000/user/' + id ) 
+    return this.http.get(environment.apiURL + '/user/' + id ) 
     }
 
     // Deshboard API ========================================================================================
      getAll() {
-    return this.http.get('http://localhost:8000/dashboard');
+    return this.http.get(environment.apiURL + '/dashboard');
   }
 
 
-  // private handleError(error: HttpErrorResponse) {
-  //   let errorMessage = ''
-  //   if (error.status === 0) {
-  //     // A client-side or network error occurred. Handle it accordingly.
-  //     console.error('An error occurred:', error.error);
-  //   } else {
-  //     // The backend returned an unsuccessful response code.
-  //     // The response body may contain clues as to what went wrong.
-  //     console.error(
-  //       `Backend returned code ${error.status}, body was: `, error.error);
-  //     errorMessage = `Backend returned code ${error.status}, body was: `, error.error;
-  //   }
-  //   // Return an observable with a user-facing error message.
-  //   errorMessage += 'Something bad happened; please try again later.'
-  //   return throwError(() => new Error(errorMessage));
-  // }
 
 
 }
