@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, filter, throwError } from 'rxjs';
 import { environment } from './environments/environment';
 
 
@@ -21,8 +21,8 @@ export class ServiceService {
 
   constructor(public http: HttpClient) { }
   // country API ================================================================================================================================
-  getAllData() {
-    return this.http.get(environment.apiURL);
+  getAllData(filter?:any) {
+    return this.http.get(environment.apiURL,{params:filter});
   }
 
   add(obj: any) {

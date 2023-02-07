@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
@@ -12,6 +12,7 @@ import { ServiceService } from 'src/app/api-services.service';
 })
 export class CountryComponent {
   data: any = null;
+  SearchForm:any;
 
   constructor(
     private router: Router,
@@ -21,7 +22,24 @@ export class CountryComponent {
     private toastr: ToastrService
   ) { }
   ngOnInit() {
-   
+    this.SearchForm = this.fb.group({
+      Name: ['', Validators.required],
+      Status: ['1'],
+    });
+
+    this.serviceAPI.getAllData().subscribe((res: any) => {
+      this.data = res.reverse();
+    });
+  }
+
+  search(){
+    this.serviceAPI.getAllData(this.SearchForm.value).subscribe((res: any) => {
+      this.data = res.reverse();
+    });
+  }
+
+  resetForm(){
+    this.SearchForm.reset({Status:"1"})
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.data = res.reverse();
     });
