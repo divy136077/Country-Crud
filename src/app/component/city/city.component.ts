@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
@@ -13,6 +13,7 @@ import { ServiceService } from 'src/app/api-services.service';
 export class CityCityComponent {
   cityData: any = null;
   // router: any;
+  SearchForm:any;
 
   constructor(
     private router : Router,
@@ -23,7 +24,10 @@ export class CityCityComponent {
   ) {}
 
   ngOnInit() {
-
+       this.SearchForm = this.fb.group({
+        CityName: ['', Validators.required],
+      Status: ['1'],
+    });
     
     this.serviceAPI.getAllCityData().subscribe((res: any) => {
       this.cityData = res.reverse();
@@ -31,6 +35,22 @@ export class CityCityComponent {
 
 
   }
+  search(){
+    this.serviceAPI.getAllCityData(this.SearchForm.value).subscribe((res: any) => {
+      this.cityData = res.reverse();
+      // console.log('rrt' ,this.SearchForm.value);
+      
+    });
+  }
+
+   resetForm(){
+    this.SearchForm.reset()
+    this.serviceAPI.getAllCityData().subscribe((res: any) => {
+      this.cityData = res.reverse();
+    });
+  }
+
+
 
   userEdit(id:any){
     this.router.navigateByUrl('/city/edit/' + id)

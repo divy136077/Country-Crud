@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'app-add-edit',
@@ -57,7 +58,9 @@ export class AddEditComponent {
         .getByIdUser(this.route.snapshot.params['id'])
         .subscribe((res: any) => {
           this.UserForm.patchValue({ ...res, Image: '' });
-          this.imageSrc = '../../../assets/image/' + res.Image;
+          // this.imageSrc = '../../../assets/image/' + res.Image;
+          this.imageSrc = environment.imageUrl + res.Image;
+
           
         });
     }

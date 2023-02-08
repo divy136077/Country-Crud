@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +12,14 @@ import { ServiceService } from 'src/app/api-services.service';
 })
 export class CountryComponent {
   data: any = null;
-  SearchForm:any;
+  SearchForm: any;
+  checked?: boolean;
+  products: any = [];
+  getAllData: any;
+  clss: string | undefined;
+  msg: string | undefined;
+  id:any;
+
 
   constructor(
     private router: Router,
@@ -27,19 +34,62 @@ export class CountryComponent {
       Status: ['1'],
     });
 
+    this.getAll();
+    
+  }
+  // deleteall =====================================================================================================================
+ 
+  getAll(){
+    
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
 
-  search(){
+  checkAllCheckBox(ev: any) {
+    this.data.forEach((x: { checked: any; }) => x.checked = ev.target.checked)
+  }
+
+  isAllCheckBoxChecked() {
+    return this.data.every((p: { checked: any; }) => p.checked);
+  }
+
+  deleteProducts(id:any): void {
+
+   this.id = id;
+    }
+
+ deleteProduct(){
+  
+  if(confirm('Are u sure?')){
+    const selectedProducts = this.data.filter((product: { checked: any; }) => product.checked).map((p: { _id: any; }) => p._id);
+    console.log('sd',selectedProducts);
+    
+    this.serviceAPI.delete(selectedProducts).subscribe((res:any)=>{
+      console.log('deleted!')
+      this.getAll();
+    })
+  }
+
+  }
+  
+  
+
+
+
+
+
+
+
+
+  search() {
     this.serviceAPI.getAllData(this.SearchForm.value).subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
 
-  resetForm(){
-    this.SearchForm.reset({Status:"1"})
+  resetForm() {
+    this.SearchForm.reset()
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.data = res.reverse();
     });

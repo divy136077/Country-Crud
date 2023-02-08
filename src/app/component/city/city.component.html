@@ -11,12 +11,12 @@
               class="p-2 text-dark rounded-3 float-end">+ Add new city</a>
           </div>
         </div>
-        <form>
+        <form  [formGroup]="SearchForm" (ngSubmit)="search()">
   
           <div class="row">
             <div class="col-6">
               <label for="Sname" class="form-label">City Name</label>
-              <input type="text" name="name"  class="form-control" id="myInput"
+              <input type="text" name="name"  formControlName="CityName" class="form-control" id="myInput"
                 placeholder="City names.." title="" />
             </div>
             <div class="col-6">
@@ -24,7 +24,7 @@
               <input type="text" name="city" class="form-control" id="myInput"
                 placeholder="" title="" /> -->
                 <label for="inputPassword5" class="form-label">Choose a Status</label>
-                <select  class="form-control" name="" id="">
+                <select  class="form-control" name="" id="" formControlName="Status"> 
                   <option value="1">Active</option>
                   <option value="0">In-Active</option>
                   
@@ -39,7 +39,7 @@
               </button>
             </div>
             <div class="col-1">
-              <button type="submit" class="btn btn-primary ms-2" style="width: 90px; padding: 10px">
+              <button type="button" (click)="resetForm()" class="btn btn-primary ms-2" style="width: 90px; padding: 10px">
                 Reset
               </button>
             </div>

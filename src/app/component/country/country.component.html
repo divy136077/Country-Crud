@@ -62,12 +62,17 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-<div class="card mt-5 w-100"  *ngIf="data !== null">
+<div class="card mt-5 w-100"  *ngIf="data !== null && data.length >0;">
   <div class="card-body">
+    <div *ngIf="msg" [ngClass]="clss">{{msg}}</div>
+    <button type="button" (click)="deleteProduct()">Delete Selected Product(s)</button>
+	
       <table class="table mt-4">
           
           <thead>
               <tr>
+                <th><input type="checkbox" [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)"></th>
+
                 <th scope="col">Country Name</th>
                 <th scope="col">Country Code</th>
                 <th scope="col">Status</th>
@@ -75,16 +80,19 @@
               </tr>
           </thead>
           <tbody> 
-              <tr *ngFor="let i of data">
-                <td>{{ i.Name }}</td>
-                <td>{{ i.Code }}</td>
+              <tr *ngFor="let p of data; let i=index; let odd = odd"  [ngClass]="odd ? 'odd_col' : 'even_col'">
+
+                <td><input type="checkbox" value="{{p._id}}" [(ngModel)]="data[i].checked" (change)="deleteProducts(p._id)" ></td>
+
+                <td>{{ p.Name }}</td>
+                <td>{{ p.Code }}</td>
                   <td>
-                      <span class="badge bg-success" *ngIf="i.Status === '1'" >Active</span>
-                      <span class="badge bg-danger" *ngIf="i.Status === '0'" >In-Active</span>
+                      <span class="badge bg-success" *ngIf="p.Status === '1'" >Active</span>
+                      <span class="badge bg-danger" *ngIf="p.Status === '0'" >In-Active</span>
                   </td>
                   <td>
-                      <i class="fa-regular fa-pen-to-square me-3"  (click)="userEdit(i._id)" ></i> 
-                      <i class="fa-solid fa-trash-can" (click)="userDelete(i._id)"></i>
+                      <i class="fa-regular fa-pen-to-square me-3"  (click)="userEdit(p._id)" ></i> 
+                      <i class="fa-solid fa-trash-can" (click)="userDelete(p._id)"></i>
                   </td>
               </tr>
           </tbody>

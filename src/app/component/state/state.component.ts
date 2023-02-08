@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
@@ -12,7 +12,7 @@ import { ServiceService } from 'src/app/api-services.service';
 })
 export class StateMainComponent {
   stateData: any = null;
-  
+  SearchForm:any;
   constructor(
     private router : Router,
     private http: HttpClient,
@@ -22,10 +22,30 @@ export class StateMainComponent {
   ) {}
 
   ngOnInit() {
+    this.SearchForm = this.fb.group({
+      StateName: ['', Validators.required],
+      Status: ['1'],
+    });
+
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
       this.stateData = res.reverse();
     });
   }
+  search(){
+    this.serviceAPI.getAllStateData(this.SearchForm.value).subscribe((res: any) => {
+      this.stateData = res.reverse();
+      console.log(this.SearchForm.value);
+      
+    });
+  }
+
+  resetForm(){
+    this.SearchForm.reset()
+    this.serviceAPI.getAllStateData().subscribe((res: any) => {
+      this.stateData = res.reverse();
+    });
+  }
+
 
     userEdit(id:any){
     this.router.navigateByUrl('/state/edit/' + id)

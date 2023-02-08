@@ -35,19 +35,19 @@ export class InterceptorService implements HttpInterceptor {
 
   
   setError(error:HttpErrorResponse): any {
-    let errorMessage = 'Unknown error occured';
-    if(error.error instanceof ErrorEvent){
-      //client
-      errorMessage = error.error.message;
-    }else{
-      //server 
-      if(error.status!==0){
+    // let errorMessage = 'Unknown error occured';
+    // if(error.error instanceof ErrorEvent){
+    //   //client
+    //   errorMessage = error.error.message;
+    // }else{
+    //   //server 
+    //   if(error.status!==0){
 
-        errorMessage= error.error;
-      }
+    //     errorMessage= error.error;
+    //   }
      
-    }
-    return errorMessage;
+    // }
+    // return errorMessage;
     
   }
  
