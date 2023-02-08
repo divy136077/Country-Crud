@@ -61,7 +61,7 @@ export class CityComponent {
   }
 
   getStateData(event: any) {
-    this.serviceAPI.getAllStateData(event.target.value).subscribe((res: any) => {
+    this.serviceAPI.getAllStateData(null,event.target.value).subscribe((res: any) => {
       this.stateData = res;
     });
   }

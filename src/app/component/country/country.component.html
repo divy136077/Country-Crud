@@ -25,6 +25,7 @@
               placeholder="" title="" /> -->
               <label for="inputPassword5" class="form-label">Choose a Status</label>
               <select  class="form-control" name="" id="" formControlName="Status">
+                <option value="" selected>All</option>
                 <option value="1">Active</option>
                 <option value="0">In-Active</option>
                 
@@ -62,10 +63,12 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-<div class="card mt-5 w-100"  *ngIf="data !== null && data.length >0;">
+<div class="card mt-5 w-100">
   <div class="card-body">
     <div *ngIf="msg" [ngClass]="clss">{{msg}}</div>
-    <button type="button" (click)="deleteProduct()">Delete Selected Product(s)</button>
+    <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete Selected Product(s)</button>
+    <button type="button" class="btn btn-primary mx-2" (click)="changeSelectedStatus('1')">Make Selected Active</button>
+    <button type="button" class="btn btn-primary" (click)="changeSelectedStatus('0')">Make Selected InActive</button>
 	
       <table class="table mt-4">
           
@@ -79,7 +82,7 @@
                 <th scope="col">Action</th>
               </tr>
           </thead>
-          <tbody> 
+          <tbody *ngIf="data.length > 0"> 
               <tr *ngFor="let p of data; let i=index; let odd = odd"  [ngClass]="odd ? 'odd_col' : 'even_col'">
 
                 <td><input type="checkbox" value="{{p._id}}" [(ngModel)]="data[i].checked" (change)="deleteProducts(p._id)" ></td>
@@ -95,6 +98,11 @@
                       <i class="fa-solid fa-trash-can" (click)="userDelete(p._id)"></i>
                   </td>
               </tr>
+          </tbody>
+          <tbody *ngIf="data.length == 0">
+            <tr>
+              <td colspan="5" class="text-center">No Record Found</td>
+            </tr>
           </tbody>
       
       </table>

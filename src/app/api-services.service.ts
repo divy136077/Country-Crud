@@ -36,12 +36,19 @@ export class ServiceService {
 
 
   delete( input:any) {
-    return this.http.put<any>(environment.apiURL + `/delete/`,input
-    )
+    return this.http.post<any>(environment.apiURL + `/delete/`, input)
+  }
+
+  deleteById( id:any) {
+    return this.http.delete<any>(`${environment.apiURL}/delete/${id}`)
   }
 
   edit(id: any, data: any) {
     return this.http.put(environment.apiURL + `/update/${id}`, data);
+  }
+
+  updateSelected(status:any, data:any){
+    return this.http.post(environment.apiURL + `/update`, {status,data});
   }
 
   getByIdCountry(id: any) {
@@ -52,8 +59,11 @@ export class ServiceService {
 
   // States API ================================================================================================================================
   getAllStateData(filter?: any, name?: any) {
+    let obj:any = {}
+    !!name && (obj.headers = {countryName:name})
+    !!filter && (obj.params = filter)
     // return this.http.get(environment.apiURL + '/state', name ? {headers:{countryName:name} } :{} );
-    return this.http.get(environment.apiURL + '/state', { params: filter });
+    return this.http.get(environment.apiURL + '/state', obj);
 
 
   }
@@ -85,8 +95,11 @@ export class ServiceService {
 
 
   // City API =======================================================================================================================================
-  getAllCityData(filter?: any) {
-    return this.http.get(environment.apiURL + '/city', { params: filter })
+  getAllCityData(filter?: any, name?:any) {
+    let obj:any = {}
+    !!name && (obj.headers = {countryName:name})
+    !!filter && (obj.params = filter)
+    return this.http.get(environment.apiURL + '/city', obj)
     // .pipe(
     //   catchError(this.handleError)
     // );

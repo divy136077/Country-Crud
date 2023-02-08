@@ -24,7 +24,7 @@ export class StateMainComponent {
   ngOnInit() {
     this.SearchForm = this.fb.group({
       StateName: ['', Validators.required],
-      Status: ['1'],
+      Status: [''],
     });
 
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
@@ -40,7 +40,7 @@ export class StateMainComponent {
   }
 
   resetForm(){
-    this.SearchForm.reset()
+    this.SearchForm.reset({StateName:"", Status:""})
     this.serviceAPI.getAllStateData().subscribe((res: any) => {
       this.stateData = res.reverse();
     });

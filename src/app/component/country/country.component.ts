@@ -8,7 +8,7 @@ import { ServiceService } from 'src/app/api-services.service';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
-  styleUrls: ['./country.component.css']
+  styleUrls: ['./country.component.css'],
 })
 export class CountryComponent {
   data: any = null;
@@ -18,8 +18,7 @@ export class CountryComponent {
   getAllData: any;
   clss: string | undefined;
   msg: string | undefined;
-  id:any;
-
+  id: any;
 
   constructor(
     private router: Router,
@@ -27,85 +26,89 @@ export class CountryComponent {
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) { }
+  ) {}
   ngOnInit() {
     this.SearchForm = this.fb.group({
       Name: ['', Validators.required],
-      Status: ['1'],
+      Status: [''],
     });
 
     this.getAll();
-    
   }
   // deleteall =====================================================================================================================
- 
-  getAll(){
-    
+
+  getAll() {
     this.serviceAPI.getAllData().subscribe((res: any) => {
-      this.data = res.reverse();
+      if (res.length > 0) {
+        this.data = res.reverse();
+      } else {
+        this.data = []
+      }
     });
   }
 
   checkAllCheckBox(ev: any) {
-    this.data.forEach((x: { checked: any; }) => x.checked = ev.target.checked)
+    this.data.forEach((x: { checked: any }) => (x.checked = ev.target.checked));
   }
 
   isAllCheckBoxChecked() {
-    return this.data.every((p: { checked: any; }) => p.checked);
+    return this.data.every((p: { checked: any }) => p.checked);
   }
 
-  deleteProducts(id:any): void {
+  deleteProducts(id: any): void {
+    this.id = id;
+  }
 
-   this.id = id;
+  deleteProduct() {
+    if (confirm('Are u sure?')) {
+      const selectedProducts = this.data
+        .filter((product: { checked: any }) => product.checked)
+        .map((p: { _id: any }) => p._id);
+      console.log('sd', selectedProducts);
+
+      this.serviceAPI.delete(selectedProducts).subscribe((res: any) => {
+        console.log('deleted!');
+        this.getAll();
+      });
     }
+  }
 
- deleteProduct(){
-  
-  if(confirm('Are u sure?')){
-    const selectedProducts = this.data.filter((product: { checked: any; }) => product.checked).map((p: { _id: any; }) => p._id);
-    console.log('sd',selectedProducts);
-    
-    this.serviceAPI.delete(selectedProducts).subscribe((res:any)=>{
-      console.log('deleted!')
+  changeSelectedStatus(status:any){
+    const selectedProducts = this.data
+      .filter((product: { checked: any }) => product.checked)
+      .map((p: { _id: any }) => p._id);
+
+    this.serviceAPI.updateSelected(status,selectedProducts).subscribe((res: any) => {
+      console.log('updated!');
       this.getAll();
-    })
+    });
   }
-
-  }
-  
-  
-
-
-
-
-
-
-
 
   search() {
+    console.log(this.SearchForm.value);
+    
     this.serviceAPI.getAllData(this.SearchForm.value).subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
 
   resetForm() {
-    this.SearchForm.reset()
+    this.SearchForm.reset({Name:"",Status:""});
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
 
   userEdit(id: any) {
-    this.router.navigateByUrl('/country/edit/' + id)
+    this.router.navigateByUrl('/country/edit/' + id);
   }
 
   userDelete(id: any) {
-    if (confirm("Are you sure want to delete?")) {
-      this.serviceAPI.delete(id).subscribe((res: any) => {
-        this.data = this.data.filter((x: any) => x._id !== res._id)
+    if (confirm('Are you sure want to delete?')) {
+      this.serviceAPI.deleteById(id).subscribe((res: any) => {
+        this.data = this.data.filter((x: any) => x._id !== res._id);
         this.toastr.error('Data Deleted Successfully!');
       });
     }
   }
-
 }

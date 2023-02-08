@@ -63,7 +63,7 @@ export class CountryFormComponent {
     if (this.countryForm.invalid) {
       return;
     }
-    this.serviceAPI.edit(id, data).subscribe({
+    this.serviceAPI.edit(id, {...data, id}).subscribe({
       next: (response: any) => {
         this.toastr.success('Data Updated sucessfully !');
         this.router.navigateByUrl('/country');
@@ -102,6 +102,8 @@ export class CountryFormComponent {
         () => {
           this.isSubmitting = false;
         }
+      },()=>{
+        this.isSubmitting = false
       }
       );
     }
