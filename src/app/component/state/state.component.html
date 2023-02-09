@@ -68,34 +68,70 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-<div class="card mt-5 w-100" *ngIf="stateData !== null">
+<div class="card mt-5 w-100" >
   <div class="card-body">
+    <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete Selected Product(s)</button>
+    <button type="button" class="btn btn-primary mx-2" (click)="UpdateStatus()">Update Status</button>
+   
       <table class="table mt-4">
-          
           <thead>
               <tr>
+                <th><input type="checkbox" [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)"></th>
+
                 <th scope="col">Country Name</th>
                 <th scope="col">State Name</th>
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
               </tr>
           </thead>
-          <tbody>
-              <tr *ngFor="let i of stateData">
-                <td>{{ i.CountryName }}</td>
-                <td>{{ i.StateName }}</td>
+          <tbody *ngIf="stateData.length > 0">
+            <tr *ngFor="let p of stateData; let i=index; let odd = odd"  [ngClass]="odd ? 'odd_col' : 'even_col'">
+              <td><input type="checkbox" value="{{p._id}}" [(ngModel)]="stateData[i].checked" (change)="deleteProducts(p._id)" ></td>
+
+              <td>{{ p.CountryName }}</td>
+                <td>{{ p.StateName }}</td>
                   <td>
-                      <span class="badge bg-success" *ngIf="i.Status === '1'" >Active</span>
-                      <span class="badge bg-danger" *ngIf="i.Status === '0'" >In-Active</span>
+                      <span class="badge bg-success" *ngIf="p.Status === '1'" >Active</span>
+                      <span class="badge bg-danger" *ngIf="p.Status === '0'" >In-Active</span>
                   </td>
                   <td>
-                      <i class="fa-regular fa-pen-to-square me-3" (click)="userEdit(i._id)" ></i> 
-                      <i class="fa-solid fa-trash-can" (click)="userDelete(i._id)"></i>
+                      <i class="fa-regular fa-pen-to-square me-3" (click)="userEdit(p._id)" ></i> 
+                      <i class="fa-solid fa-trash-can" (click)="userDelete(p._id)"></i>
                   </td>
               </tr>
           </tbody>
+          <tbody *ngIf="stateData.length == 0">
+            <tr>
+              <td colspan="5" class="text-center">No Record Found</td>
+            </tr>
+          </tbody>
       
       </table>
+  </div>
+</div>
+
+<div class="modal" [ngClass]="updateModal ? 'd-block' : 'd-none'" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change status of selected country</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeUpdateModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="UpdateStatusForm" id="UpdateStatusForm" (ngSubmit)="UpdateAllStatus()">
+          <label for="inputPassword5" class="form-label">Choose a Status</label>
+          <select class="form-control" name="" id="" formControlName="Status">
+            <option value="1">Active</option>
+            <option value="0">In-Active</option>
+
+          </select>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeUpdateModal()">Close</button>
+        <button type="submit" form="UpdateStatusForm" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
 </div>
 

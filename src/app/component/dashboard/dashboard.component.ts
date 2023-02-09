@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChartType, ChartOptions } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
-import { Label, SingleDataSet, monkeyPatchChartJsTooltip, monkeyPatchChartJsLegend } from 'ng2-charts';
+import { Label, SingleDataSet} from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,15 +14,14 @@ import { Label, SingleDataSet, monkeyPatchChartJsTooltip, monkeyPatchChartJsLege
 })
 export class DashboardComponent {
   allData: any = '';
-
-  pieChartColor:any = [
+/**
+ * dashboard pia chart add 
+ */
+  pieChartColor: any = [
     {
-        backgroundColor: ['rgba(30, 169, 224, 0.8)',
-        'rgba(255,165,0,0.9)',
-        
-        ]
+      backgroundColor: ['rgba(30, 169, 224, 0.8)','rgba(255,165,0,0.9)']
     }
-]
+  ]
 
   public pieChartLabels: Label[] = ['Active Users', 'InActive'];
   public pieChartData: SingleDataSet = [];
@@ -41,13 +40,14 @@ export class DashboardComponent {
     private toastr: ToastrService,
     private route: ActivatedRoute
   ) {
-    // monkeyPatchChartJsTooltip();
-    // monkeyPatchChartJsLegend();
+
   }
 
 
   ngOnInit() {
-
+/**
+ * find  user all data 
+ */
     this.serviceAPI.getAll().subscribe((res: any) => {
       this.allData = res;
       this.pieChartData.push(res.activeUser);

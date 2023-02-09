@@ -1,4 +1,4 @@
-<div class="container d-flex align-items-center flex-column">
+<!-- <div class="container d-flex align-items-center flex-column">
   <div class="form card mt-5" style="width: fit-content">
     <div class="card-body">
       <form [formGroup]="countryForm" (ngSubmit)="addData()" class="row g-3 justify-content-start">
@@ -49,5 +49,70 @@
         </div>
       </form>
     </div>
+  </div>
+</div> -->
+
+
+
+<div class="container">
+  <h3>Add Country</h3>
+  <div class="formdiv">
+    <form [formGroup]="countryForm" (ngSubmit)="addData()" class="row g-3 justify-content-start">
+      <!-- <h4>Setup New Country</h4> -->
+      <br />
+      <div class="row g-6 align-items-center">
+        <div class="col-6">
+          <label for="staticEmail2" class="visually-hidden">Country Name</label>
+          <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Name"
+            formControlName="Name" [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
+          <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
+            <div *ngIf="field['Name'].errors['required']">Country name is required </div>
+            <div *ngIf="field['Name'].errors['pattern']">Country name only alphabets number allows</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <label for="inputPassword2" class="visually-hidden">Country Code
+          </label>
+          <input type="text" class="form-control" pattern="[A-Za-z\s]+" placeholder="Country Code" maxlength="3"
+            formControlName="Code" [ngClass]="{ 'is-invalid': submitted && field['Code'].errors }" />
+          <div *ngIf="submitted && field['Code'].errors" class="invalid-feedback">
+            <div *ngIf="field['Code'].errors['required']">Country code is required</div>
+            <div *ngIf="field['Code'].errors['pattern']">Country name only alphabets number allows</div>
+          </div>
+        </div>
+      </div>
+      <br />
+      
+      <div class="row g-3 align-items-center">
+        <div class="col-6">
+           <input name="active" type="radio" value="1" formControlName="active">
+          <label for="" style="padding-right:20px;">Active</label>
+
+          <input name="active" type="radio" value="0" formControlName="active">
+          <label for="">InActive</label>
+        </div>
+      </div>
+      <br />
+      <div class="col-4">
+
+        <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
+          Add
+        </button>
+        <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && isEdit">
+          Edit
+        </button>
+
+        <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
+          Adding...
+          <div class="spinner-border text-light spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
+        <button type="button" class="btn btn-danger mb-3 ms-2" routerLink="/country">
+          Cancel
+      </button>
+      </div>
+      <br />
+    </form>
   </div>
 </div>

@@ -77,13 +77,19 @@ export class ServiceService {
   }
 
 
-  deleteState(id: any) {
-    return this.http.delete<any>(environment.apiURL + `/state/delete/${id}`
+  deleteState(input: any) {
+    return this.http.post<any>(environment.apiURL + `/state/delete/`, input
     )
+  }
+   deleteByIdState( id:any) {
+    return this.http.delete<any>(`${environment.apiURL}/state/delete/${id}`)
   }
 
   editState(id: any, data: any) {
     return this.http.put(environment.apiURL + `/state/update/${id}`, data);
+  }
+   updateSelectedState(status:any, data:any){
+    return this.http.post(environment.apiURL + `/state/update`, {status,data});
   }
 
   getByIdState(id: any) {
@@ -100,9 +106,6 @@ export class ServiceService {
     !!name && (obj.headers = {countryName:name})
     !!filter && (obj.params = filter)
     return this.http.get(environment.apiURL + '/city', obj)
-    // .pipe(
-    //   catchError(this.handleError)
-    // );
   }
 
   addCity(obj: any) {
@@ -110,14 +113,22 @@ export class ServiceService {
   }
 
 
-  deleteCity(id: any) {
-    return this.http.delete<any>(environment.apiURL + `/City/delete/${id}`
+  deleteCity(input: any) {
+    return this.http.post<any>(environment.apiURL + `/City/delete/`,input
     )
+  }
+
+  deleteByIdCity( id:any) {
+    return this.http.delete<any>(`${environment.apiURL}/City/delete/${id}`)
   }
 
 
   editCity(id: any, data: any) {
     return this.http.put(environment.apiURL + `/city/update/${id}`, data);
+  }
+
+  updateSelectedCity(status:any, data:any){
+    return this.http.post(environment.apiURL + `/city/update`, {status,data});
   }
 
   getByIdCity(id: any) {
@@ -134,13 +145,19 @@ export class ServiceService {
     return this.http.post<any>(environment.apiURL + '/user/create', obj);
   }
 
-  deleteUser(id: any) {
-    return this.http.delete<any>(environment.apiURL + `/user/delete/${id}`
+  deleteUser(input: any) {
+    return this.http.post<any>(environment.apiURL + `/user/delete/`,input
     )
+  }
+  deleteByIdUser( id:any) {
+    return this.http.delete<any>(`${environment.apiURL}/user/delete/${id}`)
   }
 
   editUser(id: any, data: any) {
     return this.http.put(environment.apiURL + `/User/update/${id}`, data);
+  }
+  updateSelectedUser(status:any, data:any){
+    return this.http.post(environment.apiURL + `/User/update`, {status,data});
   }
 
 

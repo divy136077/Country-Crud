@@ -24,8 +24,6 @@ export class CountryFormComponent {
   isEdit: boolean = false;
 
 
-
-
   constructor(
     private http: HttpClient,
     private serviceAPI: ServiceService,
@@ -53,26 +51,37 @@ export class CountryFormComponent {
 
 
   }
+  /**
+   * form validation 
+   */
   get field() { return this.countryForm.controls; }
 
 
-
+  /**
+   * data edit method 
+   * @param id any
+   * @param data any
+   */
 
   edit(id: any, data: any) {
     this.submitted = true;
     if (this.countryForm.invalid) {
       return;
     }
-    this.serviceAPI.edit(id, {...data, id}).subscribe({
+    this.serviceAPI.edit(id, { ...data, id }).subscribe({
       next: (response: any) => {
         this.toastr.success('Data Updated sucessfully !');
         this.router.navigateByUrl('/country');
       },
       error: (error) => {
-        this.toastr.error('Error in API');
+        // this.toastr.error('Error in API');
       },
     });
   }
+
+  /**
+   * add country data
+   */
 
   addData() {
     if (!!this.route.snapshot.params['id']) {
@@ -102,7 +111,7 @@ export class CountryFormComponent {
         () => {
           this.isSubmitting = false;
         }
-      },()=>{
+      }, () => {
         this.isSubmitting = false
       }
       );

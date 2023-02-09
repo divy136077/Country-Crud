@@ -46,16 +46,22 @@ export class StateComponent {
           this.stateForm.patchValue({ ...res, active: res.Status });
         });
     }
-    
+
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.countryData = res;
     });
   }
-
+  /**
+   * form validation 
+   */
   get field() {
     return this.stateForm.controls;
   }
-
+  /**
+   * data edit method 
+   * @param id any
+   * @param data any
+   */
 
   edit(id: any, data: any) {
     this.submitted = true;
@@ -68,11 +74,13 @@ export class StateComponent {
         this.router.navigateByUrl('/state');
       },
       error: (error) => {
-        this.toastr.error('Error in API');
+        // this.toastr.error('Error in API');
       },
     });
   }
-
+  /**
+   * add data 
+   */
   addData() {
     if (!!this.route.snapshot.params['id']) {
       this.edit(this.route.snapshot.params['id'], {
@@ -91,14 +99,18 @@ export class StateComponent {
         StateName: this.stateForm.value.StateName,
         Status: this.stateForm.value.active,
       };
-      this.serviceAPI.addState(data).subscribe((res) => { {
-      next :  this.toastr.success('Data Added Successfully!');
-        this.isSubmitting = false;
-        this.router.navigateByUrl('/state');
-      }
-       error: () => {
+      this.serviceAPI.addState(data).subscribe((res) => {
+        {
+          next: this.toastr.success('Data Added Successfully!');
           this.isSubmitting = false;
-        }}
+          this.router.navigateByUrl('/state');
+        }
+        error: () => {
+          this.isSubmitting = false;
+        }
+      }, () => {
+        this.isSubmitting = false
+      }
       );
       // }
     }

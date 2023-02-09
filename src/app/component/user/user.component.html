@@ -25,6 +25,7 @@
               placeholder="" title="" /> -->
               <label for="inputPassword5" class="form-label">Choose a Status</label>
               <select  class="form-control" name="" id="" formControlName="Status">
+                <option value="" selected>All</option>
                 <option value="1">Active</option>
                 <option value="0">In-Active</option> 
               </select>
@@ -57,11 +58,17 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-    <div class="card mt-5 w-100" *ngIf="data !== null">
+    <div class="card mt-5 w-100">
       <div class="card-body">
+        <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete Selected Product(s)</button>
+        <button type="button" class="btn btn-primary mx-2" (click)="UpdateStatus()">Update Status</button>
+
+	
         <table class="table mt-4">
           <thead>
             <tr>
+              <th><input type="checkbox" [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)"></th>
+
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Phone Number</th>
@@ -71,24 +78,56 @@
               <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr *ngFor="let i of data">
-              <td>{{ i.Name }}</td>
-              <td>{{ i.Email }}</td>
-              <td>{{ i.Number }}</td>
-              <td><img src="http://localhost:8000/images/{{ i.Image }}" alt="" style="width: 50px; height: 50px;" ></td>
-              <td>{{ i.Dob }}</td>
+          <tbody *ngIf="data.length">
+            <tr *ngFor="let p of data; let i=index; let odd = odd"  [ngClass]="odd ? 'odd_col' : 'even_col'">
+              <td><input type="checkbox" value="{{p._id}}" [(ngModel)]="data[i].checked" (change)="deleteProducts(p._id)" ></td>
+
+              <td>{{ p.Name }}</td>
+              <td>{{ p.Email }}</td>
+              <td>{{ p.Number }}</td>
+              <td><img src="http://localhost:8000/images/{{ p.Image }}" alt="" style="width: 50px; height: 50px;" ></td>
+              <td>{{ p.Dob }}</td>
               <td>
-                <span class="badge bg-success" *ngIf="i.Status === '1'">Active</span>
-                <span class="badge bg-danger" *ngIf="i.Status === '0'">In-Active</span>
+                <span class="badge bg-success" *ngIf="p.Status === '1'">Active</span>
+                <span class="badge bg-danger" *ngIf="p.Status === '0'">In-Active</span>
               </td>
               <td>
-                <i class="fa-regular fa-pen-to-square me-3" routerLink="/user/edit/{{i._id}}"></i>
-                <i class="fa-solid fa-trash-can" (click)="userDelete(i._id)"></i>
+                <i class="fa-regular fa-pen-to-square me-3" routerLink='/user/edit/{{p._id}}'></i>
+                <i class="fa-solid fa-trash-can" (click)="userDelete(p._id)"></i>
               </td>
             </tr>
           </tbody>
+          <tbody *ngIf="!data.length">
+            <tr>
+              <td colspan="5" class="text-center">No Record Found</td>
+            </tr>
+          </tbody>
         </table>
+      </div>
+    </div>
+
+    <div class="modal" [ngClass]="updateModal ? 'd-block' : 'd-none'" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Change status of selected country</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeUpdateModal()"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="UpdateStatusForm" id="UpdateStatusForm" (ngSubmit)="UpdateAllStatus()">
+              <label for="inputPassword5" class="form-label">Choose a Status</label>
+              <select class="form-control" name="" id="" formControlName="Status">
+                <option value="1">Active</option>
+                <option value="0">In-Active</option>
+  
+              </select>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeUpdateModal()">Close</button>
+            <button type="submit" form="UpdateStatusForm" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

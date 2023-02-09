@@ -20,7 +20,7 @@ export class CountryComponent {
   clss: string | undefined;
   msg: string | undefined;
   id: any;
-  updateModal:boolean = false;
+  updateModal: boolean = false;
 
   constructor(
     private router: Router,
@@ -28,7 +28,7 @@ export class CountryComponent {
     private serviceAPI: ServiceService,
     private fb: FormBuilder,
     private toastr: ToastrService
-  ) {}
+  ) { }
   ngOnInit() {
     this.SearchForm = this.fb.group({
       Name: ['', Validators.required],
@@ -40,7 +40,9 @@ export class CountryComponent {
 
     this.getAll();
   }
-  // deleteall =====================================================================================================================
+  /**
+   * getAll() --> all data 
+   */
 
   getAll() {
     this.serviceAPI.getAllData().subscribe((res: any) => {
@@ -52,15 +54,19 @@ export class CountryComponent {
     });
   }
 
-  UpdateStatus(){
+  /**
+   * multipal select and update status using model
+   */
+  UpdateStatus() {
     this.updateModal = true
   }
-  
-  closeUpdateModal(){
+
+  closeUpdateModal() {
     this.updateModal = false
+    this.getAll();
   }
 
-  UpdateAllStatus(){
+  UpdateAllStatus() {
     const selectedProducts = this.data
       .filter((product: { checked: any }) => product.checked)
       .map((p: { _id: any }) => p._id);
@@ -72,6 +78,10 @@ export class CountryComponent {
     });
   }
 
+  /**
+   * multipal select check box
+   * @param ev any
+   */
   checkAllCheckBox(ev: any) {
     this.data.forEach((x: { checked: any }) => (x.checked = ev.target.checked));
   }
@@ -84,6 +94,9 @@ export class CountryComponent {
     this.id = id;
   }
 
+  /**
+   * selected data delete 
+   */
   deleteProduct() {
     if (confirm('Are u sure?')) {
       const selectedProducts = this.data
@@ -98,36 +111,44 @@ export class CountryComponent {
     }
   }
 
-  changeSelectedStatus(status:any){
-    const selectedProducts = this.data
-      .filter((product: { checked: any }) => product.checked)
-      .map((p: { _id: any }) => p._id);
+  // changeSelectedStatus(status:any){
+  //   const selectedProducts = this.data
+  //     .filter((product: { checked: any }) => product.checked)
+  //     .map((p: { _id: any }) => p._id);
 
-    this.serviceAPI.updateSelected(status,selectedProducts).subscribe((res: any) => {
-      console.log('updated!');
-      this.getAll();
-    });
-  }
+  //   this.serviceAPI.updateSelected(status,selectedProducts).subscribe((res: any) => {
+  //     console.log('updated!');
+  //     this.getAll();
+  //   });
+  // }
 
+  /**
+   * search function and reset form
+   */
   search() {
     console.log(this.SearchForm.value);
-    
+
     this.serviceAPI.getAllData(this.SearchForm.value).subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
 
   resetForm() {
-    this.SearchForm.reset({Name:"",Status:""});
+    this.SearchForm.reset({ Name: "", Status: "" });
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
 
+
   userEdit(id: any) {
     this.router.navigateByUrl('/country/edit/' + id);
   }
 
+  /**
+   * delete only one data 
+   * @param id any
+   */
   userDelete(id: any) {
     if (confirm('Are you sure want to delete?')) {
       this.serviceAPI.deleteById(id).subscribe((res: any) => {

@@ -53,23 +53,36 @@ export class CityComponent {
           this.getStateData({ target: { value: this.cityForm.value.CountryName } })
         });
     }
-
+     /**
+      * dropdown menu for country value 
+      */
     this.serviceAPI.getAllData().subscribe((res: any) => {
       this.countryData = res;
     });
 
   }
-
+/**
+ * dropdown menu for state value
+ * @param event any
+ */
   getStateData(event: any) {
     this.serviceAPI.getAllStateData(null,event.target.value).subscribe((res: any) => {
       this.stateData = res;
     });
   }
 
+   /**
+   * form validation 
+   */
   get field() {
     return this.cityForm.controls;
   }
 
+  /**
+   * edit data  method
+   * @param id any
+   * @param data any
+   */
 
   edit(id: any, data: any) {
     this.submitted = true;
@@ -82,10 +95,14 @@ export class CityComponent {
         this.router.navigateByUrl('/city');
       },
       error: (error) => {
-        this.toastr.error('Error in API');
+        // this.toastr.error('Error in API');
       },
     });
   }
+
+  /**
+   * add data  
+   */
 
   addData() {
 
@@ -116,6 +133,8 @@ export class CityComponent {
         error: () => { 
           this.isSubmitting = false;
         }
+      },()=>{
+        this.isSubmitting = false
       }
       );
     }

@@ -30,8 +30,8 @@ export class AddEditComponent {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private router: Router
-  ) { 
-   
+  ) {
+
   }
 
   ngOnInit() {
@@ -61,7 +61,7 @@ export class AddEditComponent {
           // this.imageSrc = '../../../assets/image/' + res.Image;
           this.imageSrc = environment.imageUrl + res.Image;
 
-          
+
         });
     }
 
@@ -69,8 +69,11 @@ export class AddEditComponent {
       this.userData = res;
     });
   }
+  /**
+   * preview image
+   * @param event any
+   */
 
-  // preview image ==========================================================
   readURL(event: any): void {
     if (event.target.files && event.target.files[0] && event.target.files[0].size < 5000000) {
 
@@ -85,22 +88,37 @@ export class AddEditComponent {
       alert("File is too big!");
     }
   }
+  /**
+   * delete preview image 
+   */
+
   delete() {
     this.imageSrc = null;
+
     this.UserForm.patchValue({ Image: '' });
     // this.UserForm.value.Image.reset()
   }
 
-  // future date =============================================================
+  /**
+   * validation for calender , not a show future data in calender
+   * @returns string
+   */
   getToday(): string {
     return new Date().toISOString().split('T')[0];
   }
-// input box validation =================================================
+  /**
+   * form validation 
+   */
   get field() {
     return this.UserForm.controls;
   }
 
-
+  /**
+   * data edit method
+   * @param id any
+   * @param data any
+   * @returns 
+   */
 
   edit(id: any, data: any) {
     this.submitted = true;
@@ -113,15 +131,23 @@ export class AddEditComponent {
         this.router.navigateByUrl('/user');
       },
       error: (error) => {
-        this.toastr.error('Error in API');
+        // this.toastr.error('Error in API');
       },
     });
   }
-
+  /**
+   * select image file 
+   * @param e files
+   */
   onChange(e: any) {
     const file = e.target.files[0];
     this.UserForm.patchValue({ file: file });
   }
+
+  /**
+   * add user data
+   * @returns 
+   */
 
   addData() {
     if (!!this.route.snapshot.params['id']) {
@@ -165,14 +191,18 @@ export class AddEditComponent {
       //   IsActive: this.UserForm.value.IsActive,
       // };
       this.serviceAPI.addUser(formdata).subscribe(
-        (res) => {{
-         next : this.toastr.success('Data Added Successfully!');
-          this.isSubmitting = false;
-          this.router.navigateByUrl('/user');
+        (res) => {
+          {
+            next: this.toastr.success('Data Added Successfully!');
+            this.isSubmitting = false;
+            this.router.navigateByUrl('/user');
+          }
+          error: () => {
+            this.isSubmitting = false;
+          }
+        }, () => {
+          this.isSubmitting = false
         }
-        error:() => {
-          this.isSubmitting = false;
-        }}
       );
     }
   }
