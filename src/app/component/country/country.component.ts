@@ -13,12 +13,14 @@ import { ServiceService } from 'src/app/api-services.service';
 export class CountryComponent {
   data: any = null;
   SearchForm: any;
+  UpdateStatusForm: any;
   checked?: boolean;
   products: any = [];
   getAllData: any;
   clss: string | undefined;
   msg: string | undefined;
   id: any;
+  updateModal:boolean = false;
 
   constructor(
     private router: Router,
@@ -32,6 +34,9 @@ export class CountryComponent {
       Name: ['', Validators.required],
       Status: [''],
     });
+    this.UpdateStatusForm = this.fb.group({
+      Status: ['1'],
+    });
 
     this.getAll();
   }
@@ -44,6 +49,26 @@ export class CountryComponent {
       } else {
         this.data = []
       }
+    });
+  }
+
+  UpdateStatus(){
+    this.updateModal = true
+  }
+  
+  closeUpdateModal(){
+    this.updateModal = false
+  }
+
+  UpdateAllStatus(){
+    const selectedProducts = this.data
+      .filter((product: { checked: any }) => product.checked)
+      .map((p: { _id: any }) => p._id);
+
+    this.serviceAPI.updateSelected(this.UpdateStatusForm.value.Status, selectedProducts).subscribe((res: any) => {
+      console.log('updated!');
+      this.getAll();
+      this.closeUpdateModal()
     });
   }
 
