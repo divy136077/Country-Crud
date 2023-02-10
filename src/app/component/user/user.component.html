@@ -58,10 +58,12 @@
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-    <div class="card mt-5 w-100">
+    <div class="card mt-5 w-100" #usertable>
       <div class="card-body">
         <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete Selected Product(s)</button>
         <button type="button" class="btn btn-primary mx-2" (click)="UpdateStatus()">Update Status</button>
+        <button type="button"  class="btn btn-primary mx-2" (click)="exportToExcle()">Export to Excel</button>
+
 
 	
         <table class="table mt-4">
@@ -85,7 +87,7 @@
               <td>{{ p.Name }}</td>
               <td>{{ p.Email }}</td>
               <td>{{ p.Number }}</td>
-              <td><img src="http://localhost:8000/images/{{ p.Image }}" alt="" style="width: 50px; height: 50px;" ></td>
+              <td><img src="http://localhost:8000/images/{{ p.Image }}" *ngIf="p.Image" alt="{{ p.Image }}" style="width: 50px; height: 50px;"><span *ngIf="!p.Image">No Image</span></td>
               <td>{{ p.Dob }}</td>
               <td>
                 <span class="badge bg-success" *ngIf="p.Status === '1'">Active</span>
@@ -131,3 +133,24 @@
       </div>
     </div>
   </div>
+
+
+   
+<!-- <div style=" margin: auto; width: 50%;">
+  <button (click)="exportexcel()">Export to Excel</button>
+ 
+  <table id="excel-table">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+    </tr>
+    <tr *ngFor="let item of userList">
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.username}}</td>
+      <td>{{item.email}}</td>
+    </tr>
+  </table>
+</div> -->

@@ -116,8 +116,7 @@ export class AddEditComponent {
   /**
    * data edit method
    * @param id any
-   * @param data any
-   * @returns 
+   * @param data any 
    */
 
   edit(id: any, data: any) {
@@ -146,7 +145,6 @@ export class AddEditComponent {
 
   /**
    * add user data
-   * @returns 
    */
 
   addData() {

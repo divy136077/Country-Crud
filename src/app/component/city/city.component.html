@@ -71,11 +71,12 @@
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-<div class="card mt-5 w-100" >
+<div class="card mt-5 w-100" #citytable>
     <div class="card-body">
       <!-- <div *ngIf="msg" [ngClass]="clss">{{msg}}</div> -->
       <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete Selected Product(s)</button>
       <button type="button" class="btn btn-primary mx-2" (click)="UpdateStatus()">Update Status</button>
+      <button type="button"  class="btn btn-primary mx-2" (click)="exportToExcle()">Export to Excel</button>
 
         <table class="table mt-4">
             <thead>

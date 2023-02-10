@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
+import * as xlsx from 'xlsx';
 
 @Component({
   selector: 'app-state',
@@ -11,6 +12,7 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./state.component.css']
 })
 export class StateMainComponent {
+  @ViewChild('statetable',{static:false}) statetable!:ElementRef;
   stateData: any = null;
   SearchForm: any;
   id: any;
@@ -35,6 +37,7 @@ export class StateMainComponent {
 
 
     this.getAll();
+    this.exportToExcle();
   }
   /**
    * find all data for state component 
@@ -48,6 +51,20 @@ export class StateMainComponent {
       }
     });
   }
+  /**
+   * file export
+   */
+  exportToExcle(){
+    const ws: xlsx.WorkSheet =   
+    xlsx.utils.table_to_sheet(this.statetable.nativeElement);
+    const wb: xlsx.WorkBook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+    xlsx.writeFile(wb, 'statetable.xlsx');
+   }
+
+
+
+
   /**
     * multipal select and update status using model
     */

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component , ElementRef ,ViewChild} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
+import * as xlsx from 'xlsx';
 
 @Component({
   selector: 'app-city',
@@ -11,12 +12,14 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./city.component.css']
 })
 export class CityCityComponent {
+  @ViewChild('citytable',{static:false}) citytable!:ElementRef;
   cityData: any = null;
   // router: any;
   SearchForm:any;
   id: any;
   UpdateStatusForm: any;
   updateModal:boolean = false;
+ 
   constructor(
     private router : Router,
     private http: HttpClient,
@@ -38,6 +41,7 @@ export class CityCityComponent {
     //   this.cityData = res.reverse();
     // });
     this.getAllCity();
+    this.exportToExcle();
 
   }
 
@@ -53,6 +57,20 @@ export class CityCityComponent {
       }
     });
   }
+  /**
+ * file export 
+ */
+  exportToExcle(){
+    const ws: xlsx.WorkSheet =   
+    xlsx.utils.table_to_sheet(this.citytable.nativeElement);
+    const wb: xlsx.WorkBook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+    xlsx.writeFile(wb, 'citytable.xlsx');
+   }
+
+
+
+
   /**
    * multipal select and update status using model
    */

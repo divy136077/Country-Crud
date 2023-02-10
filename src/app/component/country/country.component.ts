@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ServiceService } from 'src/app/api-services.service';
+import * as xlsx from 'xlsx';
 
 @Component({
   selector: 'app-country',
@@ -11,6 +12,7 @@ import { ServiceService } from 'src/app/api-services.service';
   styleUrls: ['./country.component.css'],
 })
 export class CountryComponent {
+  @ViewChild('countrytable',{static:false}) countrytable!:ElementRef;
   data: any = null;
   SearchForm: any;
   UpdateStatusForm: any;
@@ -39,6 +41,7 @@ export class CountryComponent {
     });
 
     this.getAll();
+    this.exportToExcle();
   }
   /**
    * getAll() --> all data 
@@ -53,6 +56,17 @@ export class CountryComponent {
       }
     });
   }
+  /**
+   * file export 
+   */
+  exportToExcle(){
+    const ws: xlsx.WorkSheet =   
+    xlsx.utils.table_to_sheet(this.countrytable.nativeElement);
+    const wb: xlsx.WorkBook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+    xlsx.writeFile(wb, 'countrytable.xlsx');
+   }
+
 
   /**
    * multipal select and update status using model
