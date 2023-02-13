@@ -135,9 +135,16 @@
             <input name="Status" type="radio"  value="1" formControlName="Status">
             <label for="" style="padding-right:20px;">Active</label>
 
-            <input name="Status" type="radio" value="0" formControlName="Status">
+            <input  name="Status" type="radio" value="0" formControlName="Status">
             <label for="">InActive</label>
+
+            <input class="mx-2" type="checkbox" formControlName="IsAdmin">
+            <label for="vehicle1"> IsAdmin</label>
         </div>
+        <div class="col-6">
+            <label for="phone" class="form-label mx-3">Password</label>
+            <input class="form-control" type="password" id="" placeholder="Password" formControlName="Password" />
+          </div>
         </div>
         <div class="row g-3 align-items-center">
             <div class="col-6"> 

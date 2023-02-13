@@ -21,6 +21,7 @@ import { AddEditComponent } from './component/user/add-edit/add-edit.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ChartsModule } from 'ng2-charts';
+import { LoginComponent } from './component/login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ChartsModule } from 'ng2-charts';
     UserComponent,
     AddEditComponent,
     DashboardComponent,
+    LoginComponent,
 
 
 

@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { filter } from 'rxjs';
 import { ServiceService } from 'src/app/api-services.service';
 import * as xlsx from 'xlsx';
 
@@ -17,6 +18,7 @@ export class UserComponent {
   SearchForm: any;
   id: any;
   updateModal: boolean = false;
+  menuModal: boolean = false;
   UpdateStatusForm: any;
   // usertable: any;
   arr: any = [];
@@ -47,7 +49,9 @@ export class UserComponent {
    * get all data for user component
    */
   getAll() {
-    this.serviceAPI.getAllUserData().subscribe((res: any) => {
+    const auth: any = localStorage.getItem("authToken")?.toString()
+
+    this.serviceAPI.getAllUserData(auth).subscribe((res: any) => {
       if (res.length > 0) {
         this.data = res.reverse();
       } else {
@@ -76,71 +80,72 @@ export class UserComponent {
    * file export 
    * 
    */
-  exportToExcle() {
-    this.arr = this.data;
-    // arr = this.data.filter(function( obj: any ) {
-    //   return !obj.__v || !obj._id;
-    // });
-    // console.log(arr);
-    let final = [];
-    for (let i = this.arr.length - 1; i >= 0; --i) {
-      delete this.arr[i].__v;
-      delete this.arr[i]._id;
-      this.toDataURL(`http://localhost:8000/images/${this.arr[i].Image}`, (dataUrl: any) => {
-        // console.log('RESULT:', dataUrl)
-        this.arr[i].Image = dataUrl;
-      })
-      
-      final.push(this.arr[i]);
-    }
-    const ws: xlsx.WorkSheet =
-      xlsx.utils.json_to_sheet(final);
-      const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, 'usertable.xlsx');
-    // let header = Object.keys(this.data[0]);
-    // header.splice(0, 1);
-    // header.splice(header.length - 1, 1);
-    // const wb = xlsx.utils.book_new();
-    // const ws: xlsx.WorkSheet = xlsx.utils.json_to_sheet([]);
-    // var arr: any[] = [];
-    // arr.push(header);
-    // this.data.forEach((ele: any, index: any) => {
-    //   let array: any[] = [];
-    //   Object.values(header).map((element: any) => {
-    //     array[element] = ele[element];
-    //     // console.log(ele, index, element);
-    //   })
-    //   arr.push(array);
-    //   // 
-    // })
-    // console.log([...arr]);
-    
-    // xlsx.utils.sheet_add_aoa(ws, arr);
-
-    // xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    // 
-    // console.log(Object.keys(this.data[0]));
-
-    // 
-    // 
-
-
-
-  }
-
-
-
-
   // exportToExcle() {
+  //   this.arr = this.data;
+  //   // arr = this.data.filter(function( obj: any ) {
+  //   //   return !obj.__v || !obj._id;
+  //   // });
+  //   // console.log(arr);
+  //   let final = [];
+  //   for (let i = this.arr.length - 1; i >= 0; --i) {
+  //     delete this.arr[i].__v;
+  //     delete this.arr[i]._id;
+  //     this.toDataURL(`http://localhost:8000/images/${this.arr[i].Image}`, (dataUrl: any) => {
+  //       // console.log('RESULT:', dataUrl)
+  //       this.arr[i].Image = dataUrl;
+  //     })
+      
+  //     final.push(this.arr[i]);
+  //   }
   //   const ws: xlsx.WorkSheet =
-  //     xlsx.utils.table_to_sheet(this.usertable.nativeElement);
+  //     xlsx.utils.json_to_sheet(final);
   //     const wb: xlsx.WorkBook = xlsx.utils.book_new();
   //   xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-
   //   xlsx.writeFile(wb, 'usertable.xlsx');
+  //   this.getAll();
+  //   // let header = Object.keys(this.data[0]);
+  //   // header.splice(0, 1);
+  //   // header.splice(header.length - 1, 1);
+  //   // const wb = xlsx.utils.book_new();
+  //   // const ws: xlsx.WorkSheet = xlsx.utils.json_to_sheet([]);
+  //   // var arr: any[] = [];
+  //   // arr.push(header);
+  //   // this.data.forEach((ele: any, index: any) => {
+  //   //   let array: any[] = [];
+  //   //   Object.values(header).map((element: any) => {
+  //   //     array[element] = ele[element];
+  //   //     // console.log(ele, index, element);
+  //   //   })
+  //   //   arr.push(array);
+  //   //   // 
+  //   // })
+  //   // console.log([...arr]);
+    
+  //   // xlsx.utils.sheet_add_aoa(ws, arr);
+
+  //   // xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+  //   // 
+  //   // console.log(Object.keys(this.data[0]));
+
+  //   // 
+  //   // 
+
+
 
   // }
+
+
+
+
+  exportToExcle() {
+    // const ws: xlsx.WorkSheet =
+    //   xlsx.utils.table_to_sheet(this.usertable.nativeElement);
+    //   const wb: xlsx.WorkBook = xlsx.utils.book_new();
+    // xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    // xlsx.writeFile(wb, 'usertable.xlsx');
+
+  }
 
 
 
@@ -172,6 +177,19 @@ export class UserComponent {
       this.closeUpdateModal()
     });
   }
+  /**
+   * menu mapping pop up 
+   */
+  UpdateMenuMapping() {
+    this.menuModal = true
+  }
+
+  closeMenuMapping() {
+    this.menuModal = false
+    this.getAll();
+  }
+
+
 
   /**
    * multipal select check box 

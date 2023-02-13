@@ -45,10 +45,12 @@ export class AddEditComponent {
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ],
       ],
+      Password: ['', Validators.required],
       Number: ['', Validators.required],
       Image: [''],
       Dob: ['', Validators.required],
       Status: ['1'],
+      IsAdmin:[''],
       file: [''],
     });
 

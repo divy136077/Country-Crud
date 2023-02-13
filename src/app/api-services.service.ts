@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   providedIn: 'root',
 })
 export class ServiceService {
+  // login: any;
   getToken(req: HttpRequest<any>, getToken: any): "request" {
     throw new Error('Method not implemented.');
   }
@@ -21,6 +22,13 @@ export class ServiceService {
 
 
   constructor(public http: HttpClient,) { }
+  IsloggedIn() {
+    return !!localStorage.getItem("authToken")
+  }
+
+  //login API ==================================================================================================================================
+  login(obj: any) { return this.http.post<any>(environment.apiURL + '/login', obj) }
+
   // country API ================================================================================================================================
   getAllData(filter?: any) {
     return this.http.get(environment.apiURL, { params: filter });
@@ -137,8 +145,11 @@ export class ServiceService {
 
 
   // User API =======================================================================================
-  getAllUserData(filter?: any) {
-    return this.http.get(environment.apiURL + '/user', { params: filter });
+  // getAllUserData(filter?: any ,  ) {
+  //   return this.http.get(environment.apiURL + '/user', { params: filter });
+  // }
+  getAllUserData( auth?: any ) {
+    return this.http.get(environment.apiURL + '/user', {headers: new HttpHeaders().set('auth-token', auth)});
   }
 
   addUser(obj: any) {

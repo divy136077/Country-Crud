@@ -77,6 +77,7 @@
               <th scope="col">Image</th>
               <th scope="col">Birth Date</th>
               <th scope="col">Status</th>
+              <th scope="col">IsAdmin</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -93,9 +94,11 @@
                 <span class="badge bg-success" *ngIf="p.Status === '1'">Active</span>
                 <span class="badge bg-danger" *ngIf="p.Status === '0'">In-Active</span>
               </td>
+              <td>  <span class="badge bg-success" *ngIf="p.IsAdmin">Admin</span></td>
               <td>
                 <i class="fa-regular fa-pen-to-square me-3" routerLink='/user/edit/{{p._id}}'></i>
-                <i class="fa-solid fa-trash-can" (click)="userDelete(p._id)"></i>
+                <i class="fa-solid fa-trash-can me-3" (click)="userDelete(p._id)"></i>
+                <i class="fa-solid fa-trash-can" *ngIf="p.IsAdmin == true" (click)="UpdateMenuMapping()" ></i>
               </td>
             </tr>
           </tbody>
@@ -107,7 +110,7 @@
         </table>
       </div>
     </div>
-
+<!-- selected data status change model -->
     <div class="modal" [ngClass]="updateModal ? 'd-block' : 'd-none'" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -134,23 +137,39 @@
     </div>
   </div>
 
+  <!-- menu mapping model  -->
+  <div class="modal" [ngClass]="menuModal ? 'd-block' : 'd-none'" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Change</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeMenuMapping()"></button>
+        </div>
+        <div class="modal-body">
+          <form  id="UpdateStatusForm" (ngSubmit)="UpdateMenuMapping()">
+            <input class="mx-2" type="checkbox" formControlName="">
+            <label for="vehicle1"> Country</label>
+
+            <input class="mx-2" type="checkbox" formControlName="">
+            <label for="vehicle1"> State</label>
+
+            <input class="mx-2" type="checkbox" formControlName="">
+            <label for="vehicle1"> city</label>
+
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeMenuMapping()">Close</button>
+          <button type="submit" form="UpdateStatusForm" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
    
-<!-- <div style=" margin: auto; width: 50%;">
-  <button (click)="exportexcel()">Export to Excel</button>
- 
-  <table id="excel-table">
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Username</th>
-      <th>Email</th>
-    </tr>
-    <tr *ngFor="let item of userList">
-      <td>{{item.id}}</td>
-      <td>{{item.name}}</td>
-      <td>{{item.username}}</td>
-      <td>{{item.email}}</td>
-    </tr>
-  </table>
-</div> -->
