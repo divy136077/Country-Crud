@@ -146,22 +146,25 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeMenuMapping()"></button>
         </div>
         <div class="modal-body">
-          <form  id="UpdateStatusForm" (ngSubmit)="UpdateMenuMapping()">
-            <input class="mx-2" type="checkbox" formControlName="">
+          <form id="MenuMappingFormId">
+            <div *ngFor="let i of menuMappingList">
+              <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, i._id)">
+              <label for="vehicle1">{{i.Name}}</label>
+            </div>
+            <!-- <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, 1)">
             <label for="vehicle1"> Country</label>
 
-            <input class="mx-2" type="checkbox" formControlName="">
+            <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, 2)">
             <label for="vehicle1"> State</label>
 
-            <input class="mx-2" type="checkbox" formControlName="">
-            <label for="vehicle1"> city</label>
-
+            <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, 3)">
+            <label for="vehicle1"> city</label> -->
             
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeMenuMapping()">Close</button>
-          <button type="submit" form="UpdateStatusForm" class="btn btn-primary">Save changes</button>
+          <button type="button" (click)="UpdateMenuMappingSubmit()" form="MenuMappingFormId" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

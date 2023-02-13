@@ -67,7 +67,7 @@ export class AddEditComponent {
         });
     }
 
-    this.serviceAPI.getAllUserData().subscribe((res: any) => {
+    this.serviceAPI.getAllUserData(localStorage.getItem("authToken"),null).subscribe((res: any) => {
       this.userData = res;
     });
   }

@@ -148,8 +148,11 @@ export class ServiceService {
   // getAllUserData(filter?: any ,  ) {
   //   return this.http.get(environment.apiURL + '/user', { params: filter });
   // }
-  getAllUserData( auth?: any ) {
-    return this.http.get(environment.apiURL + '/user', {headers: new HttpHeaders().set('auth-token', auth)});
+  getAllUserData( auth?: any, filter?:any ) {
+    let obj:any = {}
+    auth && (obj.headers = new HttpHeaders().set('auth-token', auth))
+    filter && (obj.params = filter)
+    return this.http.get(environment.apiURL + '/user', obj);
   }
 
   addUser(obj: any) {
@@ -174,6 +177,10 @@ export class ServiceService {
 
   getByIdUser(id: any) {
     return this.http.get(environment.apiURL + '/user/' + id)
+  }
+
+  getMenuMappingList(){
+    return this.http.get(environment.apiURL + '/menu/')
   }
 
   // Deshboard API ========================================================================================

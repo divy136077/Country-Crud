@@ -20,6 +20,8 @@ export class UserComponent {
   updateModal: boolean = false;
   menuModal: boolean = false;
   UpdateStatusForm: any;
+  MenuMappingData: Array<any>= [];
+  menuMappingList:Array<any>=[];
   // usertable: any;
   arr: any = [];
   constructor(
@@ -51,7 +53,7 @@ export class UserComponent {
   getAll() {
     const auth: any = localStorage.getItem("authToken")?.toString()
 
-    this.serviceAPI.getAllUserData(auth).subscribe((res: any) => {
+    this.serviceAPI.getAllUserData(auth, null).subscribe((res: any) => {
       if (res.length > 0) {
         this.data = res.reverse();
       } else {
@@ -60,6 +62,10 @@ export class UserComponent {
       console.log(this.data);
 
     });
+
+    this.serviceAPI.getMenuMappingList().subscribe((res:any)=>{
+      this.menuMappingList = res
+    })
   }
 
   toDataURL(url: any, callback: any) {
@@ -184,6 +190,19 @@ export class UserComponent {
     this.menuModal = true
   }
 
+  UpdateMenuMappingChange(event:any ,data:any){
+    if (event.target.checked) {
+      this.MenuMappingData.push(data)
+    } else {
+      this.MenuMappingData.splice(this.MenuMappingData.indexOf(data), 1) 
+    }
+    console.log("data",data, this.MenuMappingData);
+  }
+
+  UpdateMenuMappingSubmit() {
+    console.log("Submit", this.MenuMappingData);
+  }
+
   closeMenuMapping() {
     this.menuModal = false
     this.getAll();
@@ -239,14 +258,14 @@ export class UserComponent {
    * search function and reset form 
    */
   search() {
-    this.serviceAPI.getAllUserData(this.SearchForm.value).subscribe((res: any) => {
+    this.serviceAPI.getAllUserData(localStorage.getItem("authToken"),this.SearchForm.value).subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
 
   resetForm() {
     this.SearchForm.reset({ Name: "", Status: "" })
-    this.serviceAPI.getAllUserData().subscribe((res: any) => {
+    this.serviceAPI.getAllUserData(localStorage.getItem("authToken"), null).subscribe((res: any) => {
       this.data = res.reverse();
     });
   }
