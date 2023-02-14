@@ -179,8 +179,13 @@ export class ServiceService {
     return this.http.get(environment.apiURL + '/user/' + id)
   }
 
+  //menu mapping =============================================================
+
   getMenuMappingList(){
     return this.http.get(environment.apiURL + '/menu/')
+  }
+  getMenuId(id: any, data: any) {
+    return this.http.post(environment.apiURL + `/User/menu/${id}`, data);
   }
 
   // Deshboard API ========================================================================================

@@ -79,16 +79,19 @@
               <th scope="col">Status</th>
               <th scope="col">IsAdmin</th>
               <th scope="col">Action</th>
+              <th scope="col">Menu</th>
             </tr>
           </thead>
-          <tbody *ngIf="data.length">
-            <tr *ngFor="let p of data; let i=index; let odd = odd"  [ngClass]="odd ? 'odd_col' : 'even_col'">
+          <tbody *ngIf="data?.length">
+            <tr *ngFor="let p of data;  let i=index; let odd = odd"  [ngClass]="odd ? 'odd_col' : 'even_col'">
               <td><input type="checkbox" value="{{p._id}}" [(ngModel)]="data[i].checked" (change)="deleteProducts(p._id)" ></td>
 
               <td>{{ p.Name }}</td>
               <td>{{ p.Email }}</td>
               <td>{{ p.Number }}</td>
               <td><img src="http://localhost:8000/images/{{ p.Image }}" *ngIf="p.Image" alt="{{ p.Image }}" style="width: 50px; height: 50px;"><span *ngIf="!p.Image">No Image</span></td>
+              
+              
               <td>{{ p.Dob }}</td>
               <td>
                 <span class="badge bg-success" *ngIf="p.Status === '1'">Active</span>
@@ -98,11 +101,13 @@
               <td>
                 <i class="fa-regular fa-pen-to-square me-3" routerLink='/user/edit/{{p._id}}'></i>
                 <i class="fa-solid fa-trash-can me-3" (click)="userDelete(p._id)"></i>
-                <i class="fa-solid fa-trash-can" *ngIf="p.IsAdmin == true" (click)="UpdateMenuMapping()" ></i>
+                <i class="fa-solid fa-cubes" *ngIf="p.IsAdmin == true" (click)="UpdateMenuMapping(p._id)" ></i>
+                <!-- <i class="fa-solid fa-cubes"></i> -->
               </td>
+              <td >{{ p.menuId }}</td>
             </tr>
           </tbody>
-          <tbody *ngIf="!data.length">
+          <tbody *ngIf="!data?.length">
             <tr>
               <td colspan="5" class="text-center">No Record Found</td>
             </tr>
@@ -146,20 +151,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeMenuMapping()"></button>
         </div>
         <div class="modal-body">
-          <form id="MenuMappingFormId">
+          <form  [formGroup]="MenuForm"  id="MenuMappingFormId">
             <div *ngFor="let i of menuMappingList">
-              <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, i._id)">
+              <input class="mx-2" type="checkbox" formControlName="menuId" (change)="UpdateMenuMappingChange($event, i._id)">
               <label for="vehicle1">{{i.Name}}</label>
-            </div>
-            <!-- <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, 1)">
-            <label for="vehicle1"> Country</label>
-
-            <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, 2)">
-            <label for="vehicle1"> State</label>
-
-            <input class="mx-2" type="checkbox" (change)="UpdateMenuMappingChange($event, 3)">
-            <label for="vehicle1"> city</label> -->
-            
+            </div> 
           </form>
         </div>
         <div class="modal-footer">
