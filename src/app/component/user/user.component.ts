@@ -231,11 +231,12 @@ export class UserComponent {
 
   UpdateMenuMappingSubmit() {
 
-    console.log("Submit", this.MenuMappingData );
+    console.log("Submit", this.menuIdId,this.MenuForm.value ,this.MenuMappingData );
    
-    this.serviceAPI.getMenuId(this.menuIdId, this.MenuForm.value ).subscribe((res:any)=>{
+    this.serviceAPI.getMenuId(this.menuIdId, this.MenuMappingData).subscribe((res:any)=>{
       this.divy=res
-      console.log("fff",res , this.MenuForm.value);
+      this.closeMenuMapping()
+      // console.log("fff",res , this.MenuForm.value);
      
     })
   }

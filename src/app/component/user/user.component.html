@@ -104,7 +104,7 @@
                 <i class="fa-solid fa-cubes" *ngIf="p.IsAdmin == true" (click)="UpdateMenuMapping(p._id)" ></i>
                 <!-- <i class="fa-solid fa-cubes"></i> -->
               </td>
-              <td >{{ p.menuId }}</td>
+              <td><div *ngFor="let x of p.menuId">{{ x }}</div></td>
             </tr>
           </tbody>
           <tbody *ngIf="!data?.length">
