@@ -117,6 +117,8 @@ export class UserComponent {
     for (let i = this.arr.length - 1; i >= 0; --i) {
       delete this.arr[i].__v;
       delete this.arr[i]._id;
+      delete this.arr[i].Password;
+      delete this.arr[i].menuId;
       this.toDataURL(`http://localhost:8000/images/${this.arr[i].Image}`, (dataUrl: any) => {
         // console.log('RESULT:', dataUrl)
         this.arr[i].Image = dataUrl;
@@ -234,7 +236,7 @@ export class UserComponent {
     console.log("Submit", this.menuIdId,this.MenuForm.value ,this.MenuMappingData );
    
     this.serviceAPI.getMenuId(this.menuIdId, this.MenuMappingData).subscribe((res:any)=>{
-      this.divy=res
+      // this.divy=res
       this.closeMenuMapping()
       // console.log("fff",res , this.MenuForm.value);
      
@@ -327,13 +329,4 @@ export class UserComponent {
       });
     }
   }
-
-
-  /**
-   * Export data to excle 
-   */
-
-
-
-
 }

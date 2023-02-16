@@ -142,8 +142,12 @@
             <label for="vehicle1"> IsAdmin</label>
         </div>
         <div class="col-6">
-            <label for="phone" class="form-label mx-3">Password</label>
-            <input class="form-control" type="password" id="" placeholder="Password" formControlName="Password" />
+            <label for="phone" class="form-label mx-3" >Password</label>
+            <input class="form-control" type="password" id="" placeholder="Password" formControlName="Password"  [ngClass]="{ 'is-invalid': submitted && field['Password'].errors }"/>
+            <div *ngIf="submitted && field['Password'].errors" class="invalid-feedback">
+                <div *ngIf="field['Password'].errors['required']">Password is required</div>
+                <div *ngIf="field['Password'].errors['Password']">Password must be at least 5 characters </div>
+            </div>
           </div>
         </div>
         <div class="row g-3 align-items-center">

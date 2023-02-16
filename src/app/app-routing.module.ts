@@ -14,7 +14,7 @@ const routes: Routes = [
 
   { path: 'city', loadChildren: () => import('./component/city/city-routing.module').then(x => x.CityRoutingModule),canActivate: [AuthGuard] },
 
-  { path: 'user', loadChildren: () => import('./component/user/user-routing.module').then(x => x.UserRoutingModule), canActivate: [AuthGuard] },
+  { path: 'user', loadChildren: () => import('./component/user/user-routing.module').then(x => x.UserRoutingModule),  },
 
   { path: '', loadChildren: () => import('./component/dashboard/dashboard-routing.module').then(x => x.DashboardRoutingModule) },
 

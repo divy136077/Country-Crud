@@ -59,10 +59,14 @@ export class LoginComponent {
     }
     ),
     error: ((error: any) =>{
-      this.toastr.error(error.error.message);}
+      this.toastr.error(error.error.message);
+    }
     ),}
     )
 
+  }
+  userEdit(id: any) {
+    this.router.navigateByUrl('/user/edit/' + id)
   }
 
 }

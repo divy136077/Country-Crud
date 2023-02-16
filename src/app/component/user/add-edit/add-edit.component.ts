@@ -67,9 +67,9 @@ export class AddEditComponent {
         });
     }
 
-    this.serviceAPI.getAllUserData(localStorage.getItem("authToken"),null).subscribe((res: any) => {
-      this.userData = res;
-    });
+    // this.serviceAPI.getAllUserData(localStorage.getItem("authToken"),null).subscribe((res: any) => {
+    //   this.userData = res;
+    // });
   }
   /**
    * preview image
@@ -200,8 +200,9 @@ export class AddEditComponent {
           error: () => {
             this.isSubmitting = false;
           }
-        }, () => {
-          this.isSubmitting = false
+        },
+        () => {
+         this.isSubmitting = false
         }
       );
     }
