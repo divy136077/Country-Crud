@@ -28,7 +28,8 @@ export class UserComponent {
   menuId: any;
   MenuForm: any;
   menuIdId: any;
-  divy: any;
+  selectedId: any;
+ 
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -54,11 +55,6 @@ export class UserComponent {
     //   this.data = res.reverse();
     // });
     this.getAll();
-    this.exportToExcle();
-
-   
-
- 
   }
   /**
    * get all data for user component
@@ -72,7 +68,7 @@ export class UserComponent {
         // this.data1= res
         // console.log(this.data1._id);
       } else {
-        this.data = []
+        this.data = null ;
       }
 
     });
@@ -114,7 +110,7 @@ export class UserComponent {
     // });
     // console.log(arr);
     let final = [];
-    for (let i = this.arr.length - 1; i >= 0; --i) {
+    for (let i = this.arr?.length - 1; i >= 0; --i) {
       delete this.arr[i].__v;
       delete this.arr[i]._id;
       delete this.arr[i].Password;
@@ -167,12 +163,12 @@ export class UserComponent {
 
 
   // exportToExcle() {
-    // const ws: xlsx.WorkSheet =
-    //   xlsx.utils.table_to_sheet(this.usertable.nativeElement);
-    //   const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    // xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+  //   const ws: xlsx.WorkSheet =
+  //     xlsx.utils.table_to_sheet(this.usertable.nativeElement);
+  //     const wb: xlsx.WorkBook = xlsx.utils.book_new();
+  //   xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    // xlsx.writeFile(wb, 'usertable.xlsx');
+  //   xlsx.writeFile(wb, 'usertable.xlsx');
 
   // }
 
@@ -236,10 +232,7 @@ export class UserComponent {
     console.log("Submit", this.menuIdId,this.MenuForm.value ,this.MenuMappingData );
    
     this.serviceAPI.getMenuId(this.menuIdId, this.MenuMappingData).subscribe((res:any)=>{
-      // this.divy=res
-      this.closeMenuMapping()
-      // console.log("fff",res , this.MenuForm.value);
-     
+      this.closeMenuMapping()  
     })
   }
 

@@ -53,10 +53,15 @@ export class LoginComponent {
     data.Email = this.loginForm.value.Email;
     data.Password = this.loginForm.value.Password;
     this.serviceAPI.login(data).subscribe({next: ((response: any) =>
-    {localStorage.setItem('authToken', response.authtoken);
+      
+      {localStorage.setItem('authToken', response[1]);
+      localStorage.setItem('loginData', JSON.stringify(response[0]));
+      // console.log("tyty" , response);
     this.router.navigateByUrl('/user')
+    
     this.toastr.success('Login Successful!');
     }
+
     ),
     error: ((error: any) =>{
       this.toastr.error(error.error.message);
@@ -68,5 +73,9 @@ export class LoginComponent {
   userEdit(id: any) {
     this.router.navigateByUrl('/user/edit/' + id)
   }
+
+  // reloadCurrentPage(){
+  //   window.location.reload();
+  // }
 
 }
