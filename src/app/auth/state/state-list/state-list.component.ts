@@ -43,7 +43,7 @@ export class StateListComponent implements OnInit {
    */
    getAll() {
     const dd = localStorage.getItem("authToken")
-    this.serviceAPI.getAllStateData(dd).subscribe((res: any) => {
+    this.serviceAPI.getAllStateData(dd,null,null).subscribe((res: any) => {
       if (res.length > 0) {
         this.stateData = res.reverse();
       } else {

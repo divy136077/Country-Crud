@@ -67,8 +67,8 @@ export class CityComponent {
  * @param event any
  */
   getStateData(event: any) {
-    const dd :any = localStorage.getItem('auth-token')
-    this.serviceAPI.getByIdState(event.target.value, dd).subscribe((res: any) => {
+    const dd :any = localStorage.getItem('authToken')
+    this.serviceAPI.getAllStateData(dd, null,event.target.value).subscribe((res: any) => {
       this.stateData = res;
     });
   }

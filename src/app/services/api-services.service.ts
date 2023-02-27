@@ -87,16 +87,18 @@ export class ApiService {
 
   // States API ================================================================================================================================
   getAllStateData(auth:any,filter?: any,name?:any ) {
-    // let obj:any = {} 
-    // !!name && (obj.headers = {countryName:name})
-    // !!filter && (obj.params = filter)
+    let obj:any = {} 
+    !!name ? (obj.headers = {countryName:name}) : (obj.headers = {})
+    !!filter && (obj.params = filter)
+    !!auth && (obj.headers['auth-token'] = auth)
+    //  const headers:any = new HttpHeaders().set('auth-token', auth);
+    //  headers.countryName = name
+    //  const httpParams: HttpParamsOptions = { fromObject: filter } as HttpParamsOptions;
+    //  const options = { params: new HttpParams(httpParams), headers: headers  };
+    //  console.log('th', options , headers.country );
+    console.log(auth,obj);
     
-     const headers:any = new HttpHeaders().set('auth-token', auth);
-     headers.country = name
-     const httpParams: HttpParamsOptions = { fromObject: filter } as HttpParamsOptions;
-     const options = { params: new HttpParams(httpParams), headers: headers  };
-     console.log('th', options , headers.country );
-    return this.http.get(environment.apiURL + '/state', options);
+    return this.http.get(environment.apiURL + '/state', obj);
  
 
   }
