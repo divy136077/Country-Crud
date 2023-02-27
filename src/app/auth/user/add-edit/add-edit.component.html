@@ -1,0 +1,108 @@
+<div class="container">
+  <h3>Add User</h3>
+  <div class="formdiv">
+    <form [formGroup]="UserForm" (ngSubmit)="addData()" class="row g-3 justify-content-start" action="/"
+      enctype="multipart/form-data">
+     
+      <br />
+      <div class="row g-6 align-items-center">
+        <div class="col-6">
+          <label for="staticEmail2" class="visually-hidden">Name</label>
+          <input type="text" class="form-control" pattern="[A-Za-z\s]+" maxlength="50" placeholder="Name"
+            formControlName="Name" [ngClass]="{ 'is-invalid': submitted && field['Name'].errors }" />
+          <div *ngIf="submitted && field['Name'].errors" class="invalid-feedback">
+            <div *ngIf="field['Name'].errors['required']">Name is required </div>
+            <div *ngIf="field['Name'].errors['pattern']">Name only alphabets number allows</div>
+          </div>
+
+        </div>
+        <div class="col-6">
+          <label for="inputPassword2" class="visually-hidden">Email</label>
+          <input type="email" class="form-control" placeholder="Email" formControlName="Email"
+            [ngClass]="{ 'is-invalid': submitted && field['Email'].errors }" />
+          <div *ngIf="submitted && field['Email'].errors" class="invalid-feedback">
+            <div *ngIf="field['Email'].errors['required']">Email is required</div>
+            <div *ngIf="field['Email'].errors['Email']">Email must be a valid email address</div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row g-3 align-items-center">
+        <div class="col-6">
+          <label for="staticEmail2" class="visually-hidden">Number</label>
+          <input type="text" class="form-control" placeholder="Mobile Number" pattern="[0-9]+" formControlName="Number"
+            minlength="10" maxlength="10" [ngClass]="{ 'is-invalid': submitted && field['Number'].errors }" />
+          <div *ngIf="submitted && field['Number'].errors" class="invalid-feedback">
+            <div *ngIf="field['Number'].errors['required']">Number is required</div>
+            <div *ngIf="field['Number'].errors['Number']">only allows Numeric value</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <label for="staticEmail2" class="visually-hidden">Dob</label>
+          <input type="date" class="form-control" placeholder="Birth Date" [max]="getToday()" name="dob"
+            formControlName="Dob" [ngClass]="{ 'is-invalid': submitted && field['Dob'].errors }" />
+          <div *ngIf="submitted && field['Dob'].errors" class="invalid-feedback">
+            <div *ngIf="field['Dob'].errors['required']">Birth date is required</div>
+            <div *ngIf="field['Dob'].errors['Dob']">only allows </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row g-3 align-items-center">
+        <div class="col-6">
+          <label for="staticEmail2" class="visually-hidden">Image</label>
+          <input type="file" id="file" class="form-control" (change)="readURL($event);" ngf-max-size="5MB"
+            max-size="2000" accept="image/*" formControlName="Image" (change)="onChange($event)" />
+          <button class="btn btn-danger mb-1 mt-2" style="margin-left: 60px;" *ngIf="imageSrc"
+            (click)="delete()">delete</button><br>
+          <img id="blah" *ngIf="imageSrc!" [src]="imageSrc" style="height: 100px; width: 120px;" alt="/" />
+        </div>
+        <div class="form-check col-4 mt-0 ms-2 d-flex">
+          <input name="Status" type="radio" value="1" formControlName="Status">
+          <label for="" style="padding-right:20px;">Active</label>
+
+          <input name="Status" type="radio" value="0" formControlName="Status">
+          <label for="">InActive</label>
+
+          <input class="mx-2" type="checkbox" formControlName="IsAdmin">
+          <label for="vehicle1"> IsAdmin</label>
+        </div>
+        <div class="col-6">
+          <label for="phone" class="form-label mx-3">Password</label>
+          <input class="form-control" type="password" id="" placeholder="Password" formControlName="Password"
+            [ngClass]="{ 'is-invalid': submitted && field['Password'].errors }" />
+          <div *ngIf="submitted && field['Password'].errors" class="invalid-feedback">
+            <div *ngIf="field['Password'].errors['required']">Password is required</div>
+            <div *ngIf="field['Password'].errors['Password']">Password must be at least 5 characters </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 align-items-center">
+        <div class="col-6">
+
+        </div>
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && !isEdit">
+            Add
+          </button>
+          <button type="submit" class="btn btn-primary mb-3" *ngIf="!isSubmitting && isEdit">
+            Edit
+          </button>
+          <button type="submit" class="btn btn-primary mb-3" *ngIf="isSubmitting" disabled>
+            Adding...
+            <div class="spinner-border text-light spinner" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </button>
+          <button type="button" class="btn btn-danger mb-3 ms-2" routerLink="/auth/user">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+
+      <br />
+      <br />
+    </form>
+  </div>
+</div>

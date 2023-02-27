@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/auth">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+
+                <li class="nav-item" *ngIf="data?.includes('country') ">
+                    <a class="nav-link" routerLink="/auth/country">Country</a>
+                </li>
+                <li class="nav-item" *ngIf="data?.includes('state') ">
+                    <a class="nav-link" routerLink="/auth/state">State</a>
+                </li>
+                <li class="nav-item" *ngIf="data?.includes('city') ">
+                    <a class="nav-link" routerLink="/auth/city/">City</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/auth/user/">User</a>
+                </li>
+            </ul>
+        </div>
+        <button class="float-right btn btn-primary me-4" (click)="logout()">Logout</button>
+    </div>
+</nav>
+

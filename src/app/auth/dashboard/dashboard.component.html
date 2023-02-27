@@ -1,0 +1,60 @@
+<div class="p-5 bg-image" style="background-image: url('../../../assets/image/blue-and-white-background-png.png'); height: 94vh; ">
+  <div class="container">
+  
+  <div class="row d-flex justify-content-center">
+  <div class="col-md-3">
+    <div class="card-counter success d-flex ">
+      <div><i class="fa fa-database mx-3"></i></div>
+      <div>
+        <span class="count-numbers">{{allData?.totalRecords}}</span>
+        <span class="count-name">Total User</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card-counter info d-flex">
+      <div><i class="fa fa-users mx-3"></i></div>
+      <div>
+        <span class="count-numbers">{{allData?.activeUser}}</span>
+        <span class="count-name">Active User</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card-counter info d-flex">
+      <div>
+        <i class="fa fa-users mx-3"></i>
+      </div>
+      <div>
+        <span class="count-numbers">{{allData?.inactiveUser}}</span>
+        <span class="count-name">In-Active User</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<!-- chart data -->
+<div class="d-flex justify-content-center">
+<div class="chart-wrapper d-flex justify-content-between" style= "width: 900px; " >
+  <canvas baseChart 
+  [data]="pieChartData" 
+  [labels]="pieChartLabels" 
+  [chartType]="pieChartType"
+  [options]="pieChartOptions"
+  [plugins]="pieChartPlugins"
+  [colors]="pieChartColor"
+  [legend]="pieChartLegend">
+</canvas>
+
+</div>
+</div>
+</div>
+
+
+
+

@@ -1,0 +1,174 @@
+<div class="container">
+    <h2 class="my-3">User list</h2>
+    <div class="formdiv card">
+      <div class="card-body p-4">
+        <div class="row mb-3">
+          <div class="col-6">
+            <h3>Search User</h3>
+          </div>
+          <div class="col-6">
+            <a style="background-color: orange; text-decoration: none" routerLink="/auth/user/add"
+              class="p-2 text-dark rounded-3 float-end">+ Add new User</a>
+          </div>
+        </div>
+        <form [formGroup]="SearchForm" (ngSubmit)="search()">
+  
+          <div class="row">
+            <div class="col-6">
+              <label for="Sname" class="form-label">User Name</label>
+              <input type="text" name="name" formControlName="Name"  class="form-control" id="myInput"
+                placeholder="User names.." title="" />
+            </div>
+            <div class="col-6">
+  <!--       <label for="inputPassword5" class="form-label">Status</label>
+              <input type="text" name="city" class="form-control" id="myInput"
+                placeholder="" title="" /> -->
+                <label for="inputPassword5" class="form-label">Choose a Status</label>
+                <select  class="form-control" name="" id="" formControlName="Status">
+                  <option value="" selected>All</option>
+                  <option value="1">Active</option>
+                  <option value="0">In-Active</option> 
+                </select>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-1">
+              <button type="submit" class="btn btn-primary ms-2" style="width: 90px; padding: 10px">
+                Search
+              </button>
+            </div>
+            <div class="col-1">
+              <button type="button" (click)="resetForm()" class="btn btn-primary ms-2" style="width: 90px; padding: 10px">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+  
+  
+  
+  
+  <div class="container d-flex align-items-center justify-content-center flex-column" [ngStyle]="{'height': (data === null) ? '80vh' : null }">
+    <div class="d-flex justify-content-center" *ngIf="data === null">
+      <div class="spinner-border text-dark spinner" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+      <div class="card mt-5 w-100" #usertable>
+        <div class="card-body">
+          <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete Selected Product(s)</button>
+          <button type="button" class="btn btn-primary mx-2" (click)="UpdateStatus()">Update Status</button>
+          <button type="button"  class="btn btn-primary mx-2" (click)="exportToExcle()">Export to Excel</button>
+  
+  
+      
+          <table class="table mt-4">
+            <thead>
+              <tr>
+                <th><input type="checkbox" [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)"></th>
+  
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Image</th>
+                <th scope="col">Birth Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">IsAdmin</th>
+                <th scope="col">Action</th>
+                <!-- <th scope="col">Menu</th> -->
+              </tr>
+            </thead>
+            <tbody *ngIf="data?.length">
+              <tr *ngFor="let p of data;  let i=index; let odd = odd"  [ngClass]="odd ? 'odd_col' : 'even_col'">
+                <td><input type="checkbox" value="{{p._id}}" [(ngModel)]="data[i].checked" (change)="deleteProducts(p._id)" ></td>
+  
+                <td>{{ p.Name }}</td>
+                <td>{{ p.Email }}</td>
+                <td>{{ p.Number }}</td>
+                <td><img src="http://localhost:8000/images/{{ p.Image }}" *ngIf="p.Image" alt="{{ p.Image }}" style="width: 50px; height: 50px;"><span *ngIf="!p.Image">No Image</span></td>
+                
+                
+                <td>{{ p.Dob }}</td>
+                <td>
+                  <span class="badge bg-success" *ngIf="p.Status === '1'">Active</span>
+                  <span class="badge bg-danger" *ngIf="p.Status === '0'">In-Active</span>
+                </td>
+                <td>  <span class="badge bg-success" *ngIf="p.IsAdmin == 'true'">Admin</span></td>
+                <td>
+                  <i class="fa-regular fa-pen-to-square me-3" routerLink='/auth/user/edit/{{p._id}}'></i>
+                  <i class="fa-solid fa-trash-can me-3" (click)="userDelete(p._id)"></i>
+                  <i class="fa-solid fa-cubes" *ngIf="p.IsAdmin == 'true'" (click)="UpdateMenuMapping(p._id)" ></i>
+                  <!-- <i class="fa-solid fa-cubes"></i> -->
+                </td>
+                <!-- <td><div *ngFor="let x of p.menuId">{{ x }}</div></td> -->
+              </tr>
+            </tbody>
+            <tbody *ngIf="!data?.length">
+              <tr>
+                <td colspan="5" class="text-center">No Record Found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  <!-- selected data status change model -->
+      <div class="modal" [ngClass]="updateModal ? 'd-block' : 'd-none'" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Change status of selected country</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeUpdateModal()"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="UpdateStatusForm" id="UpdateStatusForm" (ngSubmit)="UpdateAllStatus()">
+                <label for="inputPassword5" class="form-label">Choose a Status</label>
+                <select class="form-control" name="" id="" formControlName="Status">
+                  <option value="1">Active</option>
+                  <option value="0">In-Active</option>
+    
+                </select>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeUpdateModal()">Close</button>
+              <button type="submit" form="UpdateStatusForm" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- menu mapping model  -->
+    <div class="modal" [ngClass]="menuModal ? 'd-block' : 'd-none'" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Change</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeMenuMapping()"></button>
+          </div>
+          <div class="modal-body">
+            <form  [formGroup]="MenuForm"  id="MenuMappingFormId">
+              <div *ngFor="let i of menuMappingList">
+                <input class="mx-2" type="checkbox" formControlName="menuId" (change)="UpdateMenuMappingChange($event, i._id)">
+                <label for="vehicle1">{{i.Name}}</label>
+              </div> 
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeMenuMapping()">Close</button>
+            <button type="button" (click)="UpdateMenuMappingSubmit()" form="MenuMappingFormId" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+     

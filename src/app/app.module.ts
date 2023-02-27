@@ -1,63 +1,40 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartsModule } from 'ng2-charts';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ToastrModule } from 'ngx-toastr';
+// import { InterceptorService } from '../app/intercept/interceptor.service';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CountryFormComponent } from './component/country/country-form/country-form.component';
-import { StateComponent } from './component/state/state-add/state.component';
-import { StateMainComponent } from "./component/state/state.component";
-
-
-import { CityComponent } from './component/city/city-add/city.component';
-import { CityCityComponent } from './component/city/city.component';
-
-import { InterceptorService } from './interceptor.service';
-import { ServiceService } from './api-services.service';
-import { CountryComponent } from './component/country/country.component';
-import { UserComponent } from './component/user/user.component';
-import { AddEditComponent } from './component/user/add-edit/add-edit.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { ChartsModule } from 'ng2-charts';
-import { LoginComponent } from './component/login/login.component';
+import { ApiService } from './services/api-services.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CountryFormComponent,
-    StateComponent,
-    StateMainComponent,
-    CityCityComponent,
-    CityComponent,
-    CountryComponent,
-    UserComponent,
-    AddEditComponent,
-    DashboardComponent,
-    LoginComponent,
-
-
-
   ],
   imports: [
+    CommonModule,
     BrowserModule,
-    BrowserAnimationsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    ToastrModule.forRoot(),
     ChartsModule,
     Ng2SearchPipeModule,
-    FormsModule
+    BrowserAnimationsModule
   ],
-  providers: [ServiceService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    }
+  providers: [ApiService ,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: InterceptorService,
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
