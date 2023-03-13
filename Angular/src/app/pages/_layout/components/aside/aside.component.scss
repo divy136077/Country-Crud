@@ -1,0 +1,35 @@
+:host {
+  .aside {
+    height: 100%;
+
+    .aside-menu {
+      margin: 0;
+    }
+  }
+
+  // fixed text line break issue on minimized aside hover
+  .menu-text {
+    white-space: nowrap;
+    color: #ffffff !important;
+  }
+}
+
+.brand-logo {
+  
+
+  img {
+    width: 65%;
+  }
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+.menu-icon{
+  color: #ffffff !important;
+
+}
+a:active {
+  color: #00FF00 !important ;
+}

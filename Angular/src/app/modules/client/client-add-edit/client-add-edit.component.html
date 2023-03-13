@@ -1,0 +1,836 @@
+<div class="card card-custom  gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">
+                {{ !roleId?('PAGES.CLIENT.ADD_NEW_CLIENT' | translate):('PAGES.ClIENT.UPDATE' | translate) }}</h3>
+        </div>
+    </div>
+    <div class="role-add card-body">
+        <form class="form form-label-left" [formGroup]="clientGroupForm">
+            <div class="accordion accordion-solid accordion-toggle-plus" id="accordionExample6">
+                <div class="card" *ngIf="!groupId">
+                    <div class="card-header" id="headingOne6">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true"
+                            aria-controls="collapseOne6">
+                            <span class="circle_value">1</span> Client Group
+                        </div>
+                    </div>
+                    <div id="collapseOne6" class="collapse show" aria-labelledby="headingOne6"
+                        data-parent="#accordionExample6">
+                        <div class="card-body">
+                            <div class="kt-portlet__body">
+                                <div class="form-group row">
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label>Group Name*</label>
+                                        <input type="test" class="form-control" placeholder="Enter full name"
+                                            formControlName="group_name">
+                                        <mat-error *ngIf="isControlHasError('group_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Account Priority*</label>
+                                        <select class="form-control" formControlName="account_priority">
+                                            <option value="">Select Priority</option>
+                                            <option *ngFor="let priority of priorityList;let i = index"
+                                                [value]="priority.Id">
+                                                {{priority.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('account_priority','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Significance*</label>
+                                        <select class="form-control" formControlName="significance">
+                                            <option value="">Select Significance</option>
+                                            <option *ngFor="let significance of significanceList;let i = index"
+                                                [value]="significance.Id">
+                                                {{significance.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('significance','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Contact Person Name*</label>
+                                        <input type="email" class="form-control" placeholder="Enter contact Name"
+                                            formControlName="contact_person_name">
+                                        <mat-error *ngIf="isControlHasError('contact_person_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Contact Email*</label>
+                                        <input type="email" class="form-control" placeholder="Enter  contact Email"
+                                            formControlName="email">
+                                        <mat-error *ngIf="isControlHasError('email','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                        <mat-error *ngIf="isControlHasError('email','pattern')">
+                                            {{ 'AUTH.VALIDATION.INVALID_EMAIL' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Contact Number*</label>
+                                        <input type="text" class="form-control" placeholder="Enter contact number"
+                                            formControlName="contact_number">
+                                        <mat-error *ngIf="isControlHasError('contact_number','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                        <mat-error *ngIf="isControlHasError('contact_number','pattern')">
+                                            {{ 'AUTH.VALIDATION.INVALID_PHONE' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Governance Management*</label>
+                                        <select class="form-control" formControlName="governance_management">
+                                            <option value="">Select Governance Management</option>
+                                            <option
+                                                *ngFor="let governanceManagement of governanceManagementList;let i = index"
+                                                [value]="governanceManagement.Id">
+                                                {{governanceManagement.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('governance_management','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Account Manager*</label>
+                                        <select class="form-control" formControlName="account_manager">
+                                            <option value="">Select Account Manager</option>
+                                            <option *ngFor="let accountManager of accountManagerList;let i = index"
+                                                [value]="accountManager.Id">
+                                                {{accountManager.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('account_manager','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">BDM Name*</label>
+                                        <select class="form-control" formControlName="bdm_name">
+                                            <option value="">Select BDM</option>
+                                            <option *ngFor="let bdm of bdmList;let i = index" [value]="bdm.Id">
+                                                {{bdm.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('bdm_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" *ngIf="groupId">
+                    <div class="card-header" id="headingOne6">
+                        <div class="card-title" data-toggle="collapse" data-target="#collapseOne6" aria-expanded="true"
+                            aria-controls="collapseOne6">
+                            <span class="circle_value">1</span> Client Group
+                        </div>
+                    </div>
+                    <div id="collapseOne6" class="collapse show" aria-labelledby="headingOne6"
+                        data-parent="#accordionExample6">
+                        <div class="card-body">
+                            <div class="kt-portlet__body">
+                                <div class="form-group row">
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label>Group Name*</label>
+                                        <input type="test" class="form-control" placeholder="Enter full name"
+                                            formControlName="group_name">
+                                        <mat-error *ngIf="isControlHasError('group_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Account Priority*</label>
+                                        <input type="test" class="form-control" placeholder="Enter full name"
+                                            formControlName="account_priority">
+                                        <mat-error *ngIf="isControlHasError('account_priority','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Significance*</label>
+                                        <input type="test" class="form-control" placeholder="Enter full name"
+                                            formControlName="significance">
+                                        <mat-error *ngIf="isControlHasError('significance','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Contact Person Name*</label>
+                                        <input type="email" class="form-control" placeholder="Enter contact name"
+                                            formControlName="contact_person_name">
+                                        <mat-error *ngIf="isControlHasError('contact_person_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Contact Email*</label>
+                                        <input type="test" class="form-control" placeholder="Enter contact Email"
+                                            formControlName="email">
+                                        <mat-error *ngIf="isControlHasError('email','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                        <mat-error *ngIf="isControlHasError('email','pattern')">
+                                            {{ 'AUTH.VALIDATION.INVALID_EMAIL' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Contact Number*</label>
+                                        <input type="text" class="form-control" placeholder="Enter contact number"
+                                            formControlName="contact_number">
+                                        <mat-error *ngIf="isControlHasError('contact_number','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                        <mat-error *ngIf="isControlHasError('contact_number','pattern')">
+                                            {{ 'AUTH.VALIDATION.INVALID_PHONE' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Governance Management*</label>
+                                        <input type="test" class="form-control"
+                                            placeholder="Enter Governance Management Name "
+                                            formControlName="governance_management">
+                                        <mat-error *ngIf="isControlHasError('governance_management','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Account Manager*</label>
+                                        <input type="test" class="form-control" placeholder="Enter Account Manager name"
+                                            formControlName="account_manager">
+                                        <mat-error *ngIf="isControlHasError('account_manager','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">BDM Name*</label>
+                                        <input type="test" class="form-control" placeholder="Enter BDM Name"
+                                            formControlName="bdm_name">
+                                        <mat-error *ngIf="isControlHasError('bdm_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo6">
+                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseTwo6"
+                            aria-expanded="true" aria-controls="collapseTwo6">
+                            <span class="circle_value">2</span> Client Company
+                        </div>
+                    </div>
+                    <div id="collapseTwo6" class="collapse" aria-labelledby="headingTwo6"
+                        data-parent="#accordionExample6">
+                        <div class="kt-portlet__body">
+                            <div class="form-group row">
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label>Company Name*</label>
+                                    <input type="text" class="form-control" placeholder="Enter Company Name"
+                                        formControlName="company_name">
+                                    <mat-error *ngIf="isControlHasError('company_name','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label class="">Sector*</label>
+                                    <select class="form-control" formControlName="sector">
+                                        <option value="">Select Sector</option>
+                                        <option *ngFor="let sector of sectorList;let i = index" [value]="sector.Id">
+                                            {{sector.Name}}</option>
+                                    </select>
+                                    <mat-error *ngIf="isControlHasError('sector','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label class="">Overseas/Domestic*</label>
+                                    <select class="form-control" formControlName="overseas_domestic">
+                                        <option value="">Select Overseas</option>
+                                        <option *ngFor="let overseas of overseasList;let i = index"
+                                            [value]="overseas.Id">
+                                            {{overseas.Name}}</option>
+                                    </select>
+                                    <mat-error *ngIf="isControlHasError('overseas_domestic','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label class="">Country*</label>
+                                    <select class="form-control" formControlName="country" (change)="selectCountry()">
+                                        <option value="">Select Country</option>
+                                        <option *ngFor="let country of countryList;let i = index" [value]="country.Id">
+                                            {{country.Name}}</option>
+                                    </select>
+                                    <mat-error *ngIf="isControlHasError('country','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label class="">State*</label>
+                                    <select class="form-control" formControlName="state">
+                                        <option value="">Select state</option>
+                                        <option *ngFor="let state of stateList;let i = index" [value]="state.Id">
+                                            {{state.Name}}</option>
+                                    </select>
+                                    <mat-error *ngIf="isControlHasError('state','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label class="">Industry*</label>
+                                    <select class="form-control" formControlName="industry">
+                                        <option value="">Select Industry</option>
+                                        <option *ngFor="let industry of industryList;let i = index"
+                                            [value]="industry.Id">
+                                            {{industry.Name}}</option>
+                                    </select>
+                                    <mat-error *ngIf="isControlHasError('industry','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label class="">Engagement Month Year*</label>
+                                    <input type="month" class="form-control" formControlName="engagement_month_year"
+                                        >
+                                    <mat-error *ngIf="isControlHasError('engagement_month_year','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+                                <div class="col-lg-4 mb-4 p-2">
+                                    <label class="">Client Type*</label>
+                                    <select class="form-control" formControlName="client_type">
+                                        <option selected *ngFor="let client of clientTypeList; let i = index" [value]="client.Id">
+                                            {{client.Name}}</option>
+                                    </select>
+                                    <mat-error *ngIf="isControlHasError('client_type','required')">
+                                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                    </mat-error>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree6">
+                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree6"
+                            aria-expanded="true" aria-controls="collapseThree6">
+                            <span class="circle_value">3</span> Client Poc
+                        </div>
+                    </div>
+                    <div id="collapseThree6" class="collapse" aria-labelledby="headingThree6"
+                        data-parent="#accordionExample6">
+                        <div class="card-body">
+                            <div class="kt-portlet__body">
+                                <form class="form form-label-left" [formGroup]="pocForm">
+                                    <div class="form-group row">
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label>Type Of PoC*</label>
+                                            <select class="form-control" formControlName="type_Of_PoC">
+                                                <option value="">Select Type Of Poc</option>
+                                                <option *ngFor="let poc of pocTypeList;let i = index" [value]="poc.Id">
+                                                    {{poc.Name}}</option>
+                                            </select>
+                                            <mat-error *ngIf="isControlHasError('type_Of_PoC','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label class="">PoC Name*</label>
+                                            <input type="text" class="form-control" placeholder="Enter Poc name"
+                                                formControlName="PoC_name">
+                                            <mat-error *ngIf="isControlHasError('PoC_name','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label class="">Designation*</label>
+                                            <input type="text" class="form-control" placeholder="Enter Designation"
+                                                formControlName="designation">
+                                            <mat-error *ngIf="isControlHasError('designation','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label class="">Phone*</label>
+                                            <input type="text" class="form-control" placeholder="Enter phone number"
+                                                formControlName="phone">
+                                            <mat-error *ngIf="isControlHasError('phone','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                            <mat-error *ngIf="isControlHasError('phone','pattern')">
+                                                {{ 'AUTH.VALIDATION.INVALID_PHONE' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label class="">Email*</label>
+                                            <input type="email" class="form-control" placeholder="Enter contact Email"
+                                                formControlName="email_poc">
+                                            <mat-error *ngIf="isControlHasError('email_poc','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                            <mat-error *ngIf="isControlHasError('email_poc','pattern')">
+                                                {{ 'AUTH.VALIDATION.INVALID_EMAIL' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-12 text-right" *ngIf="!pocid">
+                                            <button class="btn-primary btn" type="button"
+                                                (click)="pocSave()">+AddPoc</button>
+                                        </div>
+                                        <div class="col-12 text-right" *ngIf="pocid">
+                                            <button class="btn-primary btn" type="button"
+                                                (click)="updatePoc()">+UpdatePoc</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <table class="table table-striped" *ngIf="groupId">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="text-center">Type of poc</th>
+                                            <th class="text-center">Poc Name</th>
+                                            <th class="text-center">Designation</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let poc of pocList">
+                                            <td class="text-center">{{poc.Name}}</td>
+                                            <td class="text-center">{{poc.PocName}}</td>
+                                            <td class="text-center">{{poc.Designation}}</td>
+                                            <td class="text-center">{{poc.PhoneNo}}</td>
+                                            <td class="text-center">{{poc.Email}}</td>
+                                            <td class="text-center">
+                                                <i class=" mr-2" (click)="getPocDetail(poc)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                        <g id="Group_9726" data-name="Group 9726" transform="translate(-1559 -353)">
+                                                          <circle id="Ellipse_31" data-name="Ellipse 31" cx="16" cy="16" r="16" transform="translate(1559 353)" fill="#296478"/>
+                                                          <g id="Icon_ionic-ios-eye" data-name="Icon ionic-ios-eye" transform="translate(1563.748 355.125)">
+                                                            <path id="Path_28" data-name="Path 28" d="M11.242,7.875c-3.23,0-5.777,2.033-8.823,5.355a.635.635,0,0,0,0,.856c2.607,2.881,4.905,5.359,8.827,5.359,3.873,0,6.778-3.122,8.843-5.384a.63.63,0,0,0,.02-.832C18,10.679,15.087,7.875,11.242,7.875Zm.177,9.4a3.616,3.616,0,1,1,3.443-3.443A3.617,3.617,0,0,1,11.419,17.272Z" fill="#dbe5e8"/>
+                                                            <path id="Path_29" data-name="Path 29" d="M15.99,14.161a1.828,1.828,0,0,1,.121-.657c-.039,0-.078,0-.121,0a2.49,2.49,0,1,0,2.49,2.49c0-.051,0-.1,0-.152a1.725,1.725,0,0,1-.708.152A1.806,1.806,0,0,1,15.99,14.161Z" transform="translate(-4.74 -2.33)" fill="#dbe5e8"/>
+                                                          </g>
+                                                        </g>
+                                                      </svg>
+                                                </i>
+                                                <i class="mr-2" (click)="deletePoc(poc)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                                                        <defs>
+                                                          <clipPath id="clip-path">
+                                                            <rect id="Rectangle_17030" data-name="Rectangle 17030" width="26" height="26" transform="translate(-0.258 -0.258)" fill="#dbe5e8"/>
+                                                          </clipPath>
+                                                        </defs>
+                                                        <g id="Group_9724" data-name="Group 9724" transform="translate(-1601 -353)">
+                                                          <circle id="Ellipse_32" data-name="Ellipse 32" cx="16" cy="16" r="16" transform="translate(1601 353)" fill="#296478"/>
+                                                          <g id="Group_17904" data-name="Group 17904" transform="translate(1578.055 351.055)">
+                                                            <g id="Group_17903" data-name="Group 17903" transform="translate(26.204 5.204)" clip-path="url(#clip-path)">
+                                                              <path id="Path_24772" data-name="Path 24772" d="M53.8,38.936l-1.114,1.116c-.053-.046-.116-.1-.175-.151a8.487,8.487,0,0,0-6.693-2.282,8.785,8.785,0,0,0-7.849,6.561,8.887,8.887,0,1,0,17.3,4.04,7.968,7.968,0,0,0-.023-3.5.442.442,0,0,1,.146-.48c.361-.351.694-.731,1.075-1.077a9.579,9.579,0,0,1,.322,5.657,10.152,10.152,0,0,1-4.443,6.406A10.5,10.5,0,0,1,40.075,38.194a10.4,10.4,0,0,1,13.725.742" transform="translate(-33.814 -33.721)" fill="#dbe5e8"/>
+                                                              <path id="Path_24773" data-name="Path 24773" d="M129.3,98.623l-4.513-4.573,1.09-1.1,3.375,3.392,9.115-9.114,1.155,1.154L129.3,98.623" transform="translate(-116.567 -81.541)" fill="#dbe5e8"/>
+                                                            </g>
+                                                          </g>
+                                                        </g>
+                                                      </svg>
+                                                </i>
+                                                <i class="" (click)="toggelePoc(poc)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                        <g id="Group_17925" data-name="Group 17925" transform="translate(-1727 -297)">
+                                                          <circle id="Ellipse_33" data-name="Ellipse 33" cx="16" cy="16" r="16" transform="translate(1727 297)" fill="#296478"/>
+                                                          <path id="path17850" d="M9.5,0A9.5,9.5,0,1,0,19,9.5,9.5,9.5,0,0,0,9.5,0ZM9.327,2.381a3.674,3.674,0,0,1,2.725,1.034A3.308,3.308,0,0,1,13,5.721a3.381,3.381,0,0,1-.769,2.306c-.695,1.044-2.442,2.556-2.112,4.252l-1.333-.023A4.254,4.254,0,0,1,8.8,8.692c.45-.946.787-1.25,1.153-2.125A1.462,1.462,0,0,0,8.658,4.7a1.249,1.249,0,0,0-1.338.878H6.238c-.093-.054-.295-.114-.228-1.1S8.175,2.378,9.327,2.381Zm.067,11.005A1.616,1.616,0,1,1,7.781,15,1.612,1.612,0,0,1,9.395,13.386Z" transform="translate(1733.501 303.501)" fill="#dbe5e8"/>
+                                                        </g>
+                                                      </svg>
+                                                </i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped" *ngIf="this.recentPoc.length > 0">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="text-center">Type of poc</th>
+                                            <th class="text-center">Poc Name</th>
+                                            <th class="text-center">Designation</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let poc of recentPoc">
+                                            <td class="text-center">{{poc.Name}}</td>
+                                            <td class="text-center">{{poc.PocName}}</td>
+                                            <td class="text-center">{{poc.Designation}}</td>
+                                            <td class="text-center">{{poc.PhoneNo}}</td>
+                                            <td class="text-center">{{poc.Email}}</td>
+                                            <td class="text-center">
+                                                <i class=" mr-2" (click)="getPocDetail(poc)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                        <g id="Group_9726" data-name="Group 9726" transform="translate(-1559 -353)">
+                                                          <circle id="Ellipse_31" data-name="Ellipse 31" cx="16" cy="16" r="16" transform="translate(1559 353)" fill="#296478"/>
+                                                          <g id="Icon_ionic-ios-eye" data-name="Icon ionic-ios-eye" transform="translate(1563.748 355.125)">
+                                                            <path id="Path_28" data-name="Path 28" d="M11.242,7.875c-3.23,0-5.777,2.033-8.823,5.355a.635.635,0,0,0,0,.856c2.607,2.881,4.905,5.359,8.827,5.359,3.873,0,6.778-3.122,8.843-5.384a.63.63,0,0,0,.02-.832C18,10.679,15.087,7.875,11.242,7.875Zm.177,9.4a3.616,3.616,0,1,1,3.443-3.443A3.617,3.617,0,0,1,11.419,17.272Z" fill="#dbe5e8"/>
+                                                            <path id="Path_29" data-name="Path 29" d="M15.99,14.161a1.828,1.828,0,0,1,.121-.657c-.039,0-.078,0-.121,0a2.49,2.49,0,1,0,2.49,2.49c0-.051,0-.1,0-.152a1.725,1.725,0,0,1-.708.152A1.806,1.806,0,0,1,15.99,14.161Z" transform="translate(-4.74 -2.33)" fill="#dbe5e8"/>
+                                                          </g>
+                                                        </g>
+                                                      </svg>
+                                                </i>
+                                                <i class="mr-2" (click)="deletePoc(poc)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+                                                        <defs>
+                                                          <clipPath id="clip-path">
+                                                            <rect id="Rectangle_17030" data-name="Rectangle 17030" width="26" height="26" transform="translate(-0.258 -0.258)" fill="#dbe5e8"/>
+                                                          </clipPath>
+                                                        </defs>
+                                                        <g id="Group_9724" data-name="Group 9724" transform="translate(-1601 -353)">
+                                                          <circle id="Ellipse_32" data-name="Ellipse 32" cx="16" cy="16" r="16" transform="translate(1601 353)" fill="#296478"/>
+                                                          <g id="Group_17904" data-name="Group 17904" transform="translate(1578.055 351.055)">
+                                                            <g id="Group_17903" data-name="Group 17903" transform="translate(26.204 5.204)" clip-path="url(#clip-path)">
+                                                              <path id="Path_24772" data-name="Path 24772" d="M53.8,38.936l-1.114,1.116c-.053-.046-.116-.1-.175-.151a8.487,8.487,0,0,0-6.693-2.282,8.785,8.785,0,0,0-7.849,6.561,8.887,8.887,0,1,0,17.3,4.04,7.968,7.968,0,0,0-.023-3.5.442.442,0,0,1,.146-.48c.361-.351.694-.731,1.075-1.077a9.579,9.579,0,0,1,.322,5.657,10.152,10.152,0,0,1-4.443,6.406A10.5,10.5,0,0,1,40.075,38.194a10.4,10.4,0,0,1,13.725.742" transform="translate(-33.814 -33.721)" fill="#dbe5e8"/>
+                                                              <path id="Path_24773" data-name="Path 24773" d="M129.3,98.623l-4.513-4.573,1.09-1.1,3.375,3.392,9.115-9.114,1.155,1.154L129.3,98.623" transform="translate(-116.567 -81.541)" fill="#dbe5e8"/>
+                                                            </g>
+                                                          </g>
+                                                        </g>
+                                                      </svg>
+                                                </i>
+                                                <i class="" (click)="toggelePoc(poc)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                                        <g id="Group_17925" data-name="Group 17925" transform="translate(-1727 -297)">
+                                                          <circle id="Ellipse_33" data-name="Ellipse 33" cx="16" cy="16" r="16" transform="translate(1727 297)" fill="#296478"/>
+                                                          <path id="path17850" d="M9.5,0A9.5,9.5,0,1,0,19,9.5,9.5,9.5,0,0,0,9.5,0ZM9.327,2.381a3.674,3.674,0,0,1,2.725,1.034A3.308,3.308,0,0,1,13,5.721a3.381,3.381,0,0,1-.769,2.306c-.695,1.044-2.442,2.556-2.112,4.252l-1.333-.023A4.254,4.254,0,0,1,8.8,8.692c.45-.946.787-1.25,1.153-2.125A1.462,1.462,0,0,0,8.658,4.7a1.249,1.249,0,0,0-1.338.878H6.238c-.093-.054-.295-.114-.228-1.1S8.175,2.378,9.327,2.381Zm.067,11.005A1.616,1.616,0,1,1,7.781,15,1.612,1.612,0,0,1,9.395,13.386Z" transform="translate(1733.501 303.501)" fill="#dbe5e8"/>
+                                                        </g>
+                                                      </svg>
+                                                </i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree6">
+                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree6"
+                            aria-expanded="true" aria-controls="collapseThree6">
+                            <span class="circle_value">4</span> Invoice Details
+                        </div>
+                    </div>
+                    <div id="collapseThree6" class="collapse" aria-labelledby="headingThree6"
+                        data-parent="#accordionExample6">
+                        <div class="card-body">
+                            <div class="kt-portlet__body">
+                                <div class="form-group row">
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label>Reference Name*</label>
+                                        <input type="email" class="form-control" placeholder="Enter Reference name"
+                                            formControlName="reference_name">
+                                        <mat-error *ngIf="isControlHasError('reference_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Billing Address*</label>
+                                        <input type="email" class="form-control" placeholder="Enter Billing Address"
+                                            formControlName="billing_address">
+                                        <mat-error *ngIf="isControlHasError('billing_address','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">TAX Number (GST)</label>
+                                        <input type="text" class="form-control" placeholder="Enter tax number"
+                                            formControlName="tax_number">
+                                       
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Billing Currency*</label>
+                                        <select class="form-control" formControlName="billing_currency">
+                                            <option value="">Select Currency</option>
+                                            <option *ngFor="let currency of currencyList;let i = index"
+                                                [value]="currency.Id">
+                                                {{currency.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('billing_currency','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Invoice Generate From (DEVIT/DEV NA)*</label>
+                                        <select class="form-control" formControlName="invoice_generate">
+                                            <option value="">Select Invoice </option>
+                                            <option
+                                                *ngFor="let invoiceGenerate of invoiceGenerateFormList;let i = index"
+                                                [value]="invoiceGenerate.Id">
+                                                {{invoiceGenerate.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('invoice_generate','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Payment Terms*</label>
+                                        <select class="form-control" formControlName="payment_terms">
+                                            <option value="">Select Payment Terms</option>
+                                            <option *ngFor="let payment of paymentList;let i = index"
+                                                [value]="payment.Id">
+                                                {{payment.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('payment_terms','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Invoice Sent To Client By*</label>
+                                        <select class="form-control" formControlName="sent_to_client">
+                                            <option value="">Select Invoice sent To</option>
+                                            <option *ngFor="let invoiceSentBy of invoiceSentByList;let i = index"
+                                                [value]="invoiceSentBy.Id">
+                                                {{invoiceSentBy.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('sent_to_client','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Invoice Sent Via*</label>
+                                        <select class="form-control" formControlName="invoice_sent">
+                                            <option value="">Select Sent Via</option>
+                                            <option *ngFor="let invoiceSentVia of invoiceSentViaList;let i = index"
+                                                [value]="invoiceSentVia.Id">
+                                                {{invoiceSentVia.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('invoice_sent','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Is Digital Signature Required?*</label><br>
+                                        <input type="radio" id="Yes" name="digital_signature"
+                                            formControlName="digital_signature" value="1">
+                                        <label for="html">Yes</label>
+                                        <input type="radio" id="css" name="digital_signature"
+                                            formControlName="digital_signature" value="0">
+                                        <label for="No">No</label><br>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Name Of Person To Whom Invoice Sent*</label>
+                                        <input type="text" class="form-control" placeholder="Enter name "
+                                            formControlName="invoice_sent_name">
+                                        <mat-error *ngIf="isControlHasError('invoice_sent_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Email Address To*</label>
+                                        <input type="email" class="form-control" placeholder=" Enter Email For To"
+                                            formControlName="email_to">
+                                        <mat-error *ngIf="isControlHasError('email_to','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                        <mat-error *ngIf="isControlHasError('email_to','pattern')">
+                                            {{ 'AUTH.VALIDATION.INVALID_EMAIL' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Email Address CC*</label>
+                                        <input type="email" class="form-control" placeholder="Enter Email For CC"
+                                            formControlName="email_cc">
+                                        <mat-error *ngIf="isControlHasError('email_cc','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                        <mat-error *ngIf="isControlHasError('email_cc','pattern')">
+                                            {{ 'AUTH.VALIDATION.INVALID_EMAIL' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Common Invoice Instruction For Accounts*</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="EnterCommon Invoice Instruction For Accounts"
+                                            formControlName="instruction_for_accounts">
+                                        <mat-error *ngIf="isControlHasError('bdm_name','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Print Our Bank Details In Invoice*</label><br>
+                                        <input type="radio" id="Yes" name="print_bank_detail"
+                                            formControlName="print_bank_detail" value="1" (change)="printBank()">
+                                        <label for="html">Yes</label>
+                                        <input type="radio" id="css" name="print_bank_detail"
+                                            formControlName="print_bank_detail" value="0" (change)="printBank()">
+                                        <label for="No">No</label><br>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2">
+                                        <label class="">Term And Condition To Print In Invoice*</label><br>
+                                        <input type="radio" id="Yes" name="print_invoice"
+                                            formControlName="print_invoice" value="1">
+                                        <label for="html">Yes</label>
+                                        <input type="radio" id="css" name="print_invoice"
+                                            formControlName="print_invoice" value="0">
+                                        <label for="No">No</label><br>
+                                    </div>
+                                    <div class="col-lg-4 mb-4 p-2" *ngIf="bankDetail">
+                                        <label class="">Bank Details*</label>
+                                        <select class="form-control" formControlName="bank_details">
+                                            <option value="">Select Bank Details</option>
+                                            <option *ngFor="let bank of bankdetailsList;let i = index"
+                                                [value]="bank.Id">
+                                                {{bank.Name}}</option>
+                                        </select>
+                                        <mat-error *ngIf="isControlHasError('bank_details','required')">
+                                            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                        </mat-error>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingThree6">
+                        <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseThree6"
+                            aria-expanded="true" aria-controls="collapseThree6">
+                            <span class="circle_value">5</span> Document Upload
+                        </div>
+                    </div>
+                    <div id="collapseThree6" class="collapse" aria-labelledby="headingThree6"
+                        data-parent="#accordionExample6">
+                        <div class="card-body">
+                            <div class="kt-portlet__body">
+                                <form class="form form-label-left" [formGroup]="docForm" enctype="multipart/form-data">
+                                    <div class="form-group row">
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label class="">Document Type*</label>
+                                            <select class="form-control" formControlName="document_type">
+                                                <option value="">Select Type Of Poc</option>
+                                                <option *ngFor="let documentType of documentTypeList;let i = index"
+                                                    [value]="documentType.Id">
+                                                    {{documentType.Name}}</option>
+                                            </select>
+                                            <mat-error *ngIf="isControlHasError('document_type','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label class="">Period From*</label>
+                                            <input type="date" class="form-control" formControlName="period_from"
+                                                [max]="day" (change)="date()">
+                                            <mat-error *ngIf="isControlHasError('period_from','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label class="">Period To</label>
+                                            <input type="date" class="form-control" formControlName="period_to"
+                                                [min]="periodFrom" [max]="day">
+                                            <mat-error *ngIf="isControlHasError('period_to','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-lg-4 mb-4 p-2">
+                                            <label>Upload Document*</label>
+                                            <input type="file" class="form-control" placeholder="Enter full name"
+                                                (change)="onFileChange($event)">
+                                            <mat-error *ngIf="isControlHasError('document','required')">
+                                                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                                            </mat-error>
+                                        </div>
+                                        <div class="col-12 text-right">
+                                            <button class="btn-primary btn" type="button" (click)="docsave()">Upload
+                                                Document</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                                <table class="table table-striped">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th class="text-center">Document type</th>
+                                            <th class="text-center">Period from</th>
+                                            <th class="text-center">Period to</th>
+                                            <th class="text-center">Document file name</th>
+
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let doc of documentList">
+                                            <td class="text-center">{{doc.DocumentTypeId}}</td>
+                                            <td class="text-center">{{doc.PeriodFrom.split(" ")[0]}}</td>
+                                            <td class="text-center">{{doc.PeriodTo.split(" ")[0]}}</td>
+                                            <td class="text-center">{{doc.DocumentName}}</td>
+
+                                            <td class="text-center">
+                                                <i (click)=" deleteDoc(doc)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                        viewBox="0 0 32 32">
+                                                        <g id="Group_17926" data-name="Group 17926"
+                                                            transform="translate(-1558.791 -353.293)">
+                                                            <circle id="Ellipse_31" data-name="Ellipse 31" cx="16"
+                                                                cy="16" r="16" transform="translate(1558.791 353.293)"
+                                                                fill="#296478" />
+                                                            <g id="remove-svgrepo-com"
+                                                                transform="translate(1500.791 295.293)">
+                                                                <path id="Path_24783" data-name="Path 24783"
+                                                                    d="M320.771,480h7.708a.771.771,0,0,1,0,1.542h-7.708a.771.771,0,1,1,0-1.542Z"
+                                                                    transform="translate(-250.625 -406.771)"
+                                                                    fill="#dbe5e8" />
+                                                                <path id="Path_24784" data-name="Path 24784"
+                                                                    d="M74,82.571A8.571,8.571,0,1,0,65.429,74,8.571,8.571,0,0,0,74,82.571ZM74,84A10,10,0,1,1,84,74,10,10,0,0,1,74,84Z"
+                                                                    fill="#dbe5e8" />
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </i>&nbsp;
+                                                <i (click)='download(doc.DocumentName)'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                        viewBox="0 0 32 32">
+                                                        <g id="Group_9724" data-name="Group 9724"
+                                                            transform="translate(-1601 -353)">
+                                                            <circle id="Ellipse_32" data-name="Ellipse 32" cx="16"
+                                                                cy="16" r="16" transform="translate(1601 353)"
+                                                                fill="#296478" />
+                                                        </g>
+                                                    </svg>
+                                                </i>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+            <div class="row mt-6 col-12 d-flex justify-content-end last">
+                <!-- <div class="col-2"></div> -->
+
+                <button class="btn-dark btn cancle" type="button" (click)="cancle()">Cancel</button>
+
+                <button class="btn-primary btn " type="button" (click)="save()" [disabled]="isSubmitted ? true : false"
+                    *ngIf="!roleId">Submit</button>
+
+            </div>
+        </form>
+    </div>
+</div>

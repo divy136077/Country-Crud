@@ -1,0 +1,10 @@
+<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+  <li class="breadcrumb-item" routerLinkActive="active">
+    <a [routerLink]="['admin/dashboard']" class="text-muted">Home</a>
+  </li>
+  <li class="breadcrumb-item" *ngFor="let bc of breadcrumbs" routerLinkActive="active">
+    <a [routerLink]="bc.url" class="text-muted">
+      {{ bc.label|translate }}
+    </a>
+  </li>
+</ul>

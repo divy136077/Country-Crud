@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class SortState {\n  constructor() {\n    this.column = 'id'; // Id by default\n\n    this.direction = 'asc'; // asc by default;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

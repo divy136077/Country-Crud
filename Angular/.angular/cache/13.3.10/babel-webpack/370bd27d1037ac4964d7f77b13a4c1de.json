@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const PageSizes = [3, 5, 10, 15, 50, 100];\nexport class PaginatorState {\n  constructor() {\n    this.page = 1;\n    this.pageSize = PageSizes[2];\n    this.total = 0;\n    this.pageSizes = [];\n  }\n\n  recalculatePaginator(total) {\n    this.total = total;\n    return this;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

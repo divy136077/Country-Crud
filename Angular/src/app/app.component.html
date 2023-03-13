@@ -1,0 +1,5 @@
+<app-splash-screen></app-splash-screen>
+<div class="loading-indicator" *ngIf="loading | async">
+	<mat-spinner   mode="indeterminate" color="primary" diameter="60"></mat-spinner>	
+</div> 
+<router-outlet></router-outlet>

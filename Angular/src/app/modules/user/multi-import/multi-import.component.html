@@ -1,0 +1,98 @@
+<!-- PORTLET LOADING | Binded to TABLE Datasource -->
+<!--<kt-portlet-header [title]="title" [class]="'kt-portlet__head--lg'">
+  
+      <ng-container ktPortletTools>
+        <kt-breadcrumbs class="kt-margin-r-10"></kt-breadcrumbs>
+      </ng-container>-->
+<div class="card card-custom  gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">Import User Data</h3>
+        </div>
+
+        <div class="card-toolbar">
+            <ng-container ktPortletTools>
+                <a mat-raised-button color="primary" class="mr-2" [href]="excelPath" [download]="excelName">Sample
+                    xlsx</a>
+                <a mat-raised-button color="primary" [href]="csvPath" [download]="csvName">Sample csv</a>
+
+            </ng-container>
+            <!--<div class="example-tools justify-content-center">
+                <app-add-item-btn [moduleUrl]="moduleUrl" [title]="title" [moduleSlug]="moduleSlug"></app-add-item-btn>
+            </div>-->
+        </div>
+    </div>
+
+    <!--<ng-container ktPortletTools>
+        <a mat-raised-button color="primary" class="mr-" [href]="excelPath" [download]="excelName">Sample
+            xlsx</a>
+        <a mat-raised-button color="primary" [href]="csvPath" [download]="csvName">Sample csv</a>
+
+    </ng-container>-->
+
+    <div class="card-body">
+        <div class="row m-0">
+            <div class="col-6">
+                <input type="file" name="File Upload" id="txtFileUpload" (change)="onFilesAdded($event)" class="mb-2"
+                    accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                <div>
+                    <mat-error *ngIf="isShowMessage">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="errorMessage">
+                        {{errorMessage}}
+                    </mat-error>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-10">
+                        <button mat-raised-button color="primary"
+                            (click)="addHoursEntry()">{{'BUTTONS.SUBMIT' | translate}}</button>&nbsp;&nbsp;
+                        <a mat-raised-button color="warn" routerLink="/job">{{'BUTTONS.CANCEL' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 card  p-3 response-section" *ngIf="faildData">
+                <div>
+                    <i class="fa fa-times-circle close-icon" aria-hidden="true" (click)="closeResponse()"></i>
+                    <div *ngIf="moduleNameServiceRoute=== 'job'">
+                        <p class="text-danger">
+                            Failed to import! Error in rows({{faildData.toString()}}) - either records already exist in
+                            database or
+                            job id entered is not 6 digit value</p>
+                        <p class="text-success" *ngIf="successData"> {{successData}} job added sucessfully</p>
+                    </div>
+                    <div *ngIf="moduleNameServiceRoute!== 'job'">
+                        <p class="text-danger">
+                            Failed to import! Error in rows({{faildData.toString()}}) - either employee id, phase id or
+                            job
+                            id are not
+                            found in database or employee or phase is not assigned in job </p>
+                        <p class="text-success" *ngIf="successData"> {{successData}} hours entry added sucessfully</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row mt-4">
+        <div class="col-12">
+          <h4>Function:</h4>
+          <ul>
+            <li> Import functionality will add  records in database.</li>
+          </ul>
+        </div>
+      </div> -->
+
+        <div class="row mt-5 mx-0">
+            <div class="col-12">
+                <h4>Instructions:</h4>
+                <ul>
+                    <li>first_name contains First name which is entered while adding user <strong>e.g.</strong> John</li>
+                    <li>last_name contains Last name which is entered while adding user <strong>e.g.</strong> Doe</li>
+                    <li>email contains Email which is entered while addling user <strong>e.g.</strong> abc@gmail.com</li>
+                    <li>password contains Password <strong>e.g.</strong> Abc@12345</li>
+                    <li>phone contains Phone <strong>e.g.</strong> 7875454521 </li>
+                    <li>role_id contains Role name <strong>e.g.</strong> admin </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,544 @@
+/* You can add global styles to this file, and also import other style files */
+// @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,800");
+
+// Global vendors
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+
+
+// => Material
+// @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+@import "~highlight.js/styles/googlecode.css";
+@import "~perfect-scrollbar/css/perfect-scrollbar.css";
+
+// Global fonts
+@import "~socicon/css/socicon.css";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "./assets/plugins/flaticon/flaticon.css";
+@import "./assets/plugins/flaticon2/flaticon.css";
+@import "./assets/plugins/keenthemes-icons/font/ki.css";
+
+
+
+
+// Metronic styles (replace these path when using RTL css below)
+@import "./assets/sass/style.angular.scss";
+// Custom Style
+@import "./assets/sass/custom/custom.scss";
+
+// For RTL, check this documentation https://keenthemes.com/metronic/?page=docs&section=angular-rtl
+// @import "./assets/sass/style.angular.rtl.css";
+
+// Default Layout themes
+@import "./assets/sass/themes/layout/header/base/light.scss";
+@import "./assets/sass/themes/layout/header/menu/light.scss";
+@import "./assets/sass/themes/layout/brand/dark.scss";
+@import "./assets/sass/themes/layout/aside/dark.scss";
+
+// Header themes
+// .header-base-light {
+//     @import "./assets/sass/themes/layout/header/base/light.scss";
+// }
+
+// .header-base-dark {
+//     @import "./assets/sass/themes/layout/header/base/dark.scss";
+// }
+
+// Header Menu themes
+// .header-menu-light {
+//     @import "./assets/sass/themes/layout/header/menu/light.scss";
+// }
+// .header-menu-dark {
+//     @import "./assets/sass/themes/layout/header/menu/dark.scss";
+// }
+
+// Brand themes
+.brand-dark {
+  @import "./assets/sass/themes/layout/brand/dark.scss";
+}
+
+.brand-light {
+  @import "./assets/sass/themes/layout/brand/light.scss";
+}
+
+// Aside themes
+// .aside-dark {
+//   @import "./assets/sass/themes/layout/aside/dark.scss";
+// }
+
+// .aside-light {
+//   @import "./assets/sass/themes/layout/aside/light.scss";
+// }
+
+// hide bootstrap dropdown arrow globally
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.angular-bootstrap-table {
+  overflow-x: auto;
+}
+.angular-bootstrap-table {
+  th {
+    outline: none;
+
+    &.sortable {
+      .svg-icon-sort {
+        opacity: 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .svg-icon-sort {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .table.table-head-custom thead th.sortable-active {
+    color: #3699ff !important;
+  }
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.progress-modal {
+  height: 3px;
+  width: 100%;
+}
+.mat-select-placeholder {
+  color: #b5b5c3 !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: #b5b5c3 !important;
+}
+.mat-progress-bar-buffer {
+  background-color: #d1c4e9 !important;
+}
+
+// Black theme css statrt
+
+// .aside-fixed .aside {
+//   box-shadow: 0 9px 1px 0px grey !important;
+// }
+// .header {
+//   background-color: #1b1b28 !important;
+// }
+// .header-fixed.subheader-fixed .subheader {
+//   background-color: #1b1b28 !important;
+//   box-shadow: none !important;
+// }
+// body {
+//   background: #1b1b28 !important;
+// }
+// .footer-fixed .footer {
+//   box-shadow: none !important;
+//   background-color: #1e1e2d !important;
+// }
+// .card.card-custom {
+//   background-color: #1e1e2d !important;
+//   box-shadow: none !important;
+//   .card-header .card-title .card-label {
+//     color: white;
+//   }
+// }
+// .aside-menu
+//   .menu-nav
+//   > .menu-item
+//   > .menu-heading
+//   .menu-icon.svg-icon
+//   svg
+//   g
+//   [fill],
+// .aside-menu
+//   .menu-nav
+//   > .menu-item
+//   > .menu-link
+//   .menu-icon.svg-icon
+//   svg
+//   g
+//   [fill] {
+//   fill: #a2a3b7 !important;
+// }
+
+// .aside-menu
+//   .menu-nav
+//   > .menu-item.menu-item-active
+//   > .menu-heading
+//   .menu-icon.svg-icon
+//   svg
+//   g
+//   [fill],
+// .aside-menu
+//   .menu-nav
+//   > .menu-item.menu-item-active
+//   > .menu-link
+//   .menu-icon.svg-icon
+//   svg
+//   g
+//   [fill] {
+//   fill: #3699ff !important;
+// }
+
+// .mat-table {
+//   background: #1e1e2d;
+//   mat-row,
+//   mat-header-row,
+//   mat-footer-row,
+//   th.mat-header-cell,
+//   td.mat-cell,
+//   td.mat-footer-cell {
+//     border-bottom-color: #d1d3e0;
+//   }
+//   .mat-cell,
+//   .mat-footer-cell {
+//     color: rgb(255 255 255 / 87%);
+//   }
+//   .mat-header-cell {
+//     color: #f5f2f2e8;
+//   }
+// }
+// .mat-paginator {
+//   background-color: #1e1e2d;
+//   .mat-paginator-page-size .mat-select-trigger {
+//     color: rgba(255, 255, 255, 0.54);
+//   }
+// }
+// .mat-paginator,
+// .mat-paginator-page-size .mat-select-trigger {
+//   color: rgba(255, 255, 255, 0.54);
+// }
+// button.mat-focus-indicator.mat-tooltip-trigger.mat-paginator-navigation-previous.mat-icon-button.mat-button-base.mat-button-disabled {
+//   color: rgba(255, 255, 255, 0.26);
+// }
+// button.mat-focus-indicator.mat-tooltip-trigger.mat-paginator-navigation-next.mat-icon-button.mat-button-base.mat-button-disabled {
+//   color: rgba(255, 255, 255, 0.26);
+// }
+// .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+//   color: #fff;
+// }
+
+// .btn-yellow {
+//   background-color: #3699ff;
+//   border-color: #3699ff;
+//   font-weight: bold;
+// }
+// .form-group label {
+//   color: white;
+// }
+// .form-control,
+// .form-control:focus {
+//   background: transparent;
+//   color: #b5b5c3;
+// }
+// .scrolltop {
+//   background: #3699ff;
+// }
+// .mat-select-arrow {
+//   color: #fff;
+// }
+// .nav-tabs .nav-link.active,
+// .nav-tabs .nav-item.show .nav-link {
+//   background-color: grey;
+//   color: white;
+// }
+
+// .btn.btn-clean:hover:not(.btn-text):not(:disabled):not(.disabled),
+// .btn.btn-clean:focus:not(.btn-text),
+// .btn.btn-clean.focus:not(.btn-text) {
+//   color: #3699ff;
+//   background-color: #1e1e2d;
+// }
+// .navi {
+//   background-color: #1b1b28;
+//   .dropdown-item:hover,
+//   .dropdown-item:focus {
+//     color: #ffffff !important;
+//     text-decoration: none !important;
+//     background-color: #1e1e2d !important;
+//   }
+// }
+// .navi .navi-item .navi-link:hover .navi-text {
+//   color: #fff !important;
+// }
+
+// .navi .navi-item .navi-link .navi-text {
+//   color: #a2a3b7;
+// }
+// .navi .navi-item .navi-link.active .navi-text {
+//   color: #fff;
+// }
+
+// .navi .navi-item .navi-link .navi-icon i:hover,
+// .navi .navi-item .navi-link .navi-icon i:focus {
+//   color: #fff;
+// }
+
+// .btn-green {
+//   background-color: #4caf50;
+//   color: white;
+// }
+// .btn-action-dark {
+//   color: #7e8299;
+//   background-color: #1b1b28;
+// }
+// .mat-option {
+//   color: #a2a3b7;
+// }
+// .mat-option.mat-active {
+//   color: #fff;
+// }
+// .mat-select-panel ,.mat-autocomplete-panel{
+//   background: #1b1b28;
+//   color: #fff;
+// }
+
+// .mat-autocomplete-panel{
+// .mat-option{
+//   font-size: inherit;
+//   line-height: 3em;
+//   height: 3em;
+// }
+// }
+// .mat-autocomplete-panel .mat-option.mat-selected:not(.mat-active):not(:hover){
+//   background: #1b1b28;
+//   color: #fff !important;
+// }
+// .mat-select-value {
+//   color: #b5b5c3;
+// }
+// .nav-tabs .nav-link.active,
+// .nav-tabs .nav-item.show .nav-link {
+//   background-color: #3699ff;
+//   color: #fff;
+// }
+// .nav-tabs .nav-link:hover,
+// .nav-tabs .nav-item.show .nav-link {
+//   background-color: #3699ff;
+//   color: #fff !important;
+// }
+
+// .permission-card {
+//   .mat-checkbox-frame {
+//     border-color: #a2a3b7 !important;
+//   }
+// }
+
+// // breadcrumb start
+// .breadcrumb .breadcrumb-item.active i,
+// .breadcrumb .breadcrumb-item.active a,
+// .breadcrumb .breadcrumb-item:hover i,
+// .breadcrumb .breadcrumb-item:hover a {
+//   color: #a2a3b7 !important;
+// }
+// // breadcrumb end
+
+// .mat-dialog-container {
+//   background-color: #12121b;
+//   .mat-button-disabled{
+//     background-color: #3699ff47 !important;
+// }
+// }
+
+// select .form-control,
+// .form-control:focus {
+//   background: #1b1b28;
+// }
+// .form-control[readonly] {
+//   background-color: transparent;
+// }
+// // .mat-checkbox-checked{
+// //    background-color: #000 !important;
+// //    border:1px solid #fff !important;
+// //  }
+// //  .mat-checkbox-frame:checked {
+// //   border-color: #fff !important;
+// //   background-color: #000;
+// // }
+
+// input[type="date"]::-webkit-calendar-picker-indicator {
+//   cursor: pointer;
+//   border-radius: 4px;
+//   margin-right: 2px;
+//   opacity: 1;
+//   filter: invert(0.8);
+// }
+
+// input[type="date"]::-webkit-calendar-picker-indicator:hover {
+//   opacity: 1
+// }
+// .ng2-tag-input__text-input {
+//   min-width: 390px !important;
+
+//   display: inline !important;
+//     vertical-align: middle !important;
+//     border: none !important;
+//     padding: 0 .5rem !important;
+//     height: 38px !important;
+//     font-size: 1em !important;
+//     font-family: Roboto,"Helvetica Neue",sans-serif !important;
+//     background-color: #1b1b28 !important;
+//     color: white !important;
+// }
+// .ng-tns-c204-6.ng-trigger.ng-trigger-animation.ng-star-inserted{
+//   max-width: 380px !important;
+// }
+// .ng2-tag-input.ng2-tag-input--focused{
+//   border-bottom: 1px solid #ffffff !important;
+// }
+// Black theme css end
+
+
+// changes
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+  background-color:#3699ff;
+}
+
+.symbol.symbol-light-success .symbol-label {
+  background-color: #edeff7;
+  color:#3699ff;
+  }
+
+  .aside-menu .menu-nav>.menu-item.menu-item-active>.menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav>.menu-item.menu-item-active>.menu-link .menu-icon.svg-icon svg g [fill] {
+    transition: fill .3s ease;
+    fill:#3699ff;
+}
+.aside-menu .menu-nav>.menu-item>.menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav>.menu-item>.menu-link .menu-icon.svg-icon svg g [fill] {
+  transition: fill .3s ease;
+  fill: #edeff7a1;
+}
+.aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-link .menu-icon.svg-icon svg g [fill] {
+  transition: fill .3s ease;
+  fill:#3699ff;
+}
+.text-white {
+  color: gray!important;
+}
+
+.role-add .mat-checkbox-frame {
+  border-color: #0000008a!important;
+}
+
+
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+  background-color:#3699ff;
+}
+
+.symbol.symbol-light-success .symbol-label {
+  background-color: #edeff7;
+  color:#3699ff;
+  }
+
+  .aside-menu .menu-nav>.menu-item.menu-item-active>.menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav>.menu-item.menu-item-active>.menu-link .menu-icon.svg-icon svg g [fill] {
+    transition: fill .3s ease;
+    fill:#3699ff;
+}
+.aside-menu .menu-nav>.menu-item>.menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav>.menu-item>.menu-link .menu-icon.svg-icon svg g [fill] {
+  transition: fill .3s ease;
+  fill: #ffffff;
+}
+.aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-heading .menu-icon.svg-icon svg g [fill], .aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-link .menu-icon.svg-icon svg g [fill] {
+  transition: fill .3s ease;
+  fill:#3699ff;
+}
+.text-white {
+  color: gray!important;
+}
+.login {
+  //background-color: #364852;
+  background-color: #1e2b30;
+}
+
+.register {
+  color:  #d5d5d5;
+  padding-left: 257px;
+}
+
+.forgot {
+  color: #d5d5d5;
+}
+
+.register:hover {
+  color: #fff;
+  padding-left: 207px;
+
+}
+
+.forgot:hover {
+  color: #d5d5d5;
+}
+
+.bottom-logo img{
+  padding-bottom: 20px;
+}
+
+.mat-dialog-container {
+  padding: 10px !important;
+}
+
+
+.label {
+
+  background-color: #0abb87;
+  color: #fff;
+
+}
+.label.label-success {
+
+  background-color: #a09699;
+}
+.btn-yellow {
+  background-color: #3699FF;
+  color: #fff;
+}
+
+
+.modal-body .modal-footer{
+  background: #fff;
+  color: #a2a3b7;
+}
+
+.modal-header{
+  background: #fff;
+}
+
+.bg-danger {
+  background-color:  #000000!important;
+
+}
+.mat-dialog-container {
+
+  padding: 0;
+}
+
+.header-fixed.subheader-fixed.subheader-enabled .wrapper {
+  padding-top: 60px;
+}
+
+.mat-error{
+  padding: 3px;
+}
+
+h3{
+  margin-right: 10px;
+}
+
+.btn:hover {
+  color: #ffffff;
+}
+
+.text-red {
+  color:#3699ff;
+}
+
+.aside-menu {
+  background-color: #25507C;
+}

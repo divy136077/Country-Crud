@@ -1,0 +1,246 @@
+<div class="card card-custom  gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">
+                {{ !menuId?('PAGES.MENU.ADD_NEW_MENU' | translate):('PAGES.MENU.UPDATE' | translate) }}</h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="form form-label-left" [formGroup]="menuForm">
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label" for="name">{{'PAGES.MENU.INPUT.TITLE' |translate}} <span
+                        class="text-danger">*</span></label>
+                <div class="col-lg-9 col-xl-8">
+                    <input class="form-control form-control-lg" type="text" formControlName="title"
+                        placeholder="{{'PAGES.MENU.INPUT.TITLE' |translate}}"
+                        title="{{'PAGES.MENU.INPUT.TITLE' |translate}}" id="title" />
+                        <span class="form-text text-muted">(Only character allowed, Min length: 3, Max length: 50)</span>
+                    <mat-error *ngIf="isControlHasError('title','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('title','pattern')">
+                        {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+                    </mat-error>
+                    <div>
+                        <mat-error *ngIf="isControlHasError('title','maxlength')">
+                            {{'AUTH.VALIDATION.MAX_LENGTH_FIELD' |translate}} {{fieldLength.nameMaxLength}}
+                        </mat-error>
+                        <mat-error *ngIf="isControlHasError('title','minlength')">
+                            {{'AUTH.VALIDATION.MIN_LENGTH_FIELD' |translate}} {{fieldLength.nameMinLength}}
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label" for="name">{{'PAGES.MENU.INPUT.NAME' |translate}} <span
+                        class="text-danger">*</span></label>
+                <div class="col-lg-9 col-xl-8">
+                    <input class="form-control form-control-lg" type="text" formControlName="name"
+                        placeholder="{{'PAGES.MENU.INPUT.NAME' |translate}}"
+                        title="{{'PAGES.MENU.INPUT.NAME' |translate}}" id="name" />
+                        <span class="form-text text-muted">(Only character allowed, Min length: 3, Max length: 50)</span>
+                    <mat-error *ngIf="isControlHasError('name','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('name','pattern')">
+                        {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+                    </mat-error>
+                    <div>
+                        <mat-error *ngIf="isControlHasError('name','maxlength')">
+                            {{'AUTH.VALIDATION.MAX_LENGTH_FIELD' |translate}} {{fieldLength.nameMaxLength}}
+                        </mat-error>
+                        <mat-error *ngIf="isControlHasError('name','minlength')">
+                            {{'AUTH.VALIDATION.MIN_LENGTH_FIELD' |translate}} {{fieldLength.nameMinLength}}
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label"> {{'PAGES.MENU.INPUT.PARENT'|translate}}</label>
+                <div class="col-lg-9 col-xl-8">
+                    <select name="status" placeholder="Filter by Status" class="form-control" formControlName="parent">
+                        <option value="" *ngFor="let status of menuList;let i = index" [value]="status.id">
+                            {{status.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label"> {{'PAGES.MODULE.INPUT.PORTAL'|translate}}
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-9 col-xl-8">
+                    <select name="portal" placeholder="Filter by Portal" class="form-control"
+                        formControlName="portal_id" (change)='onPortalChange($event.target.value)'>
+                        <option value="" *ngFor="let portal of portalList;let i = index" [value]="portal.id">
+                            {{portal.name}}</option>
+                    </select>
+                    <mat-error *ngIf="isControlHasError('portal_id','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label"> {{'PAGES.MODULE.MODULE'|translate}}<span
+                        class="text-danger">*</span></label>
+                <div class="col-lg-9 col-xl-8">
+                    <select name="moduleList" placeholder="Filter by Status" class="form-control"
+                        formControlName="module_id" [(ngModel)]="moduleList">
+                        <option *ngFor="let status of modulelist;let i = index" [value]="status.id">
+                            {{status.name}}</option>
+                    </select>
+                    <mat-error *ngIf="isControlHasError('module_id','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                </div>
+            </div>
+
+            
+            <!-- <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label"> {{'PAGES.MENU.INPUT.MODULE'|translate}}</label>
+                <div class="col-lg-9 col-xl-8">
+                    <select name="status" placeholder="Filter by Status" class="form-control"
+                        formControlName="module_id">
+                        <option value="">-- Select any one --</option>
+                        <option value="" *ngFor="let status of moduleList;let i = index" [value]="status.id">
+                            {{status.name}}</option>
+                    </select>
+                </div>
+            </div> -->
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label"> {{'PAGES.MENU.INPUT.MENUTYPE'|translate}}
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-9 col-xl-8">
+                    <select name="status" placeholder="Filter by Status" class="form-control"
+                        formControlName="menu_type">
+                        <option value="" *ngFor="let menu of menuTypeArr;let i = index" [value]="menu.value">
+                            {{menu.key}}</option>
+                    </select>
+                    <mat-error *ngIf="isControlHasError('menu_type','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                </div>
+            </div>
+
+            <!-- <div class="form-group row"  *ngIf="menuForm.value.menu_type == 'frontend'"> -->
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label"> {{'PAGES.MENU.INPUT.LOCATION'|translate}}<span
+                        class="text-danger">*</span></label>
+                <div class="col-lg-9 col-xl-8">
+                    <select name="status" placeholder="Filter by Status" class="form-control"
+                        formControlName="location">
+                        <option value="" *ngFor="let location of locationArr;let i = index" [value]="location.value">
+                            {{location.key}}</option>
+                    </select>
+                    <mat-error *ngIf="isControlHasError('location','required')">
+                        {{'AUTH.VALIDATION.REQUIRED_FIELD' |translate}}
+                    </mat-error>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label" for="url">{{'PAGES.MENU.INPUT.URL' |translate}}</label>
+                <div class="col-lg-9 col-xl-8">
+                    <input appAutofocus class="form-control form-control-lg" type="text" formControlName="url"
+                        placeholder="{{'PAGES.MENU.INPUT.URL' |translate}}"
+                        title="{{'PAGES.MENU.INPUT.URL' |translate}}" id="url" />
+                    <mat-error *ngIf="isControlHasError('url','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('url','pattern')">
+                        {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+                    </mat-error>
+                    <div>
+                        <mat-error *ngIf="isControlHasError('url','maxlength')">
+                            {{'AUTH.VALIDATION.MAX_LENGTH_FIELD' |translate}} {{fieldLength.nameMaxLength}}
+                        </mat-error>
+                        <mat-error *ngIf="isControlHasError('url','minlength')">
+                            {{'AUTH.VALIDATION.MIN_LENGTH_FIELD' |translate}} {{fieldLength.nameMinLength}}
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label" for="name">{{'PAGES.MENU.INPUT.ORDER' |translate}} <span
+                        class="text-danger">*</span></label>
+                <div class="col-lg-9 col-xl-8">
+                    <input class="form-control" type="text" placeholder="Order" formControlName="order" />
+                    <mat-error *ngIf="isControlHasError('order', 'required')">
+                        {{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('order', 'pattern')">
+                        {{ "AUTH.VALIDATION.INVALID_FIELD" | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('order','maxlength')">
+                        {{'AUTH.VALIDATION.MAX_LENGTH_FIELD' |translate}} 5
+                    </mat-error>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-xl-2 col-lg-2 col-form-label" for="name">{{'PAGES.MENU.INPUT.ICON' |translate}} <span
+                        class="text-danger">*</span></label>
+                <div class="col-lg-9 col-xl-8">
+                    <input class="form-control form-control-lg" type="text" formControlName="icon"
+                        placeholder="{{'PAGES.MENU.INPUT.ICON' |translate}}"
+                        title="{{'PAGES.MENU.INPUT.ICON' |translate}}" id="icon" />
+                    <mat-error *ngIf="isControlHasError('icon','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="isControlHasError('icon','pattern')">
+                        {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+                    </mat-error>
+                    <div>
+                        <mat-error *ngIf="isControlHasError('icon','maxlength')">
+                            {{'AUTH.VALIDATION.MAX_LENGTH_FIELD' |translate}} {{fieldLength.nameMaxLength}}
+                        </mat-error>
+                        <mat-error *ngIf="isControlHasError('icon','minlength')">
+                            {{'AUTH.VALIDATION.MIN_LENGTH_FIELD' |translate}} {{fieldLength.nameMinLength}}
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-text-input"
+                    class="col-xl-2 col-lg-2 col-form-label">{{'PAGES.COMMON.STATUS' | translate}} <span
+                        class="text-danger">*</span></label>
+                <div class="col-10">
+                    <mat-radio-group class="mt-3" id="status" formControlName="status" color="primary">
+                        <mat-radio-button class="example-radio-button" *ngFor="let status of statusArr"
+                            [value]="status.key" name="status">
+                            {{status.value}}&nbsp;
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="isControlHasError('status','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <!-- <div class="col-2"></div> -->
+                <div class="col-10">
+                    <button mat-raised-button class="btn-green" type="button" (click)="save()"
+                        [disabled]="isSubmitted ? true: false" *ngIf="!menuId">{{'BUTTONS.SAVE' |translate}}</button>
+                    <button mat-raised-button color="accent" type="button" *ngIf="menuId"
+                        (click)="update(false)">{{'BUTTONS.UPDATE' |translate}}</button>
+                    <button mat-raised-button color="accent" class="ml-2" type="button" *ngIf="menuId"
+                        (click)="update(true)">{{'BUTTONS.UPDATEANDRETURN' |translate}}</button>
+                    <button mat-raised-button type="button" *ngIf="!menuId" class="ml-2"
+                        (click)="reset()">{{'BUTTONS.RESET' |translate}}</button>&nbsp;
+                    <button mat-raised-button color="warn" type="button"
+                        routerLink="/menu">{{'BUTTONS.CANCEL' |translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

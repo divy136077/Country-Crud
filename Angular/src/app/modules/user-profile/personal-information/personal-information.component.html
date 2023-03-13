@@ -1,0 +1,337 @@
+<div class="card card-custom gutter-b">
+  <div class="card-body">
+    <div class="d-flex mb-5">
+      <h1 class="myOwn">Personal Details</h1>
+    </div>
+    <div class="separator separator-solid"></div>
+    <form form [formGroup]="formGroup" novalidate>
+      <div class="d-flex flex-wrap mt-5">
+        <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+          <div class="symbol symbol-50 symbol-lg-120">
+            <img src={{imageData}} alt="avatar">
+          </div>
+        </div>
+        <div class="flex-grow-1">
+          <!--begin::Title-->
+          <div class="d-flex justify-content-between flex-wrap mt-1">
+            <div class="d-flex mr-3">
+              <a class="text-dark-75 font-size-h5 font-weight-bold mr-3 bold">
+                {{userDetails.first_name}} {{userDetails.last_name}}
+              </a>
+            </div>
+          </div>
+          <!--end::Title-->
+          <!--begin::Content-->
+          <div class="d-flex justify-content-between flex-wrap mt-1">
+            <div class="d-flex flex-column flex-grow-1 pr-8">
+              <div class="d-flex flex-column mb-4">
+                <a class="text-dark-50 font-weight-bold mr-lg-8 mr-5 mb-lg-0">{{userDetails.designation}}</a>
+                <a class="text-dark-50 font-weight-bold mr-lg-8 mr-5 mb-lg-0">
+                  <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{userDetails.email}}</a>
+                <a class="text-dark-50 font-weight-bold mr-lg-8 mr-5 mb-lg-0">
+                  <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{userDetails.street_address}} {{userDetails.city}}, {{userDetails.state}},
+                  {{userDetails.country}}, Pin: {{userDetails.postal_code}}</a>
+                <a class="text-dark-50 font-weight-bold mr-lg-8 mr-5 mb-lg-0">
+                  <i class="flaticon2-phone mr-2 font-size-lg"></i>{{userDetails.phone}}</a>
+                <a class="text-dark-50 font-weight-bold">
+                  <i class="flaticon-gift mr-2 font-size-lg"></i>{{userDetails.birthday}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card card-custom gutter-b">
+  <div class="card-body">
+    <div class="d-flex mb-5">
+      <h1 class="myOwn">Official Details</h1>
+    </div>
+    <form [formGroup]="formGroup" novalidate class="mb-5 text-wrap">
+      <div>
+        <div class="separator separator-solid"></div>
+        <div class="row">
+          <div class="col-md-8">
+            <dl class="m-3 p-5">
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  <span>Department</span>
+                </dt>
+                <dd class="col-12 col-md-7 col-lg-7 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.department}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Teams/Practice
+                </dt>
+                <dd class="col-12 col-md-7 col-lg-7 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.team}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Band
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.band}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Country
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.country}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  State
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.state}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  City
+                </dt>
+                <dd class="col-12 col-md-7 col-lg-7 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.city}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Pin Code
+                </dt>
+                <dd class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.postal_code}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Reporting Person
+                </dt>
+                <dd class="col-12 col-md-7 col-lg-7 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.reporting_manager_name}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Date Of joining
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.joining_date}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Employee ID
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.employee_code}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Group Member
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>{{userDetails.groups}}</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  External Email Rights
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>???</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Aaryans Team Member
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>???</span>
+                </dd>
+              </div>
+              <div class="row">
+                <dt class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                  Team Work Access
+                </dt>
+                <dd class="col-12 col-md-5 col-lg-5 col-sm-12 col-xs-12 bold">
+                  <span>???</span>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ng-container *ngIf="user">
+  <div class="card card-custom card-stretch" [formGroup]="formGroup"> -->
+<!-- begin::Loading -->
+<!-- <ng-container *ngIf="isLoading$ | async">
+      <div class="progress progress-modal">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar"
+          style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </ng-container> -->
+<!-- end::Loading -->
+<!--begin::Header-->
+<!-- <div class="card-header py-3">
+      <div class="card-title align-items-start flex-column">
+        <h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
+        <span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
+      </div>
+      <div class="card-toolbar">
+        <button type="submit" [disabled]="formGroup.invalid" class="btn btn-success mr-2" (click)="save()">Save
+          Changes</button>
+        <button type="reset" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+      </div>
+    </div> -->
+<!--end::Header-->
+<!--begin::Form-->
+<!-- <div class="form"> -->
+<!--begin::Body-->
+<!-- <div class="card-body">
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Avatar</label>
+          <div class="col-lg-9 col-xl-8">
+            <div class="image-input image-input-outline" id="kt_profile_avatar"
+              [class.image-input-empty]="!isImageExist"
+              [style.backgroundImage]="'url(./assets/media/users/blank.png)'">
+              <div class="image-input-wrapper " [style.backgroundImage]="getPic()"></div>
+              <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
+                <i class="fa fa-pen icon-sm text-muted"></i>
+                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" (change)="OnLoadImage($event)" />
+                <input type="hidden" name="profile_avatar_remove" formControlName="profile_image" />
+              </label>
+              <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
+                data-action="cancel" data-toggle="tooltip" title="" data-original-title="Cancel avatar">
+                <i class="ki ki-bold-close icon-xs text-muted"></i>
+              </span>
+              <span *ngIf="isImageExist"
+                class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" (click)="deletePic()"
+                data-action="remove" data-toggle="tooltip" title="" data-original-title="Remove avatar">
+                <i class="ki ki-bold-close icon-xs text-muted"></i>
+              </span>
+            </div>
+            <span class="form-text text-muted">Allowed file types: png, jpg, jpeg.</span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">First Name</label>
+          <div class="col-lg-9 col-xl-8">
+            <input class="form-control form-control-lg form-control-solid" type="text" formControlName="first_name"
+              [class.is-invalid]="isControlInvalid('first_name')" [class.is-valid]="isControlValid('first_name')" />
+            <mat-error *ngIf="isControlHasError('first_name','required')">
+              {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+            </mat-error>
+            <mat-error *ngIf="isControlHasError('first_name','pattern')">
+              {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+            </mat-error>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Last Name</label>
+          <div class="col-lg-9 col-xl-8">
+            <input class="form-control form-control-lg form-control-solid" type="text" value="Bold"
+              formControlName="last_name" [class.is-invalid]="isControlInvalid('last_name')"
+              [class.is-valid]="isControlValid('last_name')" />
+            <mat-error *ngIf="isControlHasError('last_name','required')">
+              {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+            </mat-error>
+            <mat-error *ngIf="isControlHasError('last_name','pattern')">
+              {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+            </mat-error>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xl-3"></label>
+          <div class="col-lg-9 col-xl-8">
+            <h5 class="font-weight-bold mt-10 mb-6">Contact Info</h5>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Contact Phone</label>
+          <div class="col-lg-9 col-xl-8">
+            <div class="input-group input-group-lg input-group-solid">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-phone"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Phone"
+                formControlName="phone" [class.is-invalid]="isControlInvalid('phone')"
+                [class.is-valid]="isControlValid('phone')" />
+            </div>
+            <mat-error *ngIf="isControlHasError('phone','required')">
+              {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+            </mat-error>
+            <mat-error *ngIf="isControlHasError('phone','pattern')">
+              {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+            </mat-error>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xl-3 col-lg-3 col-form-label">Email Address</label>
+          <div class="col-lg-9 col-xl-8">
+            <div class="input-group input-group-lg input-group-solid">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-at"></i>
+                </span>
+              </div>
+              <input type="email" class="form-control form-control-lg form-control-solid" placeholder="Email"
+                formControlName="email" [class.is-invalid]="isControlInvalid('email')"
+                [class.is-valid]="isControlValid('email')" readonly />
+              <mat-error *ngIf="isControlHasError('email','required')">
+                {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+              </mat-error>
+              <mat-error *ngIf="isControlHasError('email','pattern')">
+                {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+              </mat-error>
+              <mat-error *ngIf="isControlHasError('email','minLength')">
+                {{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3
+              </mat-error>
+              <mat-error *ngIf="isControlHasError('email','maxLength')">
+                {{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 320
+              </mat-error>
+            </div>
+            <span class="form-text text-muted">We'll never share your email with anyone else.</span>
+          </div>
+        </div>
+      </div> -->
+<!--end::Body-->
+<!-- </div> -->
+<!--end::Form-->
+<!-- </div>
+</ng-container> -->

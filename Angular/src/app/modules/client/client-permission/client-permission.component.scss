@@ -1,0 +1,20 @@
+.permission-card{
+    .card-header{
+        position: relative;
+        .permission-checkbox{
+            position: absolute;
+            top: 6px;
+            right: 15px;
+        }
+        .mat-checkbox-inner-container{
+            height: 20px !important;
+            width: 20px !important;
+        }
+    }
+    .card-title{
+        align-items: normal;
+    }
+}
+.permission-title{
+    color:#a2a3b7 !important;
+}

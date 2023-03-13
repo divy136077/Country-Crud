@@ -1,0 +1,20 @@
+<div class="card card-custom  gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">{{ 'PAGES.USER.USER_LIST'|translate }}</h3>
+        </div>
+        
+        <div class="card-toolbar">
+            <div class="example-tools justify-content-center">
+               
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <app-listing [displayedColumns]="displayedColumns" [feild]="feild" [moduleUrl]="moduleUrl"  [advanceSearch]="advanceSearch"
+            [moduleName]="moduleName" [titleFeild]="titleFeild" 
+            [moduleNameServiceRoute]="moduleNameServiceRoute" [advanceSearchFields] = "advanceSearchFields"
+            [moduleSlug]="moduleSlug">
+        </app-listing>
+    </div>
+</div>

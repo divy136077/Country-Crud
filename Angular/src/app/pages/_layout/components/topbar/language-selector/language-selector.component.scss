@@ -1,0 +1,14 @@
+.language-link {
+
+  .dropdown-item.active,
+  .dropdown-item:active {
+    background-color: transparent !important;
+  }
+}
+
+.btn.btn-clean:not(:disabled):not(.disabled):active:not(.btn-text),
+.btn.btn-clean:not(:disabled):not(.disabled).active,
+.show>.btn.btn-clean.dropdown-toggle,
+.show .btn.btn-clean.btn-dropdown {
+  background-color: #1e1e2d;
+}

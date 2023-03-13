@@ -1,0 +1,268 @@
+    <!-- begin: Filtration form -->
+<form class="kt-form" id="ac-boxdrop" #filterValue="ngForm" (ngSubmit)="applyFilter(filterValue)" novalidate
+    style="margin-top: 0px !important;">
+    <div class="form form-label-right">
+        <div class="kt-margin-b-20-tablet-and-mobile float-right"
+            *ngIf="(resultsLength && listData.length > 0) && (moduleSlug == 'user')">
+            <app-export-list [listData]="listData" [fileName]="fileName" [reportTitle]="reportTitle"
+                [selectedEntity]="selectedEntity" [header]="header"></app-export-list>
+            <!-- <button type="button" routerLink="/user/import" class="btn btn-primary"
+                matTooltip="{{'PAGES.COMMON.IMPORT' | translate}}">
+                <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                    <span><em class="la la-upload"></em> Import</span>
+                </span>
+            </button>&nbsp;&nbsp; -->
+        </div>
+        <div class="filter_button filter_content" *ngIf="advanceSearchFields && advanceSearchFields.length > 0">
+            <!-- <mat-accordion class="example-headers-align">
+            <mat-expansion-panel hideToggle> -->
+            <!-- <mat-expansion-panel-header>
+                    <mat-panel-title>          
+                        <mat-icon aria-label="Menu"><i class="fa fa-filter"></i></mat-icon>
+                    </mat-panel-title>
+                </mat-expansion-panel-header> -->
+            <div class="row align-items-center" style="padding: 0px;">
+                <div class="col-md-4 kt-margin-b-20-tablet-and-mobile"
+                    *ngFor="let field of advanceSearchFields;let i = index">
+                    <div class="kt-form__group">
+                        <div class="col-md-12 kt-form__label">
+                            <label for="example-text-input" class="col-form-label">{{ field.language | translate
+                                }}:</label>
+                        </div>
+                        <div class="kt-form__control">
+                            <!-- <select *ngIf="field.type=='select' && (!field.multiple || field.multiple==false)"
+                                class="form-control bootstrap-select" name="{{field.name}}"
+                                #{{field.name}}="ngModel" ngModel>
+                                <option [value]="null" disabled selected>Please Select</option>
+                                <option *ngFor="let val of field.data;let i = index" [value]="val.id">
+                                    {{val | getColumnObjectValue : field.translationskey}}
+                                </option>
+                            </select> -->
+                            <mat-select class="form-control bootstrap-select"
+                                *ngIf="field.type=='select' && (!field.multiple || field.multiple==false)"
+                                placeholder="Please Select" name="{{field.name}}" ngModel #{{field.name}}="ngModel">
+                                <mat-option *ngFor="let val of field.data;let i = index" [value]="val[field.valueKey]">
+                                    {{val | listValue : field.translationskey}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-select *ngIf="field.type=='select' && field.multiple==true"
+                                class="form-control bootstrap-select" placeholder="{{ field.language | translate   }}"
+                                name="{{field.name}}" ngModel #{{field.name}}="ngModel" multiple>
+                                <mat-option *ngFor="let val of field.data;let i = index" [value]="val[field.valueKey]">
+                                    {{val | listValue : field.translationskey}}
+                                </mat-option>
+                            </mat-select>
+                            <input type="text" *ngIf="field.type=='input'" class="form-control" ngModel
+                                name="{{field.name}}" #{{field.name}}="ngModel"
+                                placeholder="{{ field.language | translate }}" id="{{field.name}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </mat-expansion-panel>
+        </mat-accordion> -->
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-4">
+                <input type="text" class="form-control" name="search" placeholder="{{'BUTTONS.SEARCH' | translate}}"
+                    [(ngModel)]="search" />
+            </div>
+
+            <div class="col-md-4 " *ngIf="user">
+                <div class="kt-form__group kt-form__group--inline row">
+                    <!-- <div class="col-md-2">
+                        <label class="kt-form__label">{{'PAGES.COMMON.STATUS' | translate}}:</label>
+                    </div> -->
+                    <div class="col-md-10">
+                        <mat-select class="kt-form__control form-control bootstrap-select" placeholder="Status"
+                            [(ngModel)]="selectedStatus">
+                            <mat-option *ngFor="let status of statusArr;let i = index" [value]="status.key">
+                                {{status.value}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="button" mat-raised-button color="accent" class="mr-2 ml-3"
+                    (click)="applyFilter(filterValue)" (keydown)="applyFilter(filterValue)">{{'BUTTONS.SEARCH' |
+                    translate}}</button>
+                <button type="button" mat-raised-button (click)="reset(filterValue)">{{'BUTTONS.RESET' |
+                    translate}}</button>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- end: Filtration form -->
+<!-- begin: Grouping -->
+<ng-container *ngIf="selection.selected.length">
+    <div class="form">
+        <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
+            <div class="col-xl-12">
+                <div class="form-group form-group-inline">
+                    <div class="form-label form-label-no-wrap">
+                        <label class="font-bold font-danger"><span>{{'PAGES.COMMON.SELECTED_RECORDS_COUNT' |translate}}
+                                <b>{{selection.selected.length }}</b></span></label>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
+                            (click)="deleteSelected()">
+                            <i class="fa fa-trash"></i> {{'BUTTONS.DELETE_ALL' | translate}}
+                        </button>&nbsp;
+                        <button type="button" (click)="updateStatus()" class="btn  font-weight-bolder font-size-sm mr-1"
+                            mat-raised-button color="accent">
+                            <i class="fa fa-sync-alt" style="color: #fff;"></i>{{'BUTTONS.UPDATE_STATUS' | translate}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<!-- end: Grouping -->
+<!-- <div *ngIf="MultiTabStatus == 1">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="activeLangId" (navChange)="aftertabChange($event)" class="nav-tabs">
+        <li [ngbNavItem]="lang.locale" *ngFor="let lang of languageList;let i = index">
+            <a ngbNavLink>{{lang.locale|uppercase}}-{{lang.name|uppercase}}</a>
+        </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div> -->
+
+<div>
+    <div class="example-container">
+        <mat-table #table [dataSource]="dataSource" matSort matSortActive="created_at" matSortDisableClear
+            matSortDirection="desc" (matSortChange)="sortChange()">
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+                    <mat-checkbox *ngIf="moduleSlug != 'cms'" (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                    </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+                    <mat-checkbox *ngIf="moduleSlug != 'cms'" (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                        color="primary">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="first_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <span *ngIf="row.user_permission != null">
+                        {{row.first_name}} <span [inlineSVG]="'assets/media/svg/icons/Communication/Flag.svg'"
+                            cacheSVG="true" class="svg-icon svg-icon-md svg-icon-primary"></span>
+                    </span>
+                    <span *ngIf="row.user_permission == null">
+                        {{row.first_name}}
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="translations.title">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Title2 </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    {{row.translations[0].title}}
+                </mat-cell>
+            </ng-container> -->
+
+            <ng-container matColumnDef="role_name">
+                <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    {{ row.role_name ? mySaparateString(row.role_name) : '-'}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of feild;let i=index">
+                <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="isSortingDisabled(column)">
+                    <ng-container>
+                        {{ titleFeild[i] | titlecase | translate }}
+                    </ng-container>
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <span *ngIf="column !== (tempalteEntity.FILE_NAME) && column !== 'created_at'"
+                        [ngClass]="{'bg-danger valid-date text-white':column==='valid_until'&& getDateClass(row)}">
+                        <span *ngIf="column !== (tempalteEntity.ICON) "
+                            [ngClass]="{'bg-danger valid-date text-white':column==='valid_until'&& getDateClass(row)}">
+                            {{column != 'license_key'? (column != 'dob'?(row |listValue:column) :(row.dob| date)): ''}}
+                        </span>
+                    </span>
+                    <span *ngIf="column == 'created_at'">
+                        {{row | listValue: column | date: 'dd/MM/yyyy' }}
+                    </span>
+                    <div *ngIf="column === tempalteEntity.ICON" class="image-section">
+                        <img [src]="imgURL + row.image" alt="image">
+                    </div>
+                    <span *ngIf="checkKey == 1">
+                        <div *ngIf="column === entityName.LICENSE_KEY && row.license_key">
+                            <span *ngIf="isKeyShow && (keyid.indexOf(row.id) == -1)">XXXXXX <i (click)="onOff(row.id)"
+                                    class="fas fa-eye"></i></span>
+                            <span *ngIf="keyid.indexOf(row.id) > -1">
+                                <span>{{row.license_key}}<i (click)="onOff(row.id)" class="fas fa-eye-slash"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{entityName.STATUS}}">
+                <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="label label-lg label-inline" [class.label-success]="element.isInActive"
+                        [class.btn-green]="element.isActive" [class.btn-green]="element.maintenance">
+                        <ng-container>
+                            {{element|getStatusValue:moduleName}}
+                        </ng-container>
+                    </span>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="{{entityName.ACTION}}">
+                <mat-header-cell *matHeaderCellDef class="text-center"> Action </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <!-- <a class="btn btn-icon btn-action-dark btn-hover-primary btn-sm mx-3"
+                        routerLink="/{{moduleUrl}}/view/{{element.id}}">
+                        <span [inlineSVG]="'assets/media/svg/icons/General/Visible.svg'" cacheSVG="true"
+                            class="svg-icon svg-icon-md svg-icon-primary">
+                        </span>
+                    </a> -->
+                    <button class="btn-primary btn" >+Compny</button>
+                    <button class="btn-primary btn" >+Project</button>
+                    <a class="btn btn-icon btn-action-dark btn-hover-primary btn-sm mx-3" (click)="getId(element.id)">
+                        <span [inlineSVG]="'assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                            class="svg-icon svg-icon-md svg-icon-primary">
+                        </span>
+                    </a>
+
+                    <a class="btn btn-icon btn-action-dark btn-hover-danger btn-sm mx-3" *ngIf="user"
+                        (click)="delete(element.id)">
+                        <span [inlineSVG]="'assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+                            class="svg-icon svg-icon-md svg-icon-danger">
+                        </span>
+                    </a>
+                    <!-- excel download show -->
+                    <a *ngIf="downloadStatus == 1" title="Download excel"
+                        class="btn btn-icon btn-action-dark btn-hover-primary btn-sm mx-3"
+                        (click)='download(element.id)'>
+                        <span [inlineSVG]="'assets/media/svg/icons/Files/DownloadedFile.svg'" cacheSVG="true"
+                            class="svg-icon svg-icon-md svg-icon-primary">
+                        </span>
+                    </a>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <div class="text-center font-weight-bold py-4" *ngIf="resultsLength==0">No record(s) found</div>
+        <mat-paginator [length]="resultsLength" [pageSizeOptions]="[10,25,50,100]" (page)="pageChange()">
+        </mat-paginator>
+    </div>
+</div>

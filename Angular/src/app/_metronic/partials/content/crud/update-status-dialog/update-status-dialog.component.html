@@ -1,0 +1,33 @@
+<div class="kt-portlet"
+    [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+    <div class="kt-portlet__head kt-portlet__head__custom">
+        <div class="kt-portlet__head-progress">
+            <!-- here can place a progress bar-->
+            <mat-progress-bar mode="indeterminate" *ngIf="viewLoading"></mat-progress-bar>
+        </div>
+        <div class="modal-header">
+            <h3 class="modal-title">{{ data.title }}</h3>
+        </div>
+    </div>
+    <div class="form form-label-align-right form-group-seperator-dashed update-status-dialog">
+        <div class="modal-footer  text-right">
+            <div class="row">
+                <div class="col-lg-12">
+                    <mat-form-field>
+                        <mat-select placeholder="Status" [formControl]="selectedStatusForUpdate">
+                            <mat-option *ngFor="let status of data.statuses" [value]="status.value">{{status.text}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint align="start">Select
+                            <strong>Status</strong> for rows updating</mat-hint>
+                    </mat-form-field>
+                    &nbsp;
+                    <button type="button" mat-raised-button color="primary" (click)="updateStatus()"
+                        [disabled]="selectedStatusForUpdate.value.length == 0 || loadingAfterSubmit">Update
+                        status</button>&nbsp;
+                    <button type="button" mat-raised-button (click)="onNoClick()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

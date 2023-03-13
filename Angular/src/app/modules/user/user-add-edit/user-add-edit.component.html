@@ -1,0 +1,178 @@
+<div class="card card-custom  gutter-b">
+    <div class="card-header">
+        <div class="card-title">
+            <h3 class="card-label">{{ 'Update User' }}</h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <form class="form form-label-left" [formGroup]="userForm">
+
+
+            <div class="form-group row">
+                <label for="example-text-input" class="col-xl-2 col-lg-2 col-form-label">First Name <span
+                        class="text-danger">*</span></label>
+                <div class="col-6">
+                    <input class="form-control form-control-lg" type="text" formControlName="first_name"
+                        placeholder="User" title="User" disabled />
+                </div>
+            </div>
+    
+
+    <div class="form-group row">
+        <label for="example-text-input" class="col-xl-2 col-lg-2 col-form-label">Last Name <span
+                class="text-danger">*</span></label>
+        <div class="col-6">
+            <input class="form-control form-control-lg" type="text" formControlName="last_name" placeholder="User"
+                title="User" disabled />
+
+        </div>
+    </div>
+
+
+<div class="form-group row">
+    <label for="example-text-input" class="col-xl-2 col-lg-2 col-form-label">Email
+        <!-- <spanclass="text-danger">*</span> -->
+    </label>
+    <div class="col-6">
+        <input class="form-control form-control-lg" type="text" formControlName="email" placeholder="Email" disabled
+            title="Email" />
+        <!-- <mat-error *ngIf="isControlHasError('email','required')">
+                        {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+                    </mat-error> -->
+        <!-- <mat-error *ngIf="isControlHasError('email','pattern')">
+                        {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+                    </mat-error> -->
+    </div>
+</div>
+
+<div class="form-group row password-input" *ngIf="!userId">
+    <label for="example-text-input" class="col-xl-2 col-lg-2 col-form-label">Password <span
+            class="text-danger">*</span></label>
+    <div class="col-6">
+        <input class="form-control form-control-lg" [type]="show?'text':'password'" formControlName="password"
+            placeholder="Password" title="Password" [readonly]="userId" />
+        <mat-icon class="eye-icon" (click)="togglePassword()">{{!show?'visibility_off':'visibility'}}
+        </mat-icon>
+        <mat-error *ngIf="isControlHasError('password','required')">
+            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+        </mat-error>
+        <mat-error *ngIf="isControlHasError('password','pattern')">
+            {{'AUTH.VALIDATION.INVALID_FIELD' |translate}}
+        </mat-error>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="example-text-input" class="col-xl-2 col-lg-2 col-form-label">Phone</label>
+    <div class="col-6">
+        <input class="form-control form-control-lg" type="text" formControlName="phone" placeholder="Phone"
+            title="Phone" disabled />
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="example-text-input" class="col-xl-2 col-lg-2 col-form-label">Role <span
+            class="text-danger">*</span></label>
+    <div class="col-6">
+        <mat-select class="form-control bootstrap-select" placeholder="Select Roles" name="role_id"
+            [(ngModel)]="role_id" formControlName="role_id" multiple (selectionChange)="rolePermission($event.value)">
+            <mat-option *ngFor="let role of roleList" [value]="role.id">
+                {{role.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="isControlHasError('role_id','required')">
+            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+        </mat-error>
+    </div>
+</div>
+
+<!-- <div class="form-group row">
+    <label for="example-text-input" class="col-xl-2 col-lg-2 col-form-label">Status <span
+            class="text-danger">*</span></label>
+    <div class="col-10">
+        <mat-radio-group class="mt-3" id="status" formControlName="status" color="primary">
+            <mat-radio-button class="example-radio-button" *ngFor="let status of statusArr" [value]="status.key"
+                name="status">
+                {{status.value}}&nbsp;
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="isControlHasError('status','required')">
+            {{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}
+        </mat-error>
+    </div>
+</div> -->
+
+<ng-container class="module-border permission-card" *ngFor="let moduleListElement of portalList">
+    <!-- <div> -->
+    <mat-accordion class="example-headers-align module-card "
+        *ngIf="moduleListElement.modulePermission && moduleListElement.modulePermission.length" multi>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="d-flex kt-portlet__head mr-2 ">
+                        <h3 class="permission-heading">
+                            <mat-checkbox class="float-right" (change)="selectPortal(moduleListElement,$event)"
+                                [checked]="allModuleArr[moduleListElement.slug]['selectAll']">
+                            </mat-checkbox>&nbsp;{{moduleListElement.name}}
+                        </h3>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let module of moduleListElement.modulePermission;">
+                        <div class="col-md-12">
+                            <div *ngIf="module.permission && module.permission.length">
+                                <div class="permission-card">
+                                    <div class=" kt-portlet__head">
+                                        <h3 class="permission-heading">
+                                            <mat-checkbox class="float-right"
+                                                (change)="selectModule(moduleListElement.slug, module,$event)"
+                                                [checked]="(selectedModule.length > 0 && selectedModule[0].hasOwnProperty(moduleListElement.slug) &&
+                                                            selectedModule[0][moduleListElement.slug].hasOwnProperty(module.slug) && 
+                                                            selectedModule[0][moduleListElement.slug][module.slug].length) == (module.permission && module.permission.length)">
+                                            </mat-checkbox>&nbsp;{{module.name}}
+                                        </h3>
+                                    </div>
+                                    <div class="example-section">
+                                        <ng-container *ngFor="let permission of module.permission; let j=index;">
+                                            <div>
+                                                <div class="col-6">
+                                                    <mat-checkbox class="pt-1 pb-1"
+                                                        (change)="selectPermission(moduleListElement.slug, permission.slug,module.slug, $event)"
+                                                        [checked]="(selectedModule.length > 0 &&  selectedModule[0].hasOwnProperty(moduleListElement.slug) &&
+                                                            selectedModule[0][moduleListElement.slug].hasOwnProperty(module.slug) && 
+                                                            selectedModule[0][moduleListElement.slug][module.slug].indexOf(permission.slug) !== -1)">
+                                                        {{ permission.name | titlecase}}</mat-checkbox>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <!-- </div> -->
+
+</ng-container>
+
+<div class="row mt-2">
+    <div class="col-10">
+
+        <button mat-raised-button color="accent" type="button" *ngIf="userId" (click)="update()">{{'BUTTONS.UPDATE'
+            |translate}}</button>
+        <button mat-raised-button type="button" *ngIf="!userId" class="ml-2" (click)="reset()">{{'BUTTONS.RESET'
+            |translate}}</button>&nbsp;
+        <button mat-raised-button color="warn" type="button" routerLink="/user">{{'BUTTONS.CANCEL'
+            |translate}}</button>
+    </div>
+</div>
+</form>
+</div>
+</div>

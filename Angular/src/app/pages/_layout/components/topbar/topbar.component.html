@@ -1,0 +1,96 @@
+<ng-container *ngIf="extrasLanguagesDisplay">
+  
+</ng-container>
+
+<ng-container *ngIf="extrasUserDisplay">
+
+  <ng-container *ngIf="extrasUserLayout === 'dropdown'">
+    <!-- begin::User -->
+    <ng-container *ngIf="user$ | async as _user">
+      <div class="dropdown" ngbDropdown placement="bottom-right">
+        <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px" ngbDropdownToggle>
+          <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2">
+            <!-- <span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Welcome,</span> -->
+            <div class="symbol symbol-35 mr-5 symbol-light-success align-self-start align-self-xxl-center">
+              <div class="symbol-label round" *ngIf="imageData == null"
+                [style.backgroundImage]="'url(./assets/media/users/blank.png)'"></div>
+              <div class="symbol-label round" *ngIf="imageData != null">
+                <img src={{imageData}} alt="avatar" class="pic">
+              </div>
+            </div>
+            <span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3 data">{{ _user.username |
+              titlecase}}<br>
+              <span class="font">{{userDetails ? userDetails.designation : ""}}</span>
+            </span>
+             
+            <!-- <span class="symbol symbol-35 symbol-light-success">
+              <span class="symbol-label font-size-h5 font-weight-bold">{{ _user.name | firstLetter|uppercase }}</span>
+            </span> -->
+          </div>
+        </div>
+        <!-- end::Toggle -->
+        <!-- begin::Dropdown -->
+        <div ngbDropdownMenu
+          class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg p-0">
+          <!-- <app-user-dropdown-inner></app-user-dropdown-inner> -->
+          <ng-container>
+            <!--begin::Header-->
+            <div class="d-flex align-items-center justify-content-between flex-wrap p-8"
+              style="background-color: #1e1e2d;">
+              <div class="d-flex align-items-center mr-2">
+                <!--begin::Symbol-->
+                <div class="symbol  mr-3">
+                  <!-- <span class="symbol-label text-red font-weight-bold font-size-h4">{{ _user.name | firstLetter|uppercase }}</span> -->
+                  <div class="symbol-label round" *ngIf="imageData == null"
+                    [style.backgroundImage]="'url(./assets/media/users/blank.png)'"></div>
+                  <div class="symbol-label round" *ngIf="imageData != null">
+                    <img src={{imageData}} alt="avatar" class="pic">
+                  </div>
+                </div>
+                <!--end::Symbol-->
+
+                <!--begin::Text-->
+                <div class="text-white m-0 flex-grow-1 mr-3 font-size-h5">
+                  {{ _user.username | titlecase}}
+                </div>
+                <!--end::Text-->
+              </div>
+            </div>
+            <!--end::Header-->
+          </ng-container>
+          <div class="navi navi-spacer-x-0 pt-5 profile-section">
+            <!--begin::Item-->
+            <a class="navi-item px-8 cursor-pointer" routerLink="/user-profile" href="javascript:void(0);"
+              ngbDropdownItem>
+              <div class="navi-link">
+                <div class="navi-icon mr-2">
+                  <i class="flaticon2-calendar-3"></i>
+                </div>
+                <div class="navi-text">
+                  <div class="font-weight-bold">
+                    Profile
+                  </div>
+                  <!-- <div class="text-muted">
+                    Account settings and more
+                  </div> -->
+                </div>
+              </div>
+            </a>
+            <!--end::Item-->
+
+            <!--begin::Footer-->
+            <div class="navi-separator mt-3"></div>
+            <div class="navi-footer px-8 py-5">
+              <a class="btn btn-yellow font-weight-bold cursor-pointer" (click)="my_logout()">Sign Out</a>
+            </div>
+            <!--end::Footer-->
+          </div>
+        </div>
+      </div>
+      <!-- end::Dropdown -->
+    </ng-container>
+    <!-- end::User -->
+  </ng-container>
+</ng-container>
+
+<!--end::Topbar-->
