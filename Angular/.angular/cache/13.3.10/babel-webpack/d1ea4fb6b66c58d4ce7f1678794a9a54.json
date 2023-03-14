@@ -1,1 +1,0 @@
-{"ast":null,"code":"export class AuthModel {\n  setAuth(auth) {\n    this.authToken = auth.token;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

@@ -1,1 +1,0 @@
-{"ast":null,"code":"export class DeleteModel {\n  constructor() {\n    this.ids = [];\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}
